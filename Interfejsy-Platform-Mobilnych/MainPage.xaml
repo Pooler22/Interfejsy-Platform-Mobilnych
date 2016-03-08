@@ -64,27 +64,85 @@
                    HorizontalAlignment="Left"
                    Grid.ColumnSpan="2">
             <SplitView.Pane>
-                <ScrollViewer>
-                    <ListBox SelectionMode="Single" 
-                             Name="IconsListBox"
-                             VariableSizedWrapGrid.ColumnSpan="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Button Grid.Row="0" Name="ExchangeRateListItem" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" >
+                        <StackPanel Name="ExchangeRate" Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE10F;" VerticalAlignment="Center" />
+                            <TextBlock Text="Start" FontSize="22" Margin="20,0,0,0" />
+                        </StackPanel>
+                    </Button>
 
-                        <ListBoxItem Name="ExchangeRateListItem" Tapped="ExchangeRateListItem_Tapped">
-                            <StackPanel Name="ExchangeRate" Orientation="Horizontal">
-                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE10F;" VerticalAlignment="Center" />
-                                <TextBlock Text="Start" FontSize="22" Margin="20,0,0,0" />
-                            </StackPanel>
+                    <ListBox Margin="45,0,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <ListBoxItem>
+                            <TextBlock>02.20.2002</TextBlock>
                         </ListBoxItem>
-
-                        <ListBoxItem Name="ExitListItem" Tapped="ExitListItem_Tapped">
-                            <StackPanel Name="ExitButton" Orientation="Horizontal">
-                                <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE106;" VerticalAlignment="Center" />
-                                <TextBlock Text="Exit" FontSize="22" Margin="20,0,0,0" />
-                            </StackPanel>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock>test</TextBlock>
                         </ListBoxItem>
 
                     </ListBox>
-                </ScrollViewer>
+
+                    <Button Grid.Row="2" Name="ExitListItem" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                        <StackPanel Name="ExitButton" Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE106;" VerticalAlignment="Center" />
+                            <TextBlock Text="Exit" FontSize="22" Margin="20,0,0,0" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
             </SplitView.Pane>
         </SplitView>
 

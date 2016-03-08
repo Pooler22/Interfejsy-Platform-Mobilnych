@@ -8,6 +8,26 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel>
+            <TextBlock>Zakres dat wyświetlania historii</TextBlock>
+            <DatePicker Header="Poczatkowa data"></DatePicker>
+            <DatePicker Header="Końcowa data"></DatePicker>
 
+            <Canvas Height="200" Background="AliceBlue"></Canvas>
+
+            <TextBlock>Postęp wczytania nowych danych</TextBlock>
+            <ProgressBar></ProgressBar>
+            
+            <TextBlock>Zapisanych lokalnie</TextBlock>
+            <ProgressBar></ProgressBar>
+
+            <TextBlock>Pobrane dane</TextBlock>
+            <ProgressBar></ProgressBar>
+
+        </StackPanel>
+        
+        <CommandBar VerticalAlignment="Bottom">
+            <AppBarButton Icon="Save" Label="Zapisz jako obraz"/>
+        </CommandBar>
     </Grid>
 </Page>
