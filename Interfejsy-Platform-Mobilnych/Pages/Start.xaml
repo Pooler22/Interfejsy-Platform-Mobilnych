@@ -8,6 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
         <ListView Name="mainListView">
             <ListView.Header>
                 <Grid>
@@ -17,7 +18,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Text="Waluta" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Column="1" Text="Kurs" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="1" Text="Kurs" HorizontalAlignment="Center" Name="ala"></TextBlock>
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
@@ -30,6 +31,7 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            
         </ListView>
     </Grid>
 </Page>

@@ -1,4 +1,6 @@
-﻿using Windows.UI.Core;
+﻿using Interfejsy_Platform_Mobilnych.ViewModel;
+using Windows.ApplicationModel.Background;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -10,8 +12,11 @@ namespace Interfejsy_Platform_Mobilnych
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            ViewModel = new DatabaseViewModel();
         }
+
+        DatabaseViewModel ViewModel { get; }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -20,6 +25,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            
             mainFrame.Navigate(typeof(Details));
             MySplitView.IsPaneOpen = false;
 
@@ -33,6 +39,8 @@ namespace Interfejsy_Platform_Mobilnych
             get { return SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility; }
             set { SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = value; }
         }
+
+        public object BackgroundTaskSample { get; private set; }
 
         private void BackButtonPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
@@ -51,6 +59,11 @@ namespace Interfejsy_Platform_Mobilnych
         private void DetailsButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Details));
+        }
+
+        private void DetailsButton1_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(History));
         }
 
         private void ExchangeRateListItem_Tapped(object sender, TappedRoutedEventArgs e)

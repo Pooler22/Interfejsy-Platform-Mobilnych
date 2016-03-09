@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Interfejsy_Platform_Mobilnych"
+    xmlns:localModels="using:Interfejsy_Platform_Mobilnych.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:triggers="using:WindowsStateTriggers"
@@ -47,12 +48,16 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <TextBlock Margin="6" Name="TextBlockTitle" Text="Check the exchange rate" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock Margin="6" Name="TextBlockTitle" Text="Exchange rate" FontSize="22" FontWeight="Bold" VerticalAlignment="Center"/>
         </StackPanel>
 
         
         <Grid Name="wow" Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <TextBlock Name="test"></TextBlock>
+            </StackPanel>
             <Frame Name="mainFrame"/>
+            
         </Grid>
 
         <SplitView Name="MySplitView" 
@@ -67,76 +72,34 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition ></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    
-                    <Button Grid.Row="0" Name="ExchangeRateListItem" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" >
+
+                    <Button Grid.Row="0" Name="ExchangeRateListItem" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" Click="DetailsButton_Click">
                         <StackPanel Name="ExchangeRate" Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE10F;" VerticalAlignment="Center" />
-                            <TextBlock Text="Start" FontSize="22" Margin="20,0,0,0" />
+                            <TextBlock Text="Today" FontSize="22" Margin="20,0,0,0" />
                         </StackPanel>
                     </Button>
 
-                    <ListBox Margin="45,0,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible">
-                        <ListBoxItem>
-                            <TextBlock>02.20.2002</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <TextBlock>test</TextBlock>
-                        </ListBoxItem>
+                    <Button Grid.Row="1" Name="ExchangeRateListItem1" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" Click="DetailsButton1_Click" >
+                        <StackPanel Name="History" Orientation="Horizontal">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE11F;" VerticalAlignment="Center" />
+                            <TextBlock Text="Archives" FontSize="22" Margin="20,0,0,0" />
+                        </StackPanel>
+                    </Button>
 
+                    <ListBox  Margin="45,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind ViewModel.DefaultDatabase}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="localModels:Year">
+                                <TextBlock Text="{x:Bind year}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Grid.Row="2" Name="ExitListItem" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                    <Button Grid.Row="3" Name="ExitListItem" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                         <StackPanel Name="ExitButton" Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE106;" VerticalAlignment="Center" />
                             <TextBlock Text="Exit" FontSize="22" Margin="20,0,0,0" />

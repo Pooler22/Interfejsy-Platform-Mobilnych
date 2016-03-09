@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interfejsy_Platform_Mobilnych.Modules;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,10 @@ namespace Interfejsy_Platform_Mobilnych
         public Details()
         {
             this.InitializeComponent();
+            //var ala1 = Downloader.Get("http://www.nbp.pl/kursy/xml/dir.txt");
+            //ala.Text = ala1;
+
+            
         }
     }
 }
