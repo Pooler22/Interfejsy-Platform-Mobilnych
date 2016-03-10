@@ -1,25 +1,15 @@
-﻿using Interfejsy_Platform_Mobilnych.Modules;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
     class Database
     {
-        public List<Year> years { get; }
-        public string wtf = "wtf";
+        public List<Year> database  { get; }
 
-        
-
-        public Database()
+        public Database(Year year)
         {
-            years = new List<Year>();
+            database.Add(year);
         }
-
-        
     }
 }

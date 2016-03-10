@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
     class Year
     {
-        public int year { get; }
-        public Day days;
+        public int year { get; set; }
+        public List<Month> months{ get; set; }
+        private string[] monthsValues;
 
-        public Year(int year, string file)
+        public Year()
         {
-            this.year = year;
+            months = new List<Month>();
         }
 
-        public string GetYear()
+        internal void addMonth(string v)
         {
-            return year.ToString();   
+            var tmp = new Month() { month = int.Parse(v) };
+            if (!months.Contains(tmp))
+            {
+                months.Add(tmp);
+            }
         }
     }
 }

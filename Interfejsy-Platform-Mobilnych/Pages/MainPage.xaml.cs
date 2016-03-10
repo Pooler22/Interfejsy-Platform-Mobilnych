@@ -58,12 +58,12 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void DetailsButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Details));
+            mainFrame.Navigate(typeof(Details));
         }
 
         private void DetailsButton1_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(History));
+            mainFrame.Navigate(typeof(History));
         }
 
         private void ExchangeRateListItem_Tapped(object sender, TappedRoutedEventArgs e)
@@ -77,5 +77,26 @@ namespace Interfejsy_Platform_Mobilnych
             Application.Current.Exit();
         }
 
+        private void TextBlock_PointerPressed(object sender, TappedRoutedEventArgs e)
+        {
+            var listBox = (((sender as TextBlock).Parent as StackPanel).Children[1] as ListBox);
+            if (listBox.Visibility == Visibility.Collapsed)
+            {
+                listBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                listBox.Visibility = Visibility.Collapsed;
+            }
+        }
+
+
+        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            mainFrame.Navigate(typeof(Details));
+            MySplitView.IsPaneOpen = false;
+        }
+
+        
     }
 }

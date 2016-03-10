@@ -1,30 +1,24 @@
-﻿using System;
+﻿using Interfejsy_Platform_Mobilnych.Models;
+using System;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
 namespace Interfejsy_Platform_Mobilnych.Modules
 {
-    public sealed class Downloader : IBackgroundTask
+    public sealed class Downloader
     {
-        public delegate string MyDelegate(string ur);
-
-        static public string Get(string url)
+        public static async Task<string> Get(string uri)
         {
-            Task<string> task = GetAsync(url);
-            task.Wait();
-            return task.Result;
-        }
-
-        static async Task<string> GetAsync(string uri)
-        {
+            try { 
             var content = await new HttpClient().GetStringAsync(uri);
             return await Task.Run(() => content);
-        }
-
-        public void Run(IBackgroundTaskInstance taskInstance)
-        {
-            throw new NotImplementedException();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

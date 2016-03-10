@@ -64,7 +64,7 @@
                    Grid.Row="1"
                    Grid.Column="0"
                    DisplayMode="CompactOverlay" 
-                   OpenPaneLength="220" 
+                   OpenPaneLength="280" 
                    CompactPaneLength="45" 
                    HorizontalAlignment="Left"
                    Grid.ColumnSpan="2">
@@ -94,7 +94,31 @@
                     <ListBox  Margin="45,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind ViewModel.DefaultDatabase}">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="localModels:Year">
-                                <TextBlock Text="{x:Bind year}"/>
+                                <StackPanel>
+                                    <TextBlock Tag="{x:Bind year}" Tapped="TextBlock_PointerPressed" Text="{x:Bind year}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind months}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate x:DataType="localModels:Month">
+                                                <StackPanel>
+                                                    <TextBlock Text="{x:Bind MonthName}" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind days}">
+                                                        <ListBox.ItemTemplate>
+                                                            <DataTemplate x:DataType="localModels:Day">
+                                                                <StackPanel>
+                                                                    <TextBlock Text="{x:Bind day}" Tapped="TextBlock_Tapped" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </ListBox.ItemTemplate>
+                                                    </ListBox>
+                                                    
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+
+                                </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
