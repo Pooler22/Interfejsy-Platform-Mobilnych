@@ -93,7 +93,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Details));
+            mainFrame.Navigate(typeof(Details), (sender as TextBlock).Tag);
             MySplitView.IsPaneOpen = false;
         }
 

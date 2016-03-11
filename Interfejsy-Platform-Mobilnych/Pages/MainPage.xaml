@@ -64,7 +64,7 @@
                    Grid.Row="1"
                    Grid.Column="0"
                    DisplayMode="CompactOverlay" 
-                   OpenPaneLength="280" 
+                   OpenPaneLength="500" 
                    CompactPaneLength="45" 
                    HorizontalAlignment="Left"
                    Grid.ColumnSpan="2">
@@ -107,7 +107,17 @@
                                                         <ListBox.ItemTemplate>
                                                             <DataTemplate x:DataType="localModels:Day">
                                                                 <StackPanel>
-                                                                    <TextBlock Text="{x:Bind day}" Tapped="TextBlock_Tapped" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                                    <TextBlock Text="{x:Bind day}" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+                                                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind tables}">
+                                                                        <ListBox.ItemTemplate>
+                                                                            <DataTemplate x:DataType="localModels:Table">
+                                                                                <StackPanel>
+                                                                                    <TextBlock Text="{x:Bind thisTable}" Tapped="TextBlock_Tapped" Tag="{Binding table}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                                                </StackPanel>
+                                                                            </DataTemplate>
+                                                                        </ListBox.ItemTemplate>
+                                                                    </ListBox>
                                                                 </StackPanel>
                                                             </DataTemplate>
                                                         </ListBox.ItemTemplate>

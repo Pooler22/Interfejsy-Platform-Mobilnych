@@ -64,7 +64,12 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     if (tmpID != i.Substring(9, 2))
                     {
                         tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count-1].days.Add(new Day() { day = int.Parse(tmpID) });
+                        year.months[year.months.Count - 1].days.Add( new Day(int.Parse(tmpID), i));
+                    }
+                    else
+                    {
+                        tmpID = i.Substring(9, 2);
+                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables.Add(new Table(i));
                     }
                 }
             }
