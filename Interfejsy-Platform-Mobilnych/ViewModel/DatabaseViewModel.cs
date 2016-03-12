@@ -1,12 +1,7 @@
 ﻿using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.Modules;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -20,10 +15,30 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         int minAvailableYear = 2002;
         int maxAvailableYear;
 
-        public DatabaseViewModel()
+        public void Init()
         {
             downloadYears();
         }
+
+
+        private static DatabaseViewModel instance;
+
+        private DatabaseViewModel() { }
+
+        public static DatabaseViewModel Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DatabaseViewModel();
+                }
+                return instance;
+            }
+        }
+
+
+
 
         async void downloadYears()
         {
@@ -48,8 +63,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             Year year = new Year();
             year.year = inYear;
             string tmpIM = "", tmpID = "";
-            Month tmpMonth = null;
-            List<Day> tmpDay = new List<Day>();
 
             foreach (var i in text.Replace("\r", "").Split('\n'))
             {
@@ -73,8 +86,20 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     }
                 }
             }
-
             return year;
+        }
+
+        internal Table getTable(string tag)
+        {
+            if (tag != null)
+            {
+                return defaultDatabase[int.Parse(tag.Substring(5, 2)) - 1].months[int.Parse(tag.Substring(7, 2))].days[int.Parse(tag.Substring(9, 2))].tables[0];
+            }
+            else
+            {
+                //return last table from database
+                return new Table("");
+            }
         }
     }
 }

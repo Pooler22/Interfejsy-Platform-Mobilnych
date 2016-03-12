@@ -1,4 +1,6 @@
-﻿using Interfejsy_Platform_Mobilnych.Modules;
+﻿using Interfejsy_Platform_Mobilnych.Models;
+using Interfejsy_Platform_Mobilnych.Modules;
+using Interfejsy_Platform_Mobilnych.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,22 +16,25 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Interfejsy_Platform_Mobilnych
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class Details : Page
     {
+        TableViewModel ViewModel { get; }
+
         public Details()
         {
             this.InitializeComponent();
             //var ala1 = Downloader.Get("http://www.nbp.pl/kursy/xml/dir.txt");
             //ala.Text = ala1;
 
-            
+            ViewModel = new TableViewModel();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel.init(e.Parameter as Table);
         }
     }
 }

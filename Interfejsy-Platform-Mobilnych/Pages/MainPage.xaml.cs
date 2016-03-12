@@ -13,7 +13,8 @@ namespace Interfejsy_Platform_Mobilnych
         public MainPage()
         {
             InitializeComponent();
-            ViewModel = new DatabaseViewModel();
+            ViewModel = DatabaseViewModel.Instance;
+            ViewModel.Init();
         }
 
         DatabaseViewModel ViewModel { get; }
@@ -25,6 +26,8 @@ namespace Interfejsy_Platform_Mobilnych
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            
+
             
             mainFrame.Navigate(typeof(Details));
             MySplitView.IsPaneOpen = false;
@@ -93,7 +96,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Details), (sender as TextBlock).Tag);
+            mainFrame.Navigate(typeof(Details), ViewModel.getTable((sender as TextBlock).Tag as string));
             MySplitView.IsPaneOpen = false;
         }
 
