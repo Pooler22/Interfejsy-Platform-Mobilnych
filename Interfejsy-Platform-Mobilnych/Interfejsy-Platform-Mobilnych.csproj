@@ -101,9 +101,12 @@
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\Day.cs" />
     <Compile Include="Models\Month.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Models\Year.cs" />
+    <Compile Include="Modules\DeserializerXML.cs" />
     <Compile Include="Modules\Downloader.cs" />
+    <Compile Include="Modules\Storage.cs" />
     <Compile Include="Pages\Details.xaml.cs">
       <DependentUpon>Details.xaml</DependentUpon>
     </Compile>

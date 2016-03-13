@@ -113,7 +113,7 @@
                                                                         <ListBox.ItemTemplate>
                                                                             <DataTemplate x:DataType="localModels:Table">
                                                                                 <StackPanel>
-                                                                                    <TextBlock Text="{x:Bind thisTable}" Tapped="TextBlock_Tapped" Tag="{Binding table}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                                                    <TextBlock Text="{x:Bind thisTable}" Tapped="TextBlock_Tapped" Tag="{Binding Code}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                                                                 </StackPanel>
                                                                             </DataTemplate>
                                                                         </ListBox.ItemTemplate>

@@ -5,29 +5,48 @@
     xmlns:local="using:Interfejsy_Platform_Mobilnych"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localModels="using:Interfejsy_Platform_Mobilnych.Models"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <ListView Name="mainListView">
+
+
+        <ListView  Name="mainListView" ItemsSource="{x:Bind ViewModel.DefaultPositions}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <ListView.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
 
-                    <TextBlock Grid.Column="0" Text="Waluta" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Column="1" Text="Kurs" HorizontalAlignment="Center" Name="ala"></TextBlock>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Nazwa"/>
+                    <TextBlock Grid.Column="1" Text="przelicznik"></TextBlock>
+                    <TextBlock Grid.Column="2" Text="kod_waluty"></TextBlock>
+                    <TextBlock Grid.Column="3" Text="kurs_kupna"></TextBlock>
+
+                    <TextBlock Grid.Column="5" Text="kurs_sprzedazy"></TextBlock>
+                
                 </Grid>
             </ListView.Header>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="localModels:Position">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{x:Bind name}"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="{x:Bind code}"></TextBlock>
+                        <TextBlock Grid.Column="2" Text="{x:Bind converter}"></TextBlock>
+                        <TextBlock Grid.Column="3" Text="{x:Bind buyingRate}"></TextBlock>
+                        <TextBlock Grid.Column="4" Text="{x:Bind sellingRate}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

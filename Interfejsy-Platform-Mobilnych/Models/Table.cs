@@ -12,15 +12,19 @@ namespace Interfejsy_Platform_Mobilnych.Models
         {
             get
             {
-                return this.ToString();
+                return ToString();
             }
         }
-        public string table;
+        private string table;
+        public string Code { get { return table; } }
 
         public Table(string table)
         {
             this.table = table;
         }
+        
+        public List<Position> positions = new List<Position>();
+        public List<Position> Positions { get { return positions; } }
 
         public override string ToString()
         {
