@@ -15,17 +15,12 @@ namespace Interfejsy_Platform_Mobilnych
         {
             InitializeComponent();
             ViewModel = DatabaseViewModel.Instance;
-            ViewModel.Init();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            mainFrame.Navigate(typeof(Today));
-        }
-
-        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
-        {
-            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
+            await ViewModel.Init();
+            mainFrame.Navigate(typeof(Today), ViewModel.getLastRates());
         }
 
         private void TodayButton_Click(object sender, RoutedEventArgs e)
@@ -41,25 +36,6 @@ namespace Interfejsy_Platform_Mobilnych
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Exit();
-        }
-
-        private void TextBlock_PointerPressed(object sender, TappedRoutedEventArgs e)
-        {
-            var listBox = (((sender as TextBlock).Parent as StackPanel).Children[1] as ListBox);
-            if (listBox.Visibility == Visibility.Collapsed)
-            {
-                listBox.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                listBox.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            mainFrame.Navigate(typeof(Today), ViewModel.getTable((sender as TextBlock).Tag as string));
-            MySplitView.IsPaneOpen = false;
         }
     }
 }

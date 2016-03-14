@@ -11,7 +11,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
         public List<string> ModelListKeys { get { return listKeys; } }
 
         internal string code;
-        public string ModelCode {get{return code; }}
+        public string ModelCode {get{return ToString(); }}
         
         public override string ToString()
         {

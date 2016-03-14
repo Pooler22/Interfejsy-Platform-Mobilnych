@@ -10,25 +10,52 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mainGrid">
 
-        <ListView  Name="mainListView" ItemsSource="{x:Bind ViewModel.DefaultPositions}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-            <ListView.Header>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                </Grid>
-            </ListView.Header>
+        <ListView  Name="mainListView" ItemsSource="{x:Bind ViewModel.Tables}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="localModels:Position">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="x:Bind ThisPosition" Tag="x:Bind Name" Tapped="TextBlock_Tapped" ></TextBlock>
-                    </Grid>
+                <DataTemplate x:DataType="localModels:Table">
+
+                    <ListView>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+
+                        
+                        <GridView  ItemsSource="{x:Bind ModelListKeys}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" IncrementalLoadingTrigger="None" ManipulationMode="All" UseLayoutRounding="False" >
+                            
+                            <TextBlock Text="{Binding}" ></TextBlock>
+                        </GridView>
+
+                        <ListView ItemsSource="{x:Bind Positions}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="localModels:Position">
+
+                                    <GridView ItemsSource="{x:Bind ModelListValues}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                        <TextBlock Text="{Binding}" ></TextBlock>
+                                    </GridView>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+
+                    </ListView>
+
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
+
         </ListView>
+
     </Grid>
 </Page>

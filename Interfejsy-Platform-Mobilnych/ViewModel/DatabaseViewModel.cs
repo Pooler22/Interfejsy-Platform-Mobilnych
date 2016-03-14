@@ -1,7 +1,9 @@
 ﻿using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.Modules;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -30,13 +32,8 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 return instance;
             }
         }
-
-        public void Init()
-        {
-            downloadYears();
-        }
         
-        private async void downloadYears()
+        public async Task Init()
         {
             int tmpYear = minAvailableYear;
             string tmpResp;
@@ -85,9 +82,14 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             return year;
         }
 
-        internal Day getLastRates()
+        internal List<string> getLastRates()
         {
-            return defaultDatabase.Last().months.Last().days.Last();
+            List<string> codes = new List<string>();
+            foreach(Table tab in defaultDatabase.Last().months.Last().days.Last().tables)
+            {
+                codes.Add(tab.code);
+            }
+            return codes;
         }
 
         internal Table getTable(string tag)
