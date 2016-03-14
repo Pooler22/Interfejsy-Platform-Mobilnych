@@ -42,11 +42,8 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{x:Bind name}"></TextBlock>
-                        <TextBlock Grid.Column="1" Text="{x:Bind code}"></TextBlock>
-                        <TextBlock Grid.Column="2" Text="{x:Bind converter}"></TextBlock>
-                        <TextBlock Grid.Column="3" Text="{x:Bind buyingRate}"></TextBlock>
-                        <TextBlock Grid.Column="4" Text="{x:Bind sellingRate}"></TextBlock>
+                        <TextBlock Grid.Column="0" Text="{x:Bind ThisPosition}"></TextBlock>
+
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

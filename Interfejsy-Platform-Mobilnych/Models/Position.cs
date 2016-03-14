@@ -1,17 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Interfejsy_Platform_Mobilnych.Models
+﻿namespace Interfejsy_Platform_Mobilnych.Models
 {
-    class Position
+    abstract class Position
     {
-        public String name;
+        public string ThisPosition
+        {
+            get
+            {
+                return ToString();
+            }
+        }
+    }
+
+    class PositionA : Position
+    {
+        public string name;
+        public string converter;
+        public string code;
+        public string averageRate;
+
+        public override string ToString()
+        {
+            return name + "\t"+ converter + "\t"+ code + "\t"+ averageRate;
+        }
+    }
+
+    class PositionB : Position
+    {
+        public string name;
+        public string converter;
+        public string code;
+        public string averageRate;
+
+        public override string ToString()
+        {
+            return name + "\t"+ converter + "\t"+ code + "\t"+ averageRate;
+        }
+    }
+
+    class PositionC : Position
+    {
+        public string name;
         public string code;
         public string converter;
         public string buyingRate;
         public string sellingRate;
+
+        public override string ToString()
+        {
+            return name + "\t"+ converter + "\t"+ code + "\t"+ buyingRate + "\t"+ sellingRate;
+        }
+    }
+
+    class PositionH : Position
+    {
+        public string nameCountry;
+        public string symbol;
+        public string name;
+        public string converter;
+        public string buyingRate;
+        public string sellingRate;
+        public string averageRate;
+
+        public override string ToString()
+        {
+            return nameCountry + "\t"+ symbol + "\t"+ name + "\t"+ converter + "\t"+ buyingRate + "\t"+ sellingRate + "\t"+ averageRate;
+        }
     }
 }
