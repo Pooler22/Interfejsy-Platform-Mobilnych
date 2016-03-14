@@ -96,24 +96,24 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="localModels:Year">
                                 <StackPanel>
-                                    <TextBlock Tag="{x:Bind year}" Tapped="TextBlock_PointerPressed" Text="{x:Bind year}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    <TextBlock Tag="x:Bind year" Tapped="TextBlock_PointerPressed" Text="x:Bind year" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind months}">
+                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="x:Bind months">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate x:DataType="localModels:Month">
                                                 <StackPanel>
-                                                    <TextBlock Text="{x:Bind MonthName}" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                    <TextBlock Text="x:Bind MonthName" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-                                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind days}">
+                                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="x:Bind days">
                                                         <ListBox.ItemTemplate>
                                                             <DataTemplate x:DataType="localModels:Day">
                                                                 <StackPanel>
-                                                                    <TextBlock Text="{x:Bind day}" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                                    <TextBlock Text="x:Bind day" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-                                                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind tables}">
+                                                                    <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="x:Bind tables">
                                                                         <ListBox.ItemTemplate>
                                                                             <DataTemplate x:DataType="localModels:Table">
-                                                                                <TextBlock Text="{x:Bind thisTable}" Tapped="TextBlock_Tapped" Tag="{Binding Code}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                                                <TextBlock Text="x:Bind thisTable" Tapped="TextBlock_Tapped" Tag="Binding Code"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
                                                                             </DataTemplate>
                                                                         </ListBox.ItemTemplate>

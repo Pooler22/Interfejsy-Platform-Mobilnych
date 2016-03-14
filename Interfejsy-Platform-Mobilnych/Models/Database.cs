@@ -4,11 +4,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
 {
     class Database
     {
-        public List<Year> database  { get; }
-
-        public Database(Year year)
-        {
-            database.Add(year);
-        }
+        internal List<Year> database = new List<Year>();
+        public List<Year> ModelDatabase { get { return database; } }
     }
 }

@@ -16,7 +16,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 
             //Encoding iso = Encoding.GetEncoding("ISO-8859-1");
             
-            IEnumerable<Position> pos = getPositions(table.Code.Substring(0, 1), loadedData);
+            IEnumerable<Position> pos = getPositions(table.code.Substring(0, 1), loadedData);
             
             foreach (Position i in pos)
             {
@@ -33,44 +33,8 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             {
                 case "a":
                     return from query in loadedData.Descendants("pozycja")
-                                     select new PositionA
-                                     {
-                                         name = (string)query.Element("nazwa_waluty"),
-                                         converter = (string)query.Element("przelicznik"),
-                                         code = (string)query.Element("kod_waluty"),
-                                         averageRate = (string)query.Element("kurs_kupna")
-                                     };
-                case "b":
-                    return from query in loadedData.Descendants("pozycja")
-                                     select new PositionB
-                                     {
-                                         name = (string)query.Element("nazwa_waluty"),
-                                         converter = (string)query.Element("przelicznik"),
-                                         code = (string)query.Element("kod_waluty"),
-                                         averageRate = (string)query.Element("kurs_kupna")
-                                     };
-                case "c":
-                    return from query in loadedData.Descendants("pozycja")
-                                     select new PositionC
-                                     {
-                                         name = (string)query.Element("nazwa_waluty"),
-                                         converter = (string)query.Element("przelicznik"),
-                                         code = (string)query.Element("kod_waluty"),
-                                         buyingRate = (string)query.Element("kurs_kupna"),
-                                         sellingRate = (string)query.Element("kurs_kupna")
-                                     };
-                case "h":
-                    return from query in loadedData.Descendants("pozycja")
-                                     select new PositionH
-                                     {
-                                         name = (string)query.Element("nazwa_waluty"),
-                                         converter = (string)query.Element("przelicznik"),
-                                         nameCountry = (string)query.Element("kurs_kupna"),
-                                         symbol = (string)query.Element("kurs_kupna"),
-                                         buyingRate = (string)query.Element("kurs_kupna"),
-                                         sellingRate = (string)query.Element("kurs_kupna"),
-                                         averageRate = (string)query.Element("kurs_kupna")
-                                     };
+                           select new Position();
+                                     //name = (string)query.Element("nazwa_waluty"),
                 default:
                     return null;
             }

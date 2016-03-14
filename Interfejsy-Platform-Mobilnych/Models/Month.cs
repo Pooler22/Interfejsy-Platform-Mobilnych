@@ -5,31 +5,20 @@ namespace Interfejsy_Platform_Mobilnych.Models
 {
     class Month
     {
-        public int month { get; set; }
+        internal int monthName;
+        public string ModelMonthName { get { return DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(monthName); } }
 
-        public string MonthName
-        {
-            get
-            {
-                return DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(month);
-            }
-        }
-        public List<Day> days { get; set; }
-
-        public Month()
-        {
-            days = new List<Day>();
-        }
-
+        internal List<Day> days = new List<Day>();
+        public List<Day> ModelDays { get { return days; } }
+        
         public override bool Equals(object obj)
         {
-            Month q = obj as Month;
-            return q != null && q.month == this.month;
+            return obj != null && (obj as Month).monthName == this.monthName;
         }
 
         public override int GetHashCode()
         {
-            return month.GetHashCode();
+            return monthName.GetHashCode();
         }
     }
 }

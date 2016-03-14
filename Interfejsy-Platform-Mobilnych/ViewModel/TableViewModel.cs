@@ -20,7 +20,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         public void Init(Table table)
         {
-            if (table != null && table.Code != null)
+            if (table != null && table.code!= null)
             {
                 download(table);
             }
@@ -30,7 +30,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             string patternURL = "http://www.nbp.pl/kursy/xml/";
             string patternFileExtension = ".xml";
-            string output = await Downloader.GetString(patternURL + table.Code + patternFileExtension);
+            string output = await Downloader.GetString(patternURL + table.code + patternFileExtension);
             defaultTable.Add(prepareStructure(defaultPositions, table, output));
         }
 

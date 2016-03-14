@@ -4,18 +4,15 @@ namespace Interfejsy_Platform_Mobilnych.Models
 {
     class Year
     {
-        public int year { get; set; }
-        public List<Month> months{ get; set; }
-        private string[] monthsValues;
+        internal int name;
+        public int ModelName { get { return name; } }
 
-        public Year()
-        {
-            months = new List<Month>();
-        }
+        internal List<Month> months = new List<Month>();
+        public List<Month> ModelMonths { get {return months; } }
 
         internal void addMonth(string v)
         {
-            var tmp = new Month() { month = int.Parse(v) };
+            var tmp = new Month() { monthName = int.Parse(v) };
             if (!months.Contains(tmp))
             {
                 months.Add(tmp);

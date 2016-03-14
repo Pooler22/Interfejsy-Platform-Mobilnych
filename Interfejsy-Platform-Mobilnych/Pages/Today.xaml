@@ -24,7 +24,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Bind ThisPosition}" Tag="{x:Bind Name}" Tapped="TextBlock_Tapped" ></TextBlock>
+                        <TextBlock Grid.Column="0" Text="x:Bind ThisPosition" Tag="x:Bind Name" Tapped="TextBlock_Tapped" ></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

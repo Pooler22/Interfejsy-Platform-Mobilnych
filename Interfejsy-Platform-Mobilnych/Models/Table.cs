@@ -4,27 +4,18 @@ namespace Interfejsy_Platform_Mobilnych.Models
 {
     class Table
     {
-        public string thisTable
-        {
-            get
-            {
-                return ToString();
-            }
-        }
-        private string table;
-        public string Code { get { return table; } }
-
-        public Table(string table)
-        {
-            this.table = table;
-        }
-        
-        public List<Position> positions = new List<Position>();
+        internal List<Position> positions = new List<Position>();
         public List<Position> Positions { get { return positions; } }
 
+        internal List<string> listKeys = new List<string>();
+        public List<string> ModelListKeys { get { return listKeys; } }
+
+        internal string code;
+        public string ModelCode {get{return code; }}
+        
         public override string ToString()
         {
-            switch (table.Substring(0, 1))
+            switch (code.Substring(0, 1))
             {
                 case "a":
                     return "kursy średnich walut obcych";
@@ -35,8 +26,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
                 case "h":
                     return "kursy jednostek rozliczeniowych";
                 default:
-                    return table.Substring(0, 1);
-
+                    return code.Substring(0, 1);
             }
         }
     }

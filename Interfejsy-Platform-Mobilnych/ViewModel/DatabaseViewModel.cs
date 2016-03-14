@@ -57,7 +57,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private Year prepareStructure(int inYear, string text)
         {
             Year year = new Year();
-            year.year = inYear;
+            year.name = inYear;
             string tmpIM = "", tmpID = "";
 
             foreach (var i in text.Replace("\r", "").Split('\n'))
@@ -67,18 +67,18 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     if (tmpIM != i.Substring(7, 2))
                     {
                         tmpIM = i.Substring(7, 2);
-                        year.months.Add(new Month() { month = int.Parse(tmpIM) });
+                        year.months.Add(new Month() { monthName = int.Parse(tmpIM) });
 
                     }
                     if (tmpID != i.Substring(9, 2))
                     {
                         tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days.Add(new Day(int.Parse(tmpID), i));
+                        year.months[year.months.Count - 1].days.Add(new Day() { name = i });
                     }
                     else
                     {
                         tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables.Add(new Table(i));
+                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables.Add(new Table() { code = i });
                     }
                 }
             }
@@ -99,7 +99,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             else
             {
                 //return last table from database
-                return new Table("");
+                return new Table() { code = "" };
             }
         }
     }

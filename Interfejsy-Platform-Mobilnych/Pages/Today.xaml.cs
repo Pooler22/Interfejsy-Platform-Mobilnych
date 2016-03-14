@@ -18,7 +18,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.init(e.Parameter as Table);
+            ViewModel.Init(e.Parameter as Table);
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
