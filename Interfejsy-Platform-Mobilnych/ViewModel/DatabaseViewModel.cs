@@ -1,7 +1,7 @@
 ﻿using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.Modules;
 using System.Collections.ObjectModel;
-using System;
+using System.Linq;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -14,12 +14,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         string patternFileExtension = ".txt";
         int minAvailableYear = 2002;
         int maxAvailableYear;
-
-        public void Init()
-        {
-            downloadYears();
-        }
-
 
         private static DatabaseViewModel instance;
 
@@ -37,10 +31,12 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             }
         }
 
-
-
-
-        async void downloadYears()
+        public void Init()
+        {
+            downloadYears();
+        }
+        
+        private async void downloadYears()
         {
             int tmpYear = minAvailableYear;
             string tmpResp;
@@ -52,13 +48,13 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     maxAvailableYear = tmpYear;
                     break;
                 }
-                defaultDatabase.Add((prepareStructure(tmpYear,tmpResp)));
+                defaultDatabase.Add((prepareStructure(tmpYear, tmpResp)));
                 tmpYear++;
             }
             defaultDatabase.Add((prepareStructure(tmpYear, await Downloader.Get1(patternURL + patternFileExtension))));
         }
 
-        private Year prepareStructure(int inYear,string text)
+        private Year prepareStructure(int inYear, string text)
         {
             Year year = new Year();
             year.year = inYear;
@@ -68,16 +64,16 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             {
                 if (i != "" && i != null)
                 {
-                    if(tmpIM != i.Substring(7, 2))
+                    if (tmpIM != i.Substring(7, 2))
                     {
                         tmpIM = i.Substring(7, 2);
-                        year.months.Add(new Month() { month = int.Parse(tmpIM)});
-                        
+                        year.months.Add(new Month() { month = int.Parse(tmpIM) });
+
                     }
                     if (tmpID != i.Substring(9, 2))
                     {
                         tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days.Add( new Day(int.Parse(tmpID), i));
+                        year.months[year.months.Count - 1].days.Add(new Day(int.Parse(tmpID), i));
                     }
                     else
                     {
@@ -87,6 +83,11 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 }
             }
             return year;
+        }
+
+        internal Day getLastRates()
+        {
+            return defaultDatabase.Last().months.Last().days.Last();
         }
 
         internal Table getTable(string tag)

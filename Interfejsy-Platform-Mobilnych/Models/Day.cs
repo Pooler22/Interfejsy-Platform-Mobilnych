@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
@@ -11,11 +7,11 @@ namespace Interfejsy_Platform_Mobilnych.Models
         public int day { get; set; }
         public List<Table> tables { get; set; }
         
-        public Day(int day, string table)
+        public Day(int dayNumber, string table)
         {
-            this.day = day;
-            this.tables = new List<Table>();
-            this.tables.Add(new Table(table));
+            day = dayNumber;
+            tables = new List<Table>();
+            tables.Add(new Table(table));
         }
     }
 }

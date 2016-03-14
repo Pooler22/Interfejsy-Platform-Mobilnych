@@ -67,7 +67,8 @@
                    OpenPaneLength="500" 
                    CompactPaneLength="45" 
                    HorizontalAlignment="Left"
-                   Grid.ColumnSpan="2">
+                   Grid.ColumnSpan="2"
+                   IsPaneOpen="False">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -77,21 +78,21 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Row="0" Name="ExchangeRateListItem" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" Click="DetailsButton_Click">
+                    <Button Grid.Row="0" Name="ExchangeRateListItem" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" Click="TodayButton_Click">
                         <StackPanel Name="ExchangeRate" Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE10F;" VerticalAlignment="Center" />
                             <TextBlock Text="Today" FontSize="22" Margin="20,0,0,0" />
                         </StackPanel>
                     </Button>
 
-                    <Button Grid.Row="1" Name="ExchangeRateListItem1" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" Click="DetailsButton1_Click" >
+                    <Button Grid.Row="1" Name="ExchangeRateListItem1" HorizontalAlignment="Stretch" VerticalAlignment="Top" HorizontalContentAlignment="Left" Click="ArchiveButton_Click" >
                         <StackPanel Name="History" Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE11F;" VerticalAlignment="Center" />
                             <TextBlock Text="Archives" FontSize="22" Margin="20,0,0,0" />
                         </StackPanel>
                     </Button>
 
-                    <ListBox  Margin="45,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind ViewModel.DefaultDatabase}">
+                    <ListBox   Margin="45,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind ViewModel.DefaultDatabase}">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="localModels:Year">
                                 <StackPanel>
@@ -132,7 +133,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button Grid.Row="3" Name="ExitListItem" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                    <Button Grid.Row="3" Name="ExitListItem" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" Click="ExitButton_Click">
                         <StackPanel Name="ExitButton" Orientation="Horizontal">
                             <TextBlock FontFamily="Segoe MDL2 Assets" FontSize="22" Text="&#xE106;" VerticalAlignment="Center" />
                             <TextBlock Text="Exit" FontSize="22" Margin="20,0,0,0" />

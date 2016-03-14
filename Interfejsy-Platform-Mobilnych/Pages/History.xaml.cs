@@ -7,7 +7,7 @@ namespace Interfejsy_Platform_Mobilnych
     {
         public History()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

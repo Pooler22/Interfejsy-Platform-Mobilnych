@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
@@ -33,7 +29,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public override int GetHashCode()
         {
-            return this.month.GetHashCode();
+            return month.GetHashCode();
         }
     }
 }

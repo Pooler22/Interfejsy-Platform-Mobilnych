@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Interfejsy_Platform_Mobilnych.Models;
+﻿using Interfejsy_Platform_Mobilnych.Models;
 using System.Collections.ObjectModel;
 using Interfejsy_Platform_Mobilnych.Modules;
-using System.Diagnostics;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -24,10 +18,9 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             get { return defaultPositions; }
         }
 
-
-        internal void init(Table table)
+        public void Init(Table table)
         {
-            if(table != null && table.Code != null)
+            if (table != null && table.Code != null)
             {
                 download(table);
             }
@@ -37,8 +30,8 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             string patternURL = "http://www.nbp.pl/kursy/xml/";
             string patternFileExtension = ".xml";
-            string a = await Downloader.GetString(patternURL + table.Code + patternFileExtension);
-            defaultTable.Add(prepareStructure(defaultPositions,table, a));
+            string output = await Downloader.GetString(patternURL + table.Code + patternFileExtension);
+            defaultTable.Add(prepareStructure(defaultPositions, table, output));
         }
 
         private Table prepareStructure(ObservableCollection<Position> defaultPositions, Table table, string a)

@@ -1,8 +1,4 @@
-﻿using Interfejsy_Platform_Mobilnych.Modules;
-using System.Linq;
-using System.Text;
-
-namespace Interfejsy_Platform_Mobilnych.Models
+﻿namespace Interfejsy_Platform_Mobilnych.Models
 {
     abstract class Position
     {
@@ -33,7 +29,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public override string ToString()
         {
-            return name + "\t"+ converter + "\t"+ code + "\t"+ averageRate;
+            return name + "\t" + converter + "\t" + code + "\t" + averageRate;
         }
     }
 
@@ -45,7 +41,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public override string ToString()
         {
-            return name + "\t"+ converter + "\t"+ code + "\t"+ averageRate;
+            return name + "\t" + converter + "\t" + code + "\t" + averageRate;
         }
     }
 
@@ -58,7 +54,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public override string ToString()
         {
-            return name + "\t"+ converter + "\t"+ code + "\t"+ buyingRate + "\t"+ sellingRate;
+            return name + "\t" + converter + "\t" + code + "\t" + buyingRate + "\t" + sellingRate;
         }
     }
 
@@ -73,7 +69,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public override string ToString()
         {
-            return nameCountry + "\t"+ symbol + "\t"+ name + "\t"+ converter + "\t"+ buyingRate + "\t"+ sellingRate + "\t"+ averageRate;
+            return nameCountry + "\t" + symbol + "\t" + name + "\t" + converter + "\t" + buyingRate + "\t" + sellingRate + "\t" + averageRate;
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using Interfejsy_Platform_Mobilnych.ViewModel;
-using Windows.ApplicationModel.Background;
-using Windows.UI.Core;
+﻿using Interfejsy_Platform_Mobilnych.Pages;
+using Interfejsy_Platform_Mobilnych.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -10,6 +9,8 @@ namespace Interfejsy_Platform_Mobilnych
 {
     public sealed partial class MainPage : Page
     {
+        DatabaseViewModel ViewModel { get; }
+
         public MainPage()
         {
             InitializeComponent();
@@ -17,65 +18,27 @@ namespace Interfejsy_Platform_Mobilnych
             ViewModel.Init();
         }
 
-        DatabaseViewModel ViewModel { get; }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            mainFrame.Navigate(typeof(Today));
+        }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void TodayButton_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            
-            mainFrame.Navigate(typeof(Details));
-            MySplitView.IsPaneOpen = false;
-
-            BackButtonVisibility = Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
-            SystemNavigationManager.GetForCurrentView().BackRequested += BackButtonPage_BackRequested;
-            base.OnNavigatedTo(e);
+            mainFrame.Navigate(typeof(Today), ViewModel.getLastRates());
         }
 
-        public AppViewBackButtonVisibility BackButtonVisibility
+        private void ArchiveButton_Click(object sender, RoutedEventArgs e)
         {
-            get { return SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility; }
-            set { SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = value; }
+            mainFrame.Navigate(typeof(Archive));
         }
 
-        public object BackgroundTaskSample { get; private set; }
-
-        private void BackButtonPage_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            OnBackRequested(sender, e);
-        }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                e.Handled = true;
-                Frame.GoBack();
-            }
-        }
-
-        private void DetailsButton_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.Navigate(typeof(Details));
-        }
-
-        private void DetailsButton1_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.Navigate(typeof(History));
-        }
-
-        private void ExchangeRateListItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            mainFrame.Navigate(typeof(Details));
-            MySplitView.IsPaneOpen = false;
-        }
-
-        private void ExitListItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Exit();
         }
@@ -93,13 +56,10 @@ namespace Interfejsy_Platform_Mobilnych
             }
         }
 
-
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Details), ViewModel.getTable((sender as TextBlock).Tag as string));
+            mainFrame.Navigate(typeof(Today), ViewModel.getTable((sender as TextBlock).Tag as string));
             MySplitView.IsPaneOpen = false;
         }
-
-        
     }
 }

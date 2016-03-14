@@ -106,9 +106,13 @@
     <Compile Include="Models\Year.cs" />
     <Compile Include="Modules\DeserializerXML.cs" />
     <Compile Include="Modules\Downloader.cs" />
+    <Compile Include="Modules\Connection.cs" />
     <Compile Include="Modules\Storage.cs" />
-    <Compile Include="Pages\Details.xaml.cs">
-      <DependentUpon>Details.xaml</DependentUpon>
+    <Compile Include="Pages\Archive.xaml.cs">
+      <DependentUpon>Archive.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Today.xaml.cs">
+      <DependentUpon>Today.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
@@ -141,7 +145,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\Details.xaml">
+    <Page Include="Pages\Archive.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Today.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

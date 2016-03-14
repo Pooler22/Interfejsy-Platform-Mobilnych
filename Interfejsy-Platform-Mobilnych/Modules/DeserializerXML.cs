@@ -2,9 +2,6 @@
 using System.Linq;
 using System.Xml.Linq;
 using System.Collections.ObjectModel;
-using System.Text;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Interfejsy_Platform_Mobilnych.Modules
