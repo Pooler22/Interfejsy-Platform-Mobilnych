@@ -112,9 +112,8 @@
                                                                     <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind tables}">
                                                                         <ListBox.ItemTemplate>
                                                                             <DataTemplate x:DataType="localModels:Table">
-                                                                                <StackPanel>
-                                                                                    <TextBlock Text="{x:Bind thisTable}" Tapped="TextBlock_Tapped" Tag="{Binding Code}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                                                                                </StackPanel>
+                                                                                <TextBlock Text="{x:Bind thisTable}" Tapped="TextBlock_Tapped" Tag="{Binding Code}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
                                                                             </DataTemplate>
                                                                         </ListBox.ItemTemplate>
                                                                     </ListBox>

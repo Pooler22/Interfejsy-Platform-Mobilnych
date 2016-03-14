@@ -1,7 +1,21 @@
-﻿namespace Interfejsy_Platform_Mobilnych.Models
+﻿using Interfejsy_Platform_Mobilnych.Modules;
+using System.Linq;
+using System.Text;
+
+namespace Interfejsy_Platform_Mobilnych.Models
 {
     abstract class Position
     {
+        public string name { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return name.ToString();
+            }
+        }
+
         public string ThisPosition
         {
             get
@@ -13,7 +27,6 @@
 
     class PositionA : Position
     {
-        public string name;
         public string converter;
         public string code;
         public string averageRate;
@@ -26,7 +39,6 @@
 
     class PositionB : Position
     {
-        public string name;
         public string converter;
         public string code;
         public string averageRate;
@@ -39,7 +51,6 @@
 
     class PositionC : Position
     {
-        public string name;
         public string code;
         public string converter;
         public string buyingRate;
@@ -55,7 +66,6 @@
     {
         public string nameCountry;
         public string symbol;
-        public string name;
         public string converter;
         public string buyingRate;
         public string sellingRate;

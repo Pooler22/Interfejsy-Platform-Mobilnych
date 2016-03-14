@@ -46,7 +46,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             string tmpResp;
             while (true)
             {
-                tmpResp = await Downloader.Get(patternURL + tmpYear + patternFileExtension);
+                tmpResp = await Downloader.Get1(patternURL + tmpYear + patternFileExtension);
                 if (tmpResp == null)
                 {
                     maxAvailableYear = tmpYear;
@@ -55,7 +55,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 defaultDatabase.Add((prepareStructure(tmpYear,tmpResp)));
                 tmpYear++;
             }
-            defaultDatabase.Add((prepareStructure(tmpYear, await Downloader.Get(patternURL + patternFileExtension))));
+            defaultDatabase.Add((prepareStructure(tmpYear, await Downloader.Get1(patternURL + patternFileExtension))));
         }
 
         private Year prepareStructure(int inYear,string text)

@@ -8,7 +8,7 @@
     xmlns:localModels="using:Interfejsy_Platform_Mobilnych.Models"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mainGrid">
 
 
         <ListView  Name="mainListView" ItemsSource="{x:Bind ViewModel.DefaultPositions}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
@@ -36,13 +36,9 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{x:Bind ThisPosition}"></TextBlock>
+                        <TextBlock Grid.Column="0" Text="{x:Bind ThisPosition}" Tapped="TextBlock_Tapped" Tag="{x:Bind Name}" ></TextBlock>
 
                     </Grid>
                 </DataTemplate>
