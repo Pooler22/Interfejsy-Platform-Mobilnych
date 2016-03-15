@@ -15,12 +15,6 @@ namespace Interfejsy_Platform_Mobilnych
         {
             InitializeComponent();
             ViewModel = DatabaseViewModel.Instance;
-            init();
-        }
-
-        async void init()
-        {
-            await ViewModel.Init();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)

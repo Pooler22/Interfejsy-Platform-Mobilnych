@@ -18,7 +18,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void TextBlock_PointerPressed(object sender, TappedRoutedEventArgs e)
         {
-            var listBox = (((sender as TextBlock).Parent as StackPanel).Children[1] as ListBox);
+            var listBox = (((sender as TextBlock).Parent as StackPanel).Children[1] as ListView);
             if (listBox.Visibility == Visibility.Collapsed)
             {
                 listBox.Visibility = Visibility.Visible;
