@@ -8,11 +8,12 @@ namespace Interfejsy_Platform_Mobilnych.Pages
     public sealed partial class ListDate : Page
     {
         DatabaseViewModel ViewModel { get; }
-
+        
         public ListDate()
         {
             this.InitializeComponent();
-            ViewModel.Init();
+            ViewModel = DatabaseViewModel.Instance;
+            //ViewModel.Init();
         }
 
         private void TextBlock_PointerPressed(object sender, TappedRoutedEventArgs e)
@@ -30,7 +31,8 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //mainFrame.Navigate(typeof(Today), ViewModel.getTable((sender as TextBlock).Tag as string));
+            //(mainFrame.Parent as Frame).Navigate(typeof(Today), ViewModel.getTable((sender as TextBlock).Tag as string));
         }
+
     }
 }

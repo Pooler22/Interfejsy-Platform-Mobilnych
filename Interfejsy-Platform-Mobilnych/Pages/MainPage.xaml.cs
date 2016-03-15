@@ -15,22 +15,28 @@ namespace Interfejsy_Platform_Mobilnych
         {
             InitializeComponent();
             ViewModel = DatabaseViewModel.Instance;
+            init();
+        }
+
+        async void init()
+        {
+            await ViewModel.Init();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.Init();
-            mainFrame.Navigate(typeof(Today), ViewModel.getLastRates());
+            mainFrame.Navigate(typeof(Today));
         }
 
         private void TodayButton_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Today), ViewModel.getLastRates());
+            mainFrame.Navigate(typeof(Today));
         }
 
         private void ArchiveButton_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Archive));
+            mainFrame.Navigate(typeof(ListDate));
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

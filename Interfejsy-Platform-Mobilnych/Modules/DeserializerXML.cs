@@ -13,7 +13,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         {
             Table table = new Table() { code = code };
             XDocument loadedData = XDocument.Parse(xmlString);
-            loadedData.Declaration = new XDeclaration("1.0", "ISO-8859-2", null);
+            //loadedData.Declaration = new XDeclaration("1.0", "ISO-8859-2", null);
 
             XElement current = loadedData.Descendants("pozycja").First();
 

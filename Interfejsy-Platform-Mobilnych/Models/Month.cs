@@ -13,7 +13,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
         
         public override bool Equals(object obj)
         {
-            return obj != null && (obj as Month).monthName == this.monthName;
+            return obj != null && (obj as Month).monthName == monthName;
         }
 
         public override int GetHashCode()

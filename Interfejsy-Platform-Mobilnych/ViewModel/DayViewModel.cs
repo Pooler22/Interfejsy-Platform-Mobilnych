@@ -15,11 +15,16 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             string patternURL = "http://www.nbp.pl/kursy/xml/";
             string patternFileExtension = ".xml";
 
-            foreach (string code in codes)
+            foreach (string code in getLastRates())
             {
                 string output = await Downloader.GetString(patternURL + code + patternFileExtension);
                 tables.Add(DeserializerXML.deserialize(code, output));       
             }
+        }
+
+        private static string[] getLastRates()
+        {
+            return new string[] { "LastA", "LastB", "LastC", "LastH" };
         }
     }
 }

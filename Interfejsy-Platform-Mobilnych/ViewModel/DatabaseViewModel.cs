@@ -45,8 +45,11 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     maxAvailableYear = tmpYear;
                     break;
                 }
-                defaultDatabase.Add((prepareStructure(tmpYear, tmpResp)));
-                tmpYear++;
+                else
+                {
+                    defaultDatabase.Add(prepareStructure(tmpYear, tmpResp));
+                    tmpYear++;
+                }
             }
             defaultDatabase.Add((prepareStructure(tmpYear, await Downloader.Get1(patternURL + patternFileExtension))));
         }
@@ -81,17 +84,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             }
             return year;
         }
-
-        internal List<string> getLastRates()
-        {
-            List<string> codes = new List<string>();
-            foreach(Table tab in defaultDatabase.Last().months.Last().days.Last().tables)
-            {
-                codes.Add(tab.code);
-            }
-            return codes;
-        }
-
+        
         internal Table getTable(string tag)
         {
             if (tag != null)
