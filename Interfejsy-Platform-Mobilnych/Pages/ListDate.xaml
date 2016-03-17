@@ -15,7 +15,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="localModels:Year">
                     <StackPanel>
-                        <TextBlock Tag="{x:Bind ModelName}" Tapped="TextBlock_PointerPressed" Text="{x:Bind ModelName}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                        <TextBlock Tag="{x:Bind ModelNumber}" Tapped="TextBlock_PointerPressed" Text="{x:Bind ModelNumber}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
                         <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="x:Bind months">
                             <ListBox.ItemTemplate>
@@ -27,7 +27,7 @@
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate x:DataType="localModels:Day">
                                                     <StackPanel>
-                                                        <TextBlock Text="{x:Bind ModelName}" Tapped="TextBlock_Tapped" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                        <TextBlock Text="{x:Bind ModelNumber}" Tapped="TextBlock_Tapped" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>

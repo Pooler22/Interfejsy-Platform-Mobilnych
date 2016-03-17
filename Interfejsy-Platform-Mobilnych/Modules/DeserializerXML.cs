@@ -11,7 +11,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
     {
         internal static Table deserialize(string code, string xmlString)
         {
-            Table table = new Table() { code = code };
+            Table table = new Table(code);
             XDocument loadedData = XDocument.Parse(xmlString);
             //loadedData.Declaration = new XDeclaration("1.0", "ISO-8859-2", null);
 

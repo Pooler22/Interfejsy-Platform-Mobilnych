@@ -1,18 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
+    [DataContract]
     class Year
     {
-        internal int name;
-        public int ModelName { get { return name; } }
+        [DataMember]
+        internal int number;
+        public int ModelNumber{ get { return number; } }
 
+        [DataMember]
         internal List<Month> months = new List<Month>();
         public List<Month> ModelMonths { get {return months; } }
 
-        internal void addMonth(string v)
+        internal void addMonth(string name)
         {
-            var tmp = new Month() { monthName = int.Parse(v) };
+            var tmp = new Month(int.Parse(name));
             if (!months.Contains(tmp))
             {
                 months.Add(tmp);

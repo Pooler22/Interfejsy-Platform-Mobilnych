@@ -2,7 +2,6 @@
 using Interfejsy_Platform_Mobilnych.Modules;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
@@ -12,15 +11,12 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private ObservableCollection<Year> defaultDatabase = new ObservableCollection<Year>();
         public ObservableCollection<Year> DefaultDatabase { get { return defaultDatabase; } }
 
-        string patternURL = "http://www.nbp.pl/kursy/xml/dir";
-        string patternFileExtension = ".txt";
-        int minAvailableYear = 2002;
-        int maxAvailableYear;
+        private string patternURL = "http://www.nbp.pl/kursy/xml/dir";
+        private string patternFileExtension = ".txt";
+        private int minAvailableYear = 2002;
+        private int maxAvailableYear;
 
         private static DatabaseViewModel instance;
-
-        private DatabaseViewModel() { }
-
         public static DatabaseViewModel Instance
         {
             get
@@ -32,8 +28,67 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 return instance;
             }
         }
-        
+
+        private DatabaseViewModel() { }
+
         public async Task Init()
+        {
+            //zczytywanie z pliku
+            Storage storage = new Storage();
+            string nameFile = "database";
+            if (storage.IsFolder(nameFile))
+            {
+                if (Connection.IsInternet())
+                {
+                    await storage.createFile(nameFile);
+                    storage.readFile(nameFile);
+                    foreach(Year year in SerializerJSON.Serializer.deserialize<List<Year>>(storage.readStringFromFile()))
+                    {
+                        defaultDatabase.Add(year);
+                    }
+                    
+                    //pobranie aktualizacji
+                }
+                else
+                {
+                    await storage.createFile(nameFile);
+                    storage.readFile(nameFile);
+                    foreach (Year year in SerializerJSON.Serializer.deserialize<List<Year>>(storage.readStringFromFile()))
+                    {
+                        defaultDatabase.Add(year);
+                    }
+                    //wyświetlnie ostatnich
+                }
+            }
+            else
+            {
+                if (Connection.IsInternet())
+                {
+                    DownloadFirstTimeDatabase();
+                    foreach(Year year in defaultDatabase)
+                    {
+                        storage.saveFile(nameFile, SerializerJSON.Serializer.serialize(year));
+                    }
+
+                    
+
+                    //zapis danych
+                }
+                else
+                {
+                    //brak jakichkolwiek danych
+                }
+            }
+
+            //Wczytanie struktury
+            //Sprawdzenie czy sa nowsze dane w intrenecie
+            //Pobranie nowych zmian
+            //Zapis nowych zmian
+            //Otworzenie najnowszej pozycji
+
+        }
+
+        private async void DownloadFirstTimeDatabase()
         {
             int tmpYear = minAvailableYear;
             string tmpResp;
@@ -57,7 +112,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private Year prepareStructure(int inYear, string text)
         {
             Year year = new Year();
-            year.name = inYear;
+            year.number = inYear;
             string tmpIM = "", tmpID = "";
 
             foreach (var i in text.Replace("\r", "").Split('\n'))
@@ -67,35 +122,35 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     if (tmpIM != i.Substring(7, 2))
                     {
                         tmpIM = i.Substring(7, 2);
-                        year.months.Add(new Month() { monthName = int.Parse(tmpIM) });
+                        year.months.Add(new Month(int.Parse(tmpIM)));
 
                     }
                     if (tmpID != i.Substring(9, 2))
                     {
                         tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days.Add(new Day() { name = i });
+                        year.months[year.months.Count - 1].days.Add(new Day() { number = i });
                     }
                     else
                     {
                         tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables.Add(new Table() { code = i });
+                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables.Add(new Table(i));
                     }
                 }
             }
             return year;
         }
-        
+
         internal Table getTable(string tag)
         {
-            if (tag != null)
-            {
-                return defaultDatabase[int.Parse(tag.Substring(5, 2)) - 1].months[int.Parse(tag.Substring(7, 2))].days[int.Parse(tag.Substring(9, 2))].tables[0];
-            }
-            else
-            {
-                //return last table from database
-                return new Table() { code = "" };
-            }
+            //if (tag != null)
+            //{
+            return defaultDatabase[int.Parse(tag.Substring(5, 2)) - 1].months[int.Parse(tag.Substring(7, 2))].days[int.Parse(tag.Substring(9, 2))].tables[0];
+            //}
+            //else
+            //{
+            //    //return last table from database
+            //    return new Table("");
+            //}
         }
     }
 }

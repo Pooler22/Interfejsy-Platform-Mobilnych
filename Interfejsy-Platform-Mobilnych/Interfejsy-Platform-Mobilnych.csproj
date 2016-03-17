@@ -107,6 +107,7 @@
     <Compile Include="Modules\DeserializerXML.cs" />
     <Compile Include="Modules\Downloader.cs" />
     <Compile Include="Modules\Connection.cs" />
+    <Compile Include="Modules\SerializerJSON.cs" />
     <Compile Include="Modules\Storage.cs" />
     <Compile Include="Pages\Archive.xaml.cs">
       <DependentUpon>Archive.xaml</DependentUpon>

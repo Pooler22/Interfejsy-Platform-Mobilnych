@@ -9,5 +9,15 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <Grid VerticalAlignment="Top" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0" >1</TextBlock>
+            <TextBlock Grid.Column="1" >2</TextBlock>
+        </Grid>
+
     </Grid>
 </Page>
