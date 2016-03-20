@@ -31,61 +31,41 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         private DatabaseViewModel() { }
 
-        public async Task Init()
+        public void Init()
         {
-            //zczytywanie z pliku
             Storage storage = new Storage();
-            string nameFile = "database";
+            string nameFile = "Data";
+
             if (storage.IsFolder(nameFile))
             {
+                storage.readFile(nameFile);
+                foreach (Year year in SerializerJSON.Serializer.deserialize<List<Year>>(storage.readStringFromFile()))
+                {
+                    defaultDatabase.Add(year);
+                }
+
                 if (Connection.IsInternet())
                 {
-                    await storage.createFile(nameFile);
-                    storage.readFile(nameFile);
-                    foreach(Year year in SerializerJSON.Serializer.deserialize<List<Year>>(storage.readStringFromFile()))
-                    {
-                        defaultDatabase.Add(year);
-                    }
-                    
                     //pobranie aktualizacji
                 }
-                else
-                {
-                    await storage.createFile(nameFile);
-                    storage.readFile(nameFile);
-                    foreach (Year year in SerializerJSON.Serializer.deserialize<List<Year>>(storage.readStringFromFile()))
-                    {
-                        defaultDatabase.Add(year);
-                    }
-                    //wyświetlnie ostatnich
-                }
+
+                //wyświetlnie ostatnich
             }
             else
             {
                 if (Connection.IsInternet())
                 {
                     DownloadFirstTimeDatabase();
-                    foreach(Year year in defaultDatabase)
+                    foreach (Year year in defaultDatabase)
                     {
                         storage.saveFile(nameFile, SerializerJSON.Serializer.serialize(year));
                     }
-
-                    
-
-                    //zapis danych
                 }
                 else
                 {
                     //brak jakichkolwiek danych
                 }
             }
-
-            //Wczytanie struktury
-            //Sprawdzenie czy sa nowsze dane w intrenecie
-            //Pobranie nowych zmian
-            //Zapis nowych zmian
-            //Otworzenie najnowszej pozycji
-
         }
 
         private async void DownloadFirstTimeDatabase()

@@ -24,7 +24,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //(mainGrid.Parent as Frame).Navigate(typeof(History), (sender as TextBlock).Tag);
+            ((mainGrid.Parent as Page).Parent as Frame).Navigate(typeof(History), (sender as Grid).Tag);
         }
     }
 }

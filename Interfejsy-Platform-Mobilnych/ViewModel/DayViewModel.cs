@@ -15,12 +15,13 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         internal async void Init(List<string> codes)
         {
-            if(codes == null)
+            Storage storage = new Storage();
+
+            if (codes == null)
             {
                 codes = getLastRates();
             }
-            Storage storage = new Storage();
-
+            
             foreach (string code in codes)
             {
                 if (storage.IsFolder(code) && code != null)

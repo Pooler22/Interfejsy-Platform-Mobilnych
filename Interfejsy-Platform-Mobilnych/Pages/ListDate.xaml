@@ -17,17 +17,17 @@
                     <StackPanel>
                         <TextBlock Tag="{x:Bind ModelNumber}" Tapped="TextBlock_PointerPressed" Text="{x:Bind ModelNumber}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-                        <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="x:Bind months">
+                        <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind ModelMonths}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="localModels:Month">
                                     <StackPanel>
-                                        <TextBlock Text="{x:Bind ModelMonthName}" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                        <TextBlock Text="{x:Bind ModelMonthName}" Tag="{x:Bind ModelMonthName}" Tapped="TextBlock_PointerPressed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
                                         <ListBox Visibility="Collapsed"  Margin="5,0,0,0" Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Visible" ItemsSource="{x:Bind ModelDays}">
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate x:DataType="localModels:Day">
                                                     <StackPanel>
-                                                        <TextBlock Text="{x:Bind ModelNumber}" Tapped="TextBlock_Tapped" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                                        <TextBlock Text="{x:Bind ModelNumber}" Tag="{x:Bind Code}" Tapped="TextBlock_Tapped" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </ListBox.ItemTemplate>

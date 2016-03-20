@@ -11,7 +11,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mainGrid">
 
-        <Pivot Name="mainListView" ItemsSource="{x:Bind ViewModel.Tables}" >
+        <Pivot Name="mainListView" Title="{x:Bind ViewModel.Name}" ItemsSource="{x:Bind ViewModel.Tables}" >
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="localModels:Table">
                     <TextBlock Text="{x:Bind ModelName}"></TextBlock>
@@ -43,8 +43,7 @@
                             </ListView.ItemContainerStyle>
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="localModels:Position">
-
-                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="TextBlock_Tapped" Tag="{x:Bind ModelListValues[0]}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="2*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>

@@ -29,24 +29,24 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public override string ToString()
         {
-            string test;
+            char test;
             if (code.Contains("Last"))
             {
-                test = code.Substring(code.Length - 1, 1).ToLower();
+                test = (code.ToLower())[code.Length - 1];
             }
             else
             {
-                test = code.Substring(0, 1);
+                test = code[0];
             }
             switch (test)
             {
-                case "a":
+                case 'a':
                     return "kursy średnich walut obcych";
-                case "b":
+                case 'b':
                     return "kursy średnich walut niewymienialnych";
-                case "c":
+                case 'c':
                     return "kursy kupna i sprzedaży";
-                case "h":
+                case 'h':
                     return "kursy jednostek rozliczeniowych";
                 default:
                     return "no name";

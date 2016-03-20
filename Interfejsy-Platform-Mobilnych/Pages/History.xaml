@@ -8,26 +8,31 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBlock>Zakres dat wyświetlania historii</TextBlock>
-            <DatePicker Header="Poczatkowa data"></DatePicker>
-            <DatePicker Header="Końcowa data"></DatePicker>
+        <ScrollViewer>
+            <StackPanel Margin="5">
+                <ComboBox Header="Waluta" HorizontalAlignment="Stretch"></ComboBox>
 
-            <Canvas Height="200" Background="AliceBlue"></Canvas>
+                <TextBlock>Zakres dat:</TextBlock>
+                <DatePicker Header="Początkowa data" HorizontalAlignment="Stretch"></DatePicker>
+                <DatePicker Header="Końcowa data" HorizontalAlignment="Stretch"></DatePicker>
 
-            <TextBlock>Postęp wczytania nowych danych</TextBlock>
-            <ProgressBar></ProgressBar>
-            
-            <TextBlock>Zapisanych lokalnie</TextBlock>
-            <ProgressBar></ProgressBar>
+                <TextBlock Text="Wykres"></TextBlock>
+                <Canvas Height="200" Background="AliceBlue"></Canvas>
 
-            <TextBlock>Pobrane dane</TextBlock>
-            <ProgressBar></ProgressBar>
+                <TextBlock>Postęp wczytania nowych danych</TextBlock>
+                <ProgressBar></ProgressBar>
 
-        </StackPanel>
-        
+                <TextBlock>Zapisanych lokalnie</TextBlock>
+                <ProgressBar></ProgressBar>
+
+                <TextBlock>Pobrane dane</TextBlock>
+                <ProgressBar></ProgressBar>
+
+            </StackPanel>
+        </ScrollViewer>
         <CommandBar VerticalAlignment="Bottom">
             <AppBarButton Icon="Save" Label="Zapisz jako obraz"/>
         </CommandBar>
+
     </Grid>
 </Page>

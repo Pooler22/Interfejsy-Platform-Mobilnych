@@ -109,9 +109,6 @@
     <Compile Include="Modules\Connection.cs" />
     <Compile Include="Modules\SerializerJSON.cs" />
     <Compile Include="Modules\Storage.cs" />
-    <Compile Include="Pages\Archive.xaml.cs">
-      <DependentUpon>Archive.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\ListDate.xaml.cs">
       <DependentUpon>ListDate.xaml</DependentUpon>
     </Compile>
@@ -149,10 +146,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\Archive.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\ListDate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

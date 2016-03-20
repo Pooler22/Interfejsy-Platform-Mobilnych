@@ -18,7 +18,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void TextBlock_PointerPressed(object sender, TappedRoutedEventArgs e)
         {
-            var listBox = (((sender as TextBlock).Parent as StackPanel).Children[1] as ListView);
+            var listBox = (((sender as TextBlock).Parent as StackPanel).Children[1] as ListBox);
             if (listBox.Visibility == Visibility.Collapsed)
             {
                 listBox.Visibility = Visibility.Visible;
@@ -31,7 +31,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //(mainFrame.Parent as Frame).Navigate(typeof(Today), ViewModel.getTable((sender as TextBlock).Tag as string));
+            (mainFrame.Parent as Frame).Navigate(typeof(History), ViewModel.getTable((sender as TextBlock).Tag as string));
         }
 
     }

@@ -1,9 +1,7 @@
 ﻿using Interfejsy_Platform_Mobilnych.Models;
 using System.Linq;
 using System.Xml.Linq;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
-using System.Xml;
 
 namespace Interfejsy_Platform_Mobilnych.Modules
 {
@@ -13,15 +11,13 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         {
             Table table = new Table(code);
             XDocument loadedData = XDocument.Parse(xmlString);
-            //loadedData.Declaration = new XDeclaration("1.0", "ISO-8859-2", null);
-
-            XElement current = loadedData.Descendants("pozycja").First();
-
-            foreach (XElement element in current.Elements())
+            string position = "pozycja";
+            
+            foreach (XElement element in loadedData.Descendants(position).First().Elements())
             {
-                table.listKeys.Add(element.Name.ToString());
+                table.listKeys.Add(element.Name.ToString().Replace('_',' '));
             }
-            table.positions = (from query in loadedData.Descendants("pozycja")
+            table.positions = (from query in loadedData.Descendants(position)
                                select new Position() { listValues = getList(query.Elements()) })
                                .ToList();
             return table;
@@ -30,7 +26,6 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         internal static List<string> getList(IEnumerable<XElement> input)
         {
             List<string> list = new List<string>();
-
             foreach (XElement element in input)
             {
                 list.Add(element.Value);

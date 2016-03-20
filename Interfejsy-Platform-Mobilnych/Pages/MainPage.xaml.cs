@@ -17,9 +17,9 @@ namespace Interfejsy_Platform_Mobilnych
             ViewModel = DatabaseViewModel.Instance;
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.Init();
+            ViewModel.Init();
             mainFrame.Navigate(typeof(Today));
         }
 
