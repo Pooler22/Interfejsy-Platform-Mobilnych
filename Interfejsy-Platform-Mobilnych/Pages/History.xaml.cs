@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Interfejsy_Platform_Mobilnych.ViewModel;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace Interfejsy_Platform_Mobilnych
@@ -10,9 +11,11 @@ namespace Interfejsy_Platform_Mobilnych
             InitializeComponent();
         }
 
+        DatabaseViewModel ViewModel { get; set; }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string name = e.Parameter as string;
+            ViewModel = e.Parameter as DatabaseViewModel;
         }
     }
 }

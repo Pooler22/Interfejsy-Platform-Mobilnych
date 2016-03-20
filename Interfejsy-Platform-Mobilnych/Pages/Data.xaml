@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Interfejsy_Platform_Mobilnych.Today"
+    x:Class="Interfejsy_Platform_Mobilnych.Data"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Interfejsy_Platform_Mobilnych"
@@ -11,7 +11,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mainGrid">
 
-        <Pivot Name="mainListView" Title="{x:Bind ViewModel.Name}" ItemsSource="{x:Bind ViewModel.Tables}" >
+        <Pivot Name="mainListView" Title="{x:Bind DayViewModel.Name}" ItemsSource="{x:Bind DayViewModel.Tables}" >
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="localModels:Table">
                     <TextBlock Text="{x:Bind ModelName}"></TextBlock>

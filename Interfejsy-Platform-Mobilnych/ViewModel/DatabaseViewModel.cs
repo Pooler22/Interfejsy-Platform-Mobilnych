@@ -3,6 +3,7 @@ using Interfejsy_Platform_Mobilnych.Modules;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -15,8 +16,33 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private string patternFileExtension = ".txt";
         private int minAvailableYear = 2002;
         private int maxAvailableYear;
-
+        
         private static DatabaseViewModel instance;
+        internal string[] SelectedDays = null;
+        public string[] selectedDays() {
+            {
+                if(SelectedDays != null)
+                {
+                    return SelectedDays;
+                }
+                else
+                {
+                    return new string[]{ "LastA", "LastB", "LastC", "LastH" };
+                }
+            }
+        }
+
+        public string selectedCurrency;
+        internal void setSelectedCurrency(string v)
+        {
+            selectedCurrency = v;
+        }
+
+        internal void setSelectedDay(string[] v)
+        {
+            SelectedDays = v;
+        }
+
         public static DatabaseViewModel Instance
         {
             get

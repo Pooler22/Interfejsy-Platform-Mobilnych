@@ -109,11 +109,11 @@
     <Compile Include="Modules\Connection.cs" />
     <Compile Include="Modules\SerializerJSON.cs" />
     <Compile Include="Modules\Storage.cs" />
-    <Compile Include="Pages\ListDate.xaml.cs">
-      <DependentUpon>ListDate.xaml</DependentUpon>
+    <Compile Include="Pages\Date.xaml.cs">
+      <DependentUpon>Date.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Today.xaml.cs">
-      <DependentUpon>Today.xaml</DependentUpon>
+    <Compile Include="Pages\Data.xaml.cs">
+      <DependentUpon>Data.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\History.xaml.cs">
       <DependentUpon>History.xaml</DependentUpon>
@@ -146,11 +146,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\ListDate.xaml">
+    <Page Include="Pages\Date.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Today.xaml">
+    <Page Include="Pages\Data.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

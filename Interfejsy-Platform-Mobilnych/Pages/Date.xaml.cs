@@ -2,18 +2,22 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace Interfejsy_Platform_Mobilnych.Pages
 {
-    public sealed partial class ListDate : Page
+    public sealed partial class Date : Page
     {
-        DatabaseViewModel ViewModel { get; }
+        DatabaseViewModel ViewModel { get; set; }
         
-        public ListDate()
+        public Date()
         {
-            this.InitializeComponent();
-            ViewModel = DatabaseViewModel.Instance;
-            //ViewModel.Init();
+            InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel = e.Parameter as DatabaseViewModel;
         }
 
         private void TextBlock_PointerPressed(object sender, TappedRoutedEventArgs e)
@@ -31,8 +35,8 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            (mainFrame.Parent as Frame).Navigate(typeof(History), ViewModel.getTable((sender as TextBlock).Tag as string));
+            ViewModel.setSelectedDay(new string[] { (sender as TextBlock).Tag as string });
+            (mainFrame.Parent as Frame).Navigate(typeof(Data), ViewModel);
         }
-
     }
 }

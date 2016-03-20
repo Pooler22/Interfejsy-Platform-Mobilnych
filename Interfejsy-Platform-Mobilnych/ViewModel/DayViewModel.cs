@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using Interfejsy_Platform_Mobilnych.Modules;
 using System.Collections.Generic;
+using System;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -13,15 +14,12 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         internal string name;
         public string Name { get { return name; } }
 
-        internal async void Init(List<string> codes)
+        internal async void Init(string[] codes)
         {
+            name = codes[0];
+            tables = new ObservableCollection<Table>();
             Storage storage = new Storage();
-
-            if (codes == null)
-            {
-                codes = getLastRates();
-            }
-            
+                        
             foreach (string code in codes)
             {
                 if (storage.IsFolder(code) && code != null)
@@ -53,15 +51,13 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
                     }
                 }
-            }
-
-
-            
+            }   
         }
+        
 
-        private static List<string> getLastRates()
+        private static string[] getLastRates()
         {
-            return new List<string> { "LastA", "LastB", "LastC", "LastH" };
+            return new string[] { "LastA", "LastB", "LastC", "LastH" };
         }
     }
 }

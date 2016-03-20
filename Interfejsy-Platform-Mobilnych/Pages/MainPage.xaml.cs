@@ -2,14 +2,13 @@
 using Interfejsy_Platform_Mobilnych.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace Interfejsy_Platform_Mobilnych
 {
     public sealed partial class MainPage : Page
     {
-        DatabaseViewModel ViewModel { get; }
+        DatabaseViewModel ViewModel { get; set; }
 
         public MainPage()
         {
@@ -20,17 +19,17 @@ namespace Interfejsy_Platform_Mobilnych
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.Init();
-            mainFrame.Navigate(typeof(Today));
+            mainFrame.Navigate(typeof(Data), ViewModel);
         }
 
         private void TodayButton_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Today));
+            mainFrame.Navigate(typeof(Data), ViewModel);
         }
 
         private void ArchiveButton_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(ListDate));
+            mainFrame.Navigate(typeof(Date), ViewModel);
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

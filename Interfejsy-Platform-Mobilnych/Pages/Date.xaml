@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Interfejsy_Platform_Mobilnych.Pages.ListDate"
+    x:Class="Interfejsy_Platform_Mobilnych.Pages.Date"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Interfejsy_Platform_Mobilnych.Pages"

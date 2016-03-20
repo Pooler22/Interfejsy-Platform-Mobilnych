@@ -11,13 +11,12 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Frame Grid.Row="1" Name="mainFrame"/>
-        <CommandBar Grid.Row="2">
+        <Frame Grid.Row="0" Name="mainFrame"/>
+        <CommandBar Grid.Row="1">
             <AppBarButton Icon="Home" Label="Home" Click="TodayButton_Click"/>
             <AppBarButton Icon="List" Label="Archive" Click="ArchiveButton_Click"/>
             <AppBarButton Icon="Clear" Label="Exit" Click="ExitButton_Click"/>
