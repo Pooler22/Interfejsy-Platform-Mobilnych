@@ -1,5 +1,8 @@
 ﻿using Interfejsy_Platform_Mobilnych.ViewModel;
 using System;
+using Windows.Foundation;
+using Windows.UI.Input.Inking;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -17,10 +20,25 @@ namespace Interfejsy_Platform_Mobilnych
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel = e.Parameter as DatabaseViewModel;
-            StartDate.MinYear = ViewModel.MinAvailableDate;
-            StartDate.MaxYear = DateTime.Today;
-            ;
-//            ViewModel.MaxAvailableDate;
+        }
+
+        private void Date_DateChanged(object sender, DatePickerValueChangedEventArgs e)
+        {
+            if(StartDate.Date < StartDate.Date)
+            {
+                GenerateButton.IsEnabled = true;
+                InfoTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                GenerateButton.IsEnabled = false;
+                InfoTextBlock.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

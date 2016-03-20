@@ -3,7 +3,6 @@ using Interfejsy_Platform_Mobilnych.Modules;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
@@ -18,7 +17,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private int minAvailableYear = 2002;
         private int maxAvailableYear;
 
-        public DateTime MinAvailableDate
+        public DateTimeOffset MinAvailableDate
         {
             get
             {
@@ -27,7 +26,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             }
         }
 
-        public DateTime MaxAvailableDate
+        public DateTimeOffset MaxAvailableDate
         {
             get
             {

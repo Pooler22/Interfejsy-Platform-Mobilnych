@@ -9,15 +9,18 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
-            <StackPanel Margin="5">
-                <ComboBox Header="Waluta" HorizontalAlignment="Stretch"></ComboBox>
+            <StackPanel Margin="5" Padding="5">
+                <ComboBox Header="Waluta" HorizontalAlignment="Center" VerticalAlignment="Center"></ComboBox>
 
-                <TextBlock>Zakres dat:</TextBlock>
-                <DatePicker Name="StartDate" Header="Początkowa data" HorizontalAlignment="Stretch"></DatePicker>
-                <DatePicker Name="EndDate" Header="Końcowa data" HorizontalAlignment="Stretch"></DatePicker>
+                <TextBlock HorizontalAlignment="Center">Zakres dat:</TextBlock>
+                <DatePicker MinYear="{x:Bind ViewModel.MinAvailableDate}" MaxYear="{x:Bind ViewModel.MaxAvailableDate}" Name="StartDate" Header="Początkowa data" HorizontalAlignment="Center" DateChanged="Date_DateChanged"></DatePicker>
+                <DatePicker MinYear="{x:Bind ViewModel.MinAvailableDate}" MaxYear="{x:Bind ViewModel.MaxAvailableDate}" Name="EndDate" Header="Końcowa data" HorizontalAlignment="Center" DateChanged="Date_DateChanged"></DatePicker>
+
+                <TextBlock Name="InfoTextBlock" Visibility="Collapsed" Text="*Data początkowa musi być wcześniejsza od daty końcowej." HorizontalAlignment="Center" FontStyle="Italic"></TextBlock>
+                <Button Name="GenerateButton" Click="GenerateButton_Click"  Content="Genetuj wykres" HorizontalAlignment="Center" IsTapEnabled="False"></Button>
 
                 <TextBlock Text="Wykres"></TextBlock>
-                <Canvas Height="200" Background="AliceBlue"></Canvas>
+                <InkCanvas Name="InkCanvans" Height="200" ></InkCanvas>
 
                 <TextBlock>Postęp wczytania nowych danych</TextBlock>
                 <ProgressBar></ProgressBar>
