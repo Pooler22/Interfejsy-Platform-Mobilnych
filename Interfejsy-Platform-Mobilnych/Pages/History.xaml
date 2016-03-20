@@ -13,8 +13,8 @@
                 <ComboBox Header="Waluta" HorizontalAlignment="Stretch"></ComboBox>
 
                 <TextBlock>Zakres dat:</TextBlock>
-                <DatePicker Header="Początkowa data" HorizontalAlignment="Stretch"></DatePicker>
-                <DatePicker Header="Końcowa data" HorizontalAlignment="Stretch"></DatePicker>
+                <DatePicker Name="StartDate" Header="Początkowa data" HorizontalAlignment="Stretch"></DatePicker>
+                <DatePicker Name="EndDate" Header="Końcowa data" HorizontalAlignment="Stretch"></DatePicker>
 
                 <TextBlock Text="Wykres"></TextBlock>
                 <Canvas Height="200" Background="AliceBlue"></Canvas>

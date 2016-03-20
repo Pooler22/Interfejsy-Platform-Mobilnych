@@ -1,9 +1,10 @@
 ﻿using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.Modules;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -16,46 +17,51 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private string patternFileExtension = ".txt";
         private int minAvailableYear = 2002;
         private int maxAvailableYear;
-        
-        private static DatabaseViewModel instance;
-        internal string[] SelectedDays = null;
-        public string[] selectedDays() {
+
+        public DateTime MinAvailableDate
+        {
+            get
             {
-                if(SelectedDays != null)
-                {
-                    return SelectedDays;
-                }
-                else
-                {
-                    return new string[]{ "LastA", "LastB", "LastC", "LastH" };
-                }
+                string tmp = defaultDatabase[0].months[0].days[0].Code;
+                return new DateTime(int.Parse("20" + tmp.Substring(5, 2)), int.Parse(tmp.Substring(7, 2)), int.Parse(tmp.Substring(9, 2)));
             }
         }
 
-        public string selectedCurrency;
+        public DateTime MaxAvailableDate
+        {
+            get
+            {
+                string tmp = defaultDatabase.Last().months.Last().days.Last().Code;
+                return new DateTime(int.Parse("20" + tmp.Substring(5, 2)), int.Parse(tmp.Substring(7, 2)), int.Parse(tmp.Substring(9, 2)));
+            }
+        }
+
+        private string selectedDays;
+        public string SelectedDays()
+        {
+            {
+                if (selectedDays == null)
+                {
+                    return "LastA";
+                }
+                else
+                {
+                    return selectedDays;
+                }
+            }
+        }
+        internal void setSelectedDay(string v)
+        {
+            selectedDays = v;
+        }
+
+
+        private string selectedCurrency;
+        public string SelectedCurrency { get; }
         internal void setSelectedCurrency(string v)
         {
             selectedCurrency = v;
         }
-
-        internal void setSelectedDay(string[] v)
-        {
-            SelectedDays = v;
-        }
-
-        public static DatabaseViewModel Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new DatabaseViewModel();
-                }
-                return instance;
-            }
-        }
-
-        private DatabaseViewModel() { }
 
         public void Init()
         {
@@ -121,9 +127,9 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             year.number = inYear;
             string tmpIM = "", tmpID = "";
 
-            foreach (var i in text.Replace("\r", "").Split('\n'))
+            foreach (var i in (text.Replace("\r", "").Split('\n')))
             {
-                if (i != "" && i != null)
+                if (i != "" && i != null && (i.Substring(0, 1) == "a"))
                 {
                     if (tmpIM != i.Substring(7, 2))
                     {
@@ -139,7 +145,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     else
                     {
                         tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables.Add(new Table(i));
+                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables = new Table(i);
                     }
                 }
             }
@@ -150,7 +156,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             //if (tag != null)
             //{
-            return defaultDatabase[int.Parse(tag.Substring(5, 2)) - 1].months[int.Parse(tag.Substring(7, 2))].days[int.Parse(tag.Substring(9, 2))].tables[0];
+            return defaultDatabase[int.Parse(tag.Substring(5, 2)) - 1].months[int.Parse(tag.Substring(7, 2))].days[int.Parse(tag.Substring(9, 2))].tables;
             //}
             //else
             //{

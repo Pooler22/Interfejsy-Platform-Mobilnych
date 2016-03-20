@@ -12,7 +12,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
         public string Code { get { return number; } }
 
 
-        internal List<Table> tables = new List<Table>();
-        public List<Table> ModelTables { get { return tables; } }
+        internal Table tables;
+        public Table ModelTables { get { return tables; } }
     }
 }

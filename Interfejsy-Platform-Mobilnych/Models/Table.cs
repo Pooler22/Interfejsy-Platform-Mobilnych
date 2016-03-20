@@ -42,12 +42,6 @@ namespace Interfejsy_Platform_Mobilnych.Models
             {
                 case 'a':
                     return "kursy średnich walut obcych";
-                case 'b':
-                    return "kursy średnich walut niewymienialnych";
-                case 'c':
-                    return "kursy kupna i sprzedaży";
-                case 'h':
-                    return "kursy jednostek rozliczeniowych";
                 default:
                     return "no name";
             }

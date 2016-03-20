@@ -13,7 +13,7 @@ namespace Interfejsy_Platform_Mobilnych
         public MainPage()
         {
             InitializeComponent();
-            ViewModel = DatabaseViewModel.Instance;
+            ViewModel = new DatabaseViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

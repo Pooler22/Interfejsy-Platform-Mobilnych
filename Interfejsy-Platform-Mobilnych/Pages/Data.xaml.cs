@@ -19,7 +19,7 @@ namespace Interfejsy_Platform_Mobilnych
         {
             ViewModel = e.Parameter as DatabaseViewModel;
             DayViewModel = new DayViewModel();
-            DayViewModel.Init(ViewModel.selectedDays());
+            DayViewModel.Init(ViewModel.SelectedDays());
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)

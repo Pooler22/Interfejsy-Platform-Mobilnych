@@ -9,7 +9,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
     public sealed partial class Date : Page
     {
         DatabaseViewModel ViewModel { get; set; }
-        
+
         public Date()
         {
             InitializeComponent();
@@ -35,7 +35,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.setSelectedDay(new string[] { (sender as TextBlock).Tag as string });
+            ViewModel.setSelectedDay((sender as TextBlock).Tag as string);
             (mainFrame.Parent as Frame).Navigate(typeof(Data), ViewModel);
         }
     }

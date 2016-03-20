@@ -1,4 +1,5 @@
 ﻿using Interfejsy_Platform_Mobilnych.ViewModel;
+using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -16,6 +17,10 @@ namespace Interfejsy_Platform_Mobilnych
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel = e.Parameter as DatabaseViewModel;
+            StartDate.MinYear = ViewModel.MinAvailableDate;
+            StartDate.MaxYear = DateTime.Today;
+            ;
+//            ViewModel.MaxAvailableDate;
         }
     }
 }
