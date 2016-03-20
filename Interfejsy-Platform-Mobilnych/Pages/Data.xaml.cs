@@ -19,12 +19,12 @@ namespace Interfejsy_Platform_Mobilnych
         {
             ViewModel = e.Parameter as DatabaseViewModel;
             DayViewModel = new DayViewModel();
-            DayViewModel.Init(ViewModel.SelectedDays());
+            DayViewModel.Init(ViewModel.SelectedDays);
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.setSelectedCurrency((sender as Grid).Tag as string);
+            ViewModel.SelectedCurrency = (sender as Grid).Tag as string;
             ((mainGrid.Parent as Page).Parent as Frame).Navigate(typeof(History), ViewModel);
         }
     }

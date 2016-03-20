@@ -15,7 +15,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private string patternURL = "http://www.nbp.pl/kursy/xml/dir";
         private string patternFileExtension = ".txt";
         private int minAvailableYear = 2002;
-        private int maxAvailableYear;
 
         public DateTimeOffset MinAvailableDate
         {
@@ -36,8 +35,9 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         }
 
         private string selectedDays;
-        public string SelectedDays()
+        public string SelectedDays
         {
+            get
             {
                 if (selectedDays == null)
                 {
@@ -48,20 +48,15 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     return selectedDays;
                 }
             }
+            set { selectedDays = value; }
         }
-        internal void setSelectedDay(string v)
-        {
-            selectedDays = v;
-        }
-
 
         private string selectedCurrency;
-        public string SelectedCurrency { get; }
-        internal void setSelectedCurrency(string v)
-        {
-            selectedCurrency = v;
+        public string SelectedCurrency {
+            get { return selectedCurrency; }
+            set { selectedCurrency = value; }
         }
-
+        
         public void Init()
         {
             Storage storage = new Storage();
@@ -79,8 +74,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 {
                     //pobranie aktualizacji
                 }
-
-                //wyświetlnie ostatnich
             }
             else
             {
@@ -108,7 +101,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 tmpResp = await Downloader.Get1(patternURL + tmpYear + patternFileExtension);
                 if (tmpResp == null)
                 {
-                    maxAvailableYear = tmpYear;
                     break;
                 }
                 else

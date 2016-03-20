@@ -35,7 +35,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.setSelectedDay((sender as TextBlock).Tag as string);
+            ViewModel.SelectedDays = (sender as TextBlock).Tag as string;
             (mainFrame.Parent as Frame).Navigate(typeof(Data), ViewModel);
         }
     }

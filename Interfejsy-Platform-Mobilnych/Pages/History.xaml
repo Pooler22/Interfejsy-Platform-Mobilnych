@@ -31,6 +31,9 @@
                 <TextBlock>Pobrane dane</TextBlock>
                 <ProgressBar></ProgressBar>
 
+                <ProgressRing  IsActive="True"></ProgressRing>
+                
+
             </StackPanel>
         </ScrollViewer>
         <CommandBar VerticalAlignment="Bottom">
