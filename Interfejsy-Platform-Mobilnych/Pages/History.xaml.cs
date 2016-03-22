@@ -1,7 +1,4 @@
 ﻿using Interfejsy_Platform_Mobilnych.ViewModel;
-using System;
-using Windows.Foundation;
-using Windows.UI.Input.Inking;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;

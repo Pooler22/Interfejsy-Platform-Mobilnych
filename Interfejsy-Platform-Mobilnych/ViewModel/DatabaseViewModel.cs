@@ -12,6 +12,13 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private ObservableCollection<Year> defaultDatabase = new ObservableCollection<Year>();
         public ObservableCollection<Year> DefaultDatabase { get { return defaultDatabase; } }
 
+        internal ObservableCollection<Table> tables = new ObservableCollection<Table>();
+        public ObservableCollection<Table> Tables { get { return tables; } }
+
+        internal string name;
+        public string Name { get { return name; } }
+
+
         private string patternURL = "http://www.nbp.pl/kursy/xml/dir";
         private string patternFileExtension = ".txt";
         private int minAvailableYear = 2002;
@@ -33,7 +40,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 return new DateTime(int.Parse("20" + tmp.Substring(5, 2)), int.Parse(tmp.Substring(7, 2)), int.Parse(tmp.Substring(9, 2)));
             }
         }
-
+        
         private string selectedDays;
         public string SelectedDays
         {
@@ -56,7 +63,22 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             get { return selectedCurrency; }
             set { selectedCurrency = value; }
         }
-        
+
+        public List<string> CurrencyListItems
+        {
+            get
+            {
+                //Todo
+                List<string> tmp = new List<string>();
+                
+                foreach (List<Position> str in tables[0].positions)
+                {
+                    tmp.Add(str[0]);
+                }
+                return ; //defaultDatabase[0].months[0].days[0].tables.listKeys;
+            }
+        }
+
         public void Init()
         {
             Storage storage = new Storage();
@@ -91,6 +113,41 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 }
             }
         }
+        internal async void Init2(string code)
+        {
+            name = code;
+            tables.Clear();
+            Storage storage = new Storage();
+
+
+            if (storage.IsFolder(code) && code != null)
+            {
+                await storage.createFile(code);
+                storage.readFile(code);
+                tables.Add(SerializerJSON.Serializer.deserialize<Table>(storage.readStringFromFile()));
+            }
+            else
+            {
+                if (Connection.IsInternet())
+                {
+                    string patternURL = "http://www.nbp.pl/kursy/xml/";
+                    string patternFileExtension = ".xml";
+
+                    string output = await Downloader.GetString(patternURL + code + patternFileExtension);
+                    tables.Add(DeserializerXML.deserialize(code, output));
+
+                    foreach (Table tab in tables)
+                    {
+                        storage.saveFile(tab.code, SerializerJSON.Serializer.serialize(tab));
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
+
 
         private async void DownloadFirstTimeDatabase()
         {

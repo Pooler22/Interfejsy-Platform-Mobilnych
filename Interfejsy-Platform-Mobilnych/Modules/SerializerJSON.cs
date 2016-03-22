@@ -21,7 +21,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             public static T deserialize<T>(string data)
             {
                 DataContractJsonSerializer js = new DataContractJsonSerializer(typeof(T));
-                MemoryStream ms = new MemoryStream(Encoding.ASCII.GetBytes(data));
+                MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(data));
                 return (T)js.ReadObject(ms);
             }
         }
