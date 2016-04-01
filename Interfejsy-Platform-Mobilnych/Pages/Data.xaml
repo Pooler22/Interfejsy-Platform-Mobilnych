@@ -11,7 +11,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mainGrid">
 
-        <Pivot Name="mainListView" Title="{x:Bind DayViewModel.Name}" ItemsSource="{x:Bind DayViewModel.Tables}" >
+        <Pivot Name="mainListView" Title="{x:Bind ViewModel.Name}" ItemsSource="{x:Bind ViewModel.Tables}" >
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="localModels:Table">
                     <TextBlock Text="{x:Bind ModelName}"></TextBlock>

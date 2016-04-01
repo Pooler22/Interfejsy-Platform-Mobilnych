@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
             <StackPanel Margin="5" Padding="5">
-                <ComboBox Header="Waluta" HorizontalAlignment="Center" VerticalAlignment="Center"></ComboBox>
+                <ComboBox Header="Waluta" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{x:Bind ViewModel.CurrencyListItems}"></ComboBox>
 
                 <TextBlock HorizontalAlignment="Center">Zakres dat:</TextBlock>
                 <DatePicker MinYear="{x:Bind ViewModel.MinAvailableDate}" MaxYear="{x:Bind ViewModel.MaxAvailableDate}" Name="StartDate" Header="Początkowa data" HorizontalAlignment="Center" DateChanged="Date_DateChanged"></DatePicker>

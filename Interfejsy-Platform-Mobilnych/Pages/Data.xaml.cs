@@ -8,7 +8,6 @@ namespace Interfejsy_Platform_Mobilnych
     public sealed partial class Data : Page
     {
         DatabaseViewModel ViewModel { get; set; }
-        DayViewModel DayViewModel { get; set; }
 
         public Data()
         {
@@ -18,8 +17,7 @@ namespace Interfejsy_Platform_Mobilnych
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel = e.Parameter as DatabaseViewModel;
-            DayViewModel = new DayViewModel();
-            DayViewModel.Init(ViewModel.SelectedDays);
+            ViewModel.Init2(ViewModel.SelectedDays);
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
