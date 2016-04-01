@@ -71,11 +71,11 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 //Todo
                 List<string> tmp = new List<string>();
                 
-                foreach (List<Position> str in tables[0].positions)
-                {
-                    tmp.Add(str[0]);
-                }
-                return ; //defaultDatabase[0].months[0].days[0].tables.listKeys;
+                //foreach (List<Position> str in tables[0].positions)
+                //{
+                //    tmp.Add(str[0]);
+                //}
+                return null; //defaultDatabase[0].months[0].days[0].tables.listKeys;
             }
         }
 
