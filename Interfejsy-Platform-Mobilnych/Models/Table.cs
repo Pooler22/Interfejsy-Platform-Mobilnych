@@ -16,14 +16,14 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         [DataMember]
         internal string code;
+
         [DataMember]
         internal string name;
-
         public string ModelName { get { return name; } }
 
-        public Table(string code)
+        public Table(string codeIn)
         {
-            this.code = code;
+            code = codeIn;
             name = ToString();
         }
 
@@ -38,10 +38,11 @@ namespace Interfejsy_Platform_Mobilnych.Models
             {
                 test = code[0];
             }
+
             switch (test)
             {
                 case 'a':
-                    return "kursy średnich walut obcych";
+                    return "Kursy średnich walut obcych";
                 default:
                     return "no name";
             }

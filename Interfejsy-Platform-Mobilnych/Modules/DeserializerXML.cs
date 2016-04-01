@@ -15,8 +15,10 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             
             foreach (XElement element in loadedData.Descendants(position).First().Elements())
             {
+                //to do: wielka pierwsza litera 
                 table.listKeys.Add(element.Name.ToString().Replace('_',' '));
             }
+
             table.positions = (from query in loadedData.Descendants(position)
                                select new Position() { listValues = getList(query.Elements()) })
                                .ToList();

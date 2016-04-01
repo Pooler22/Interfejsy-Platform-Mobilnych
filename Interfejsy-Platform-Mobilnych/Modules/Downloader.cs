@@ -10,19 +10,19 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         public static async Task<string> GetString(string uri)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Encoding iso_8859_2 = Encoding.GetEncoding("ISO-8859-2");
             byte[] get = await Get(uri);
-            return iso_8859_2.GetString(get, 0, get.Length);
+            return Encoding.GetEncoding("ISO-8859-2").GetString(get, 0, get.Length);
         }
 
         public static async Task<byte[]> Get(string uri)
         {
-            try { 
-            var content = await new HttpClient().GetByteArrayAsync(uri);
-                return await Task.Run(() => content);
+            try
+            {
+                return await Task.Run(async () => await new HttpClient().GetByteArrayAsync(uri));
             }
             catch (Exception e)
             {
+                //to do: obsługa błędu
                 return null;
             }
         }
@@ -31,11 +31,11 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         {
             try
             {
-                var content = await new HttpClient().GetStringAsync(uri);
-                return await Task.Run(() => content);
+                return await Task.Run(async () => await new HttpClient().GetStringAsync(uri));
             }
             catch (Exception e)
             {
+                //to do: obsługa błędu
                 return null;
             }
         }

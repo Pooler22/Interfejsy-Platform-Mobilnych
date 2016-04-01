@@ -8,9 +8,6 @@ namespace Interfejsy_Platform_Mobilnych.Modules
     {
         StorageFolder roamingFolder = ApplicationData.Current.RoamingFolder;
         StorageFile file;
-        string output;
-
-        public string Output { get { return output; } set { output = value; } }
         
         public async Task createFile(string name)
         {
