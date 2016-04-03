@@ -13,5 +13,11 @@ namespace Interfejsy_Platform_Mobilnych.Models
         [DataMember]
         internal List<Table> tables = new List<Table>();
         public List<Table> ModelTables { get { return tables; } }
+
+        public Year(int initNumber, List<Table> initTables)
+        {
+            number = initNumber;
+            tables = initTables;
+        }
     }
 }

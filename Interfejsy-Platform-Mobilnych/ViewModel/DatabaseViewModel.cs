@@ -21,20 +21,14 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         public DateTimeOffset MinDate
         {
-            get
-            {
-                return new DateTimeOffset(2002, 1, 2, 0, 0, 0, new TimeSpan());
-            }
+            get { return new DateTimeOffset(2002, 1, 2, 0, 0, 0, new TimeSpan()); }
         }
 
         public DateTimeOffset MaxDate
         {
-            get
-            {
-                return new DateTimeOffset(DateTime.Today);
-            }
+            get { return new DateTimeOffset(DateTime.Today); }
         }
-        
+
         internal string GetCode(DateTimeOffset? date)
         {
             foreach (Table tab in database[date.Value.Year - 2002].tables)
@@ -44,30 +38,62 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 {
                     return tab.code;
                 }
-
             }
             return null;
         }
 
-        internal void InitPositions(int v)
+        internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
         {
-            throw new NotImplementedException();
-        }
+            Storage storage = new Storage();
+            string patternURL = "http://www.nbp.pl/kursy/xml/";
+            string patternFileExtension = ".xml";
+            string output;
 
-        private string selectedDays;
-        public string SelectedDays
-        {
-            get
+            int tmpYearDif = date2.Value.Year - date1.Value.Year;
+            string numberOfDate1 = date1.Value.ToString("yyMMdd");
+            string numberOfDate2 = date2.Value.ToString("yyMMdd");
+            bool isDownload = false;
+            if (tmpYearDif == 0)
             {
-                if (selectedDays == null)
+                foreach (Table tab in database[date2.Value.Year - 2002].tables)
                 {
-                    return "LastA";
+                    if (tab.code.Contains(numberOfDate1))
+                    {
+                        isDownload = !isDownload;
+                        numberOfDate1 = numberOfDate2;
+                    }
+                    if (isDownload)
+                    {
+                        await storage.createFile(tab.code);
+                        output = await Downloader.GetString(patternURL + tab.code + patternFileExtension);
+                        storage.saveFile(tab.code, output);
+                        //downloadfile
+                    }
                 }
-                else
+
+            }
+            else if (tmpYearDif == 1)
+            {
+                //od daty lata[0] do daty [0]last, od lata[1].first do daty [1], 
+            }
+            else
+            {
+                //od daty lata[0] do daty [0]last, od lata[0<x<l-1].first do daty [0<x<l-1],  od lata[l-1].first do daty [l-1], 
+                for (int i = 0; i <= date2.Value.Year - date1.Value.Year; i++)
                 {
-                    return selectedDays;
+
                 }
             }
+
+
+
+
+        }
+
+        private string selectedDays = "LastA";
+        public string SelectedDays
+        {
+            get { return selectedDays; }
             set { selectedDays = value; }
         }
 
@@ -76,21 +102,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             get { return selectedCurrency; }
             set { selectedCurrency = value; }
-        }
-
-        public List<string> CurrencyListItems
-        {
-            get
-            {
-                //Todo
-                List<string> tmp = new List<string>();
-
-                //foreach (List<Position> str in tables[0].positions)
-                //{
-                //    tmp.Add(str[0]);
-                //}
-                return null;// database[0].months[0].days[0].tables.listKeys;
-            }
         }
 
         public DatabaseViewModel()
@@ -118,6 +129,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 { /*brak jakichkolwiek danych*/ }
             }
         }
+
         internal async void InitPositions(string code)
         {
             positions.Clear();
@@ -127,7 +139,10 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             {
                 await storage.createFile(code);
                 storage.readFile(code);
-                positions.Add(SerializerJSON.Serializer.deserialize<Position>(storage.readStringFromFile()));
+                foreach (Position pos in DeserializerXML.deserialize(storage.readStringFromFile()))
+                {
+                    positions.Add(pos);
+                }
             }
             else
             {
@@ -137,18 +152,18 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     string patternFileExtension = ".xml";
 
                     string output = await Downloader.GetString(patternURL + code + patternFileExtension);
-                    foreach (Position pos in DeserializerXML.deserialize(code, output))
+                    foreach (Position pos in DeserializerXML.deserialize(output))
                     {
                         positions.Add(pos);
                     }
+                    await storage.createFile(code);
+                    storage.saveFile(code, output);
                 }
                 else
                 {
-
                 }
             }
         }
-
 
         private async void DownloadFirstTimeDatabase()
         {
@@ -168,7 +183,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 }
             }
             database.Add((prepareStructure(tmpYear, await Downloader.Get1(patternURL + patternFileExtension))));
-
             Storage storage = new Storage();
             string nameFile = "Data";
             storage.saveFile(nameFile, SerializerJSON.Serializer.serialize(database.ToList()));
@@ -176,24 +190,13 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         private Year prepareStructure(int inYear, string text)
         {
-            Year year = new Year();
-            year.number = inYear;
-            string tmpID = "";
-
-            foreach (var i in (text.Replace("\r", "").Split('\n')))
+            List<Table> tab = new List<Table>();
+            foreach (string i in (text.Remove('\r').Split('\n')))
             {
-                if (i != null && i != "" && (i.Substring(0, 1) == "a"))
-                {
-                    tmpID = i.Substring(9, 2);
-                    year.tables.Add(new Table(i));
-                }
+                if (i != null && i != "" && (i.First() == 'a'))
+                    tab.Add(new Table(i));
             }
-            return year;
-        }
-
-        internal Table getTable(string tag)
-        {
-            return database[int.Parse(tag.Substring(5, 2)) - 1].tables[0];
+            return new Year(inYear, tab);
         }
     }
 }

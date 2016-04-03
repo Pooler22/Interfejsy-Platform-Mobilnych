@@ -35,7 +35,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewModel.Generate(StartDate.Date, EndDate.Date);
         }
 
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
