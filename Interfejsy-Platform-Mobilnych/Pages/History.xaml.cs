@@ -21,7 +21,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void Date_DateChanged(object sender, DatePickerValueChangedEventArgs e)
         {
-            if(StartDate.Date < StartDate.Date)
+            if(StartDate.Date < EndDate.Date)
             {
                 GenerateButton.IsEnabled = true;
                 InfoTextBlock.Visibility = Visibility.Collapsed;
@@ -34,6 +34,11 @@ namespace Interfejsy_Platform_Mobilnych
         }
 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
 
         }

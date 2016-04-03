@@ -19,24 +19,41 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private string patternFileExtension = ".txt";
         private int minAvailableYear = 2002;
 
-        public DateTimeOffset MinAvailableDate
+        public DateTimeOffset MinDate
         {
             get
             {
-                string tmp = database[0].tables[0].ModelCode;
-                return new DateTime(int.Parse("20" + tmp.Substring(5, 2)), int.Parse(tmp.Substring(7, 2)), int.Parse(tmp.Substring(9, 2)));
+                return new DateTimeOffset(2002, 1, 2, 0, 0, 0, new TimeSpan());
             }
         }
 
-        public DateTimeOffset MaxAvailableDate
+        public DateTimeOffset MaxDate
         {
             get
             {
-                string tmp = database.Last().tables.Last().ModelCode;
-                return new DateTime(int.Parse("20" + tmp.Substring(5, 2)), int.Parse(tmp.Substring(7, 2)), int.Parse(tmp.Substring(9, 2)));
+                return new DateTimeOffset(DateTime.Today);
             }
         }
         
+        internal string GetCode(DateTimeOffset? date)
+        {
+            foreach (Table tab in database[date.Value.Year - 2002].tables)
+            {
+                string tmp = (date.Value.ToString("yyMMdd"));
+                if (tab.code.Contains(tmp))
+                {
+                    return tab.code;
+                }
+
+            }
+            return null;
+        }
+
+        internal void InitPositions(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         private string selectedDays;
         public string SelectedDays
         {
@@ -55,7 +72,8 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         }
 
         private string selectedCurrency;
-        public string SelectedCurrency {
+        public string SelectedCurrency
+        {
             get { return selectedCurrency; }
             set { selectedCurrency = value; }
         }
@@ -66,7 +84,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             {
                 //Todo
                 List<string> tmp = new List<string>();
-                
+
                 //foreach (List<Position> str in tables[0].positions)
                 //{
                 //    tmp.Add(str[0]);
@@ -74,7 +92,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 return null;// database[0].months[0].days[0].tables.listKeys;
             }
         }
-        
+
         public DatabaseViewModel()
         {
             Storage storage = new Storage();
@@ -82,6 +100,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
             if (storage.IsFile(nameFile))
             {
+                storage.createFile(nameFile);
                 storage.readFile(nameFile);
                 foreach (Year year in SerializerJSON.Serializer.deserialize<List<Year>>(storage.readStringFromFile()))
                 {
@@ -103,7 +122,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             positions.Clear();
             Storage storage = new Storage();
-            
+
             if (storage.IsFile(code) && code != null)
             {
                 await storage.createFile(code);
@@ -118,14 +137,10 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     string patternFileExtension = ".xml";
 
                     string output = await Downloader.GetString(patternURL + code + patternFileExtension);
-                    foreach(Position pos in DeserializerXML.deserialize(code, output))
+                    foreach (Position pos in DeserializerXML.deserialize(code, output))
                     {
                         positions.Add(pos);
                     }
-                    //foreach (Position position in positions)
-                    //{
-                    //    storage.saveFile(position.code, SerializerJSON.Serializer.serialize(position));
-                    //}
                 }
                 else
                 {

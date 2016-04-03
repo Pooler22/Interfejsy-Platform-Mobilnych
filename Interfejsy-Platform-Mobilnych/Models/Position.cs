@@ -14,5 +14,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
         {
             listValues = initValues;
         }
+
+        public string Summary { get { return listValues[0]; } }
     }
 }

@@ -25,5 +25,10 @@ namespace Interfejsy_Platform_Mobilnych
             ViewModel.SelectedCurrency = (sender as Grid).Tag as string;
             ((mainGrid.Parent as Page).Parent as Frame).Navigate(typeof(History), ViewModel);
         }
+
+        private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        {
+            ViewModel.InitPositions(ViewModel.GetCode((sender as CalendarDatePicker).Date));
+        }
     }
 }

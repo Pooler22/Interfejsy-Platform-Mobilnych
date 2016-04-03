@@ -1,5 +1,4 @@
-﻿using Interfejsy_Platform_Mobilnych.Pages;
-using Interfejsy_Platform_Mobilnych.ViewModel;
+﻿using Interfejsy_Platform_Mobilnych.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -21,11 +20,7 @@ namespace Interfejsy_Platform_Mobilnych
         {
             mainFrame.Navigate(typeof(Data), ViewModel);
         }
-
-        private void ArchiveButton_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.Navigate(typeof(Date), ViewModel);
-        }
+        
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {

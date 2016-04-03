@@ -20,7 +20,6 @@
         
         <CommandBar Grid.Row="2">
             <AppBarButton Icon="Home" Label="Home" Click="TodayButton_Click"/>
-            <AppBarButton Icon="List" Label="Archive" Click="ArchiveButton_Click"/>
             <AppBarButton Icon="Clear" Label="Exit" Click="ExitButton_Click"/>
         </CommandBar>
     </Grid>
