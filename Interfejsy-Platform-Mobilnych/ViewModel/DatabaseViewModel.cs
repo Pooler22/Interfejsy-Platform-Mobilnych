@@ -9,15 +9,11 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
     class DatabaseViewModel
     {
-        private ObservableCollection<Year> defaultDatabase = new ObservableCollection<Year>();
-        public ObservableCollection<Year> DefaultDatabase { get { return defaultDatabase; } }
+        private ObservableCollection<Year> database = new ObservableCollection<Year>();
+        public ObservableCollection<Year> Database { get { return database; } }
 
-        internal ObservableCollection<Table> tables = new ObservableCollection<Table>();
-        public ObservableCollection<Table> Tables { get { return tables; } }
-
-        internal string name;
-        public string Name { get { return name; } }
-
+        internal ObservableCollection<Position> positions = new ObservableCollection<Position>();
+        public ObservableCollection<Position> Positions { get { return positions; } }
 
         private string patternURL = "http://www.nbp.pl/kursy/xml/dir";
         private string patternFileExtension = ".txt";
@@ -27,7 +23,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             get
             {
-                string tmp = defaultDatabase[0].months[0].days[0].Code;
+                string tmp = database[0].tables[0].ModelCode;
                 return new DateTime(int.Parse("20" + tmp.Substring(5, 2)), int.Parse(tmp.Substring(7, 2)), int.Parse(tmp.Substring(9, 2)));
             }
         }
@@ -36,7 +32,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             get
             {
-                string tmp = defaultDatabase.Last().months.Last().days.Last().Code;
+                string tmp = database.Last().tables.Last().ModelCode;
                 return new DateTime(int.Parse("20" + tmp.Substring(5, 2)), int.Parse(tmp.Substring(7, 2)), int.Parse(tmp.Substring(9, 2)));
             }
         }
@@ -75,56 +71,44 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 //{
                 //    tmp.Add(str[0]);
                 //}
-                return null; //defaultDatabase[0].months[0].days[0].tables.listKeys;
+                return null;// database[0].months[0].days[0].tables.listKeys;
             }
         }
-
-        public void Init()
+        
+        public DatabaseViewModel()
         {
             Storage storage = new Storage();
             string nameFile = "Data";
 
-            if (storage.IsFolder(nameFile))
+            if (storage.IsFile(nameFile))
             {
                 storage.readFile(nameFile);
                 foreach (Year year in SerializerJSON.Serializer.deserialize<List<Year>>(storage.readStringFromFile()))
                 {
-                    defaultDatabase.Add(year);
+                    database.Add(year);
                 }
 
                 if (Connection.IsInternet())
-                {
-                    //pobranie aktualizacji
-                }
+                { /*pobranie aktualizacji*/ }
             }
             else
             {
                 if (Connection.IsInternet())
-                {
-                    DownloadFirstTimeDatabase();
-                    foreach (Year year in defaultDatabase)
-                    {
-                        storage.saveFile(nameFile, SerializerJSON.Serializer.serialize(year));
-                    }
-                }
+                { DownloadFirstTimeDatabase(); }
                 else
-                {
-                    //brak jakichkolwiek danych
-                }
+                { /*brak jakichkolwiek danych*/ }
             }
         }
-        internal async void Init2(string code)
+        internal async void InitPositions(string code)
         {
-            name = code;
-            tables.Clear();
+            positions.Clear();
             Storage storage = new Storage();
-
-
-            if (storage.IsFolder(code) && code != null)
+            
+            if (storage.IsFile(code) && code != null)
             {
                 await storage.createFile(code);
                 storage.readFile(code);
-                tables.Add(SerializerJSON.Serializer.deserialize<Table>(storage.readStringFromFile()));
+                positions.Add(SerializerJSON.Serializer.deserialize<Position>(storage.readStringFromFile()));
             }
             else
             {
@@ -134,12 +118,14 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     string patternFileExtension = ".xml";
 
                     string output = await Downloader.GetString(patternURL + code + patternFileExtension);
-                    tables.Add(DeserializerXML.deserialize(code, output));
-
-                    foreach (Table tab in tables)
+                    foreach(Position pos in DeserializerXML.deserialize(code, output))
                     {
-                        storage.saveFile(tab.code, SerializerJSON.Serializer.serialize(tab));
+                        positions.Add(pos);
                     }
+                    //foreach (Position position in positions)
+                    //{
+                    //    storage.saveFile(position.code, SerializerJSON.Serializer.serialize(position));
+                    //}
                 }
                 else
                 {
@@ -162,39 +148,29 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 }
                 else
                 {
-                    defaultDatabase.Add(prepareStructure(tmpYear, tmpResp));
+                    database.Add(prepareStructure(tmpYear, tmpResp));
                     tmpYear++;
                 }
             }
-            defaultDatabase.Add((prepareStructure(tmpYear, await Downloader.Get1(patternURL + patternFileExtension))));
+            database.Add((prepareStructure(tmpYear, await Downloader.Get1(patternURL + patternFileExtension))));
+
+            Storage storage = new Storage();
+            string nameFile = "Data";
+            storage.saveFile(nameFile, SerializerJSON.Serializer.serialize(database.ToList()));
         }
 
         private Year prepareStructure(int inYear, string text)
         {
             Year year = new Year();
             year.number = inYear;
-            string tmpIM = "", tmpID = "";
+            string tmpID = "";
 
             foreach (var i in (text.Replace("\r", "").Split('\n')))
             {
-                if (i != "" && i != null && (i.Substring(0, 1) == "a"))
+                if (i != null && i != "" && (i.Substring(0, 1) == "a"))
                 {
-                    if (tmpIM != i.Substring(7, 2))
-                    {
-                        tmpIM = i.Substring(7, 2);
-                        year.months.Add(new Month(int.Parse(tmpIM)));
-
-                    }
-                    if (tmpID != i.Substring(9, 2))
-                    {
-                        tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days.Add(new Day() { number = i });
-                    }
-                    else
-                    {
-                        tmpID = i.Substring(9, 2);
-                        year.months[year.months.Count - 1].days[year.months[year.months.Count - 1].days.Count - 1].tables = new Table(i);
-                    }
+                    tmpID = i.Substring(9, 2);
+                    year.tables.Add(new Table(i));
                 }
             }
             return year;
@@ -202,15 +178,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         internal Table getTable(string tag)
         {
-            //if (tag != null)
-            //{
-            return defaultDatabase[int.Parse(tag.Substring(5, 2)) - 1].months[int.Parse(tag.Substring(7, 2))].days[int.Parse(tag.Substring(9, 2))].tables;
-            //}
-            //else
-            //{
-            //    //return last table from database
-            //    return new Table("");
-            //}
+            return database[int.Parse(tag.Substring(5, 2)) - 1].tables[0];
         }
     }
 }

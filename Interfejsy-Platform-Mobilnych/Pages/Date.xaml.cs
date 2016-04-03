@@ -18,6 +18,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel = e.Parameter as DatabaseViewModel;
+            //var items = kalendarz.item;
         }
 
         private void TextBlock_PointerPressed(object sender, TappedRoutedEventArgs e)

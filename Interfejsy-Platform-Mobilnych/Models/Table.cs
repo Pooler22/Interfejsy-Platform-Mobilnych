@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
@@ -7,45 +6,22 @@ namespace Interfejsy_Platform_Mobilnych.Models
     class Table
     {
         [DataMember]
-        internal List<Position> positions = new List<Position>();
-        public List<Position> Positions { get { return positions; } }
-
-        [DataMember]
-        internal List<string> listKeys = new List<string>();
-        public List<string> ModelListKeys { get { return listKeys; } }
-
-        [DataMember]
         internal string code;
-
+        public string ModelCode { get { return code; } }
+        
         [DataMember]
-        internal string name;
-        public string ModelName { get { return name; } }
+        internal bool isDownloaded;
+        public bool IsDownloaded { get { return isDownloaded; } }
 
-        public Table(string codeIn)
+        public Table(string initCode)
         {
-            code = codeIn;
-            name = ToString();
+            isDownloaded = false;
+            code = initCode;
         }
 
-        public override string ToString()
+        public void setDownloaded()
         {
-            char test;
-            if (code.Contains("Last"))
-            {
-                test = (code.ToLower())[code.Length - 1];
-            }
-            else
-            {
-                test = code[0];
-            }
-
-            switch (test)
-            {
-                case 'a':
-                    return "Kursy średnich walut obcych";
-                default:
-                    return "no name";
-            }
+            isDownloaded = true;
         }
     }
 }

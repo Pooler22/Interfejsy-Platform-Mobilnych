@@ -7,22 +7,11 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 {
     class DeserializerXML
     {
-        internal static Table deserialize(string code, string xmlString)
+        internal static IEnumerable<Position> deserialize(string code, string xmlString)
         {
-            Table table = new Table(code);
             XDocument loadedData = XDocument.Parse(xmlString);
             string position = "pozycja";
-            
-            foreach (XElement element in loadedData.Descendants(position).First().Elements())
-            {
-                //to do: wielka pierwsza litera 
-                table.listKeys.Add(element.Name.ToString().Replace('_',' '));
-            }
-
-            table.positions = (from query in loadedData.Descendants(position)
-                               select new Position() { listValues = getList(query.Elements()) })
-                               .ToList();
-            return table;
+            return (from query in loadedData.Descendants(position) select new Position(getList(query.Elements())));
         }
 
         internal static List<string> getList(IEnumerable<XElement> input)

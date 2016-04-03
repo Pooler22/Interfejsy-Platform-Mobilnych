@@ -14,7 +14,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             file = await roamingFolder.CreateFileAsync(name, CreationCollisionOption.OpenIfExists);
         }
 
-        public bool IsFolder(string name)
+        public bool IsFile(string name)
         {
             return System.IO.File.Exists(string.Format(@"{0}\{1}", ApplicationData.Current.RoamingFolder.Path, name));
         }
@@ -33,7 +33,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         public string readStringFromFile()
         {
             string text = null;
-            Task.Run(
+                Task.Run(
                 async () =>
                 {
                     text = await FileIO.ReadTextAsync(file);

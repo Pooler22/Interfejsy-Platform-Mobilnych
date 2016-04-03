@@ -2,7 +2,6 @@
 using Interfejsy_Platform_Mobilnych.ViewModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
 namespace Interfejsy_Platform_Mobilnych
 {
@@ -14,14 +13,10 @@ namespace Interfejsy_Platform_Mobilnych
         {
             InitializeComponent();
             ViewModel = new DatabaseViewModel();
+            ViewModel.InitPositions(ViewModel.SelectedDays);
+            Loaded += TodayButton_Click;
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.Init();
-            mainFrame.Navigate(typeof(Data), ViewModel);
-        }
-
+        
         private void TodayButton_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Navigate(typeof(Data), ViewModel);

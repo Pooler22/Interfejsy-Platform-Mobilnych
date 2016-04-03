@@ -17,7 +17,7 @@ namespace Interfejsy_Platform_Mobilnych
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel = e.Parameter as DatabaseViewModel;
-            ViewModel.Init2(ViewModel.SelectedDays);
+            ViewModel.InitPositions(ViewModel.SelectedDays);
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)

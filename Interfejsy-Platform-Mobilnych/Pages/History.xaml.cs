@@ -7,12 +7,12 @@ namespace Interfejsy_Platform_Mobilnych
 {
     public sealed partial class History : Page
     {
+        DatabaseViewModel ViewModel { get; set; }
+
         public History()
         {
             InitializeComponent();
         }
-
-        DatabaseViewModel ViewModel { get; set; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

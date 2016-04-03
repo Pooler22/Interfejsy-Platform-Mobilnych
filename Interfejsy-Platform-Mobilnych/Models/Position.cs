@@ -9,5 +9,10 @@ namespace Interfejsy_Platform_Mobilnych.Models
         [DataMember]
         internal List<string> listValues = new List<string>();
         public List<string> ModelListValues { get { return listValues; } }
+
+        public Position(List<string> initValues)
+        {
+            listValues = initValues;
+        }
     }
 }

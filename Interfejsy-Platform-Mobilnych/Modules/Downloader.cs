@@ -20,7 +20,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             {
                 return await Task.Run(async () => await new HttpClient().GetByteArrayAsync(uri));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //to do: obsługa błędu
                 return null;
@@ -33,7 +33,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             {
                 return await Task.Run(async () => await new HttpClient().GetStringAsync(uri));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //to do: obsługa błędu
                 return null;

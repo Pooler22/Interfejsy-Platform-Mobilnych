@@ -11,7 +11,7 @@
     <AssemblyName>Interfejsy-Platform-Mobilnych</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -100,9 +100,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Database.cs" />
-    <Compile Include="Models\Day.cs" />
-    <Compile Include="Models\Month.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Models\Year.cs" />
