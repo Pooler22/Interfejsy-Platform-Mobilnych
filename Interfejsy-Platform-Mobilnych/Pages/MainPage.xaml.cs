@@ -15,12 +15,11 @@ namespace Interfejsy_Platform_Mobilnych
             ViewModel.InitPositions(ViewModel.SelectedDays);
             Loaded += TodayButton_Click;
         }
-        
+
         private void TodayButton_Click(object sender, RoutedEventArgs e)
         {
             mainFrame.Navigate(typeof(Data), ViewModel);
         }
-        
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {

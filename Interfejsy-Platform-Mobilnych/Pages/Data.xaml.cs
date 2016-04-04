@@ -22,7 +22,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.SelectedCurrency = (sender as Grid).Tag as string;
+            ViewModel.setSelectedCurrency((sender as Grid).Tag as string);
             ((mainGrid.Parent as Page).Parent as Frame).Navigate(typeof(History), ViewModel);
         }
 

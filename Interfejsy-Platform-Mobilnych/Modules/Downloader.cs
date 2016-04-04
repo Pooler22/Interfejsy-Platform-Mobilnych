@@ -7,7 +7,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 {
     public sealed class Downloader
     {
-        public static async Task<string> GetString(string uri)
+        public static async Task<string> DownloadXml(string uri)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             byte[] get = await Get(uri);
@@ -27,7 +27,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             }
         }
 
-        public static async Task<string> Get1(string uri)
+        public static async Task<string> DownloadString(string uri)
         {
             try
             {

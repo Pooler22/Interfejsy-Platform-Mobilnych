@@ -14,7 +14,7 @@
                 <ComboBox Header="Waluta" HorizontalAlignment="Center"  ItemsSource="{x:Bind ViewModel.Positions}" SelectedValue="{x:Bind ViewModel.SelectedCurrency}" VerticalAlignment="Center">
                     <ComboBox.ItemTemplate>
                         <DataTemplate x:DataType="local1:Position">
-                            <TextBlock Text="{x:Bind ModelListValues[0]}"/>
+                            <TextBlock Text="{x:Bind ListValues[0]}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>

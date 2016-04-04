@@ -6,19 +6,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:localModels="using:Interfejsy_Platform_Mobilnych.Models"
-    
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Name="mainGrid">
+    <Grid Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <TextBox Text="Change date data:"/>
-            <CalendarDatePicker DateChanged="CalendarDatePicker_DateChanged" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Stretch"/>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="Select new date:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <CalendarDatePicker  DateChanged="CalendarDatePicker_DateChanged" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -26,12 +27,13 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock  FontWeight="Bold" Grid.Column="0" Text="Nazwa"/>
-            <TextBlock  FontWeight="Bold" Grid.Column="1" Text="Przelicznik"/>
-            <TextBlock  FontWeight="Bold" Grid.Column="2" Text="Kod"/>
-            <TextBlock  FontWeight="Bold" Grid.Column="3" Text="Kurs średni"/>
+            <TextBlock FontWeight="Bold" Grid.Column="0" Text="Nazwa"/>
+            <TextBlock FontWeight="Bold" Grid.Column="1" Text="Przelicznik"/>
+            <TextBlock FontWeight="Bold" Grid.Column="2" Text="Kod"/>
+            <TextBlock FontWeight="Bold" Grid.Column="3" Text="Kurs średni"/>
         </Grid>
-        <ListView Grid.Row="2" ItemsSource="{x:Bind ViewModel.Positions}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+
+        <ListView Grid.Row="2" ItemsSource="{x:Bind ViewModel.Positions}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -39,17 +41,17 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="localModels:Position">
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="TextBlock_Tapped" Tag="{x:Bind ModelListValues[0]}">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="TextBlock_Tapped" Tag="{x:Bind ListValues[0]}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Height="Auto" Text="{x:Bind ModelListValues[0]}"></TextBlock>
-                        <TextBlock Grid.Column="1" Height="Auto" Text="{x:Bind ModelListValues[1]}"></TextBlock>
-                        <TextBlock Grid.Column="2" Height="Auto" Text="{x:Bind ModelListValues[2]}"></TextBlock>
-                        <TextBlock Grid.Column="3" Height="Auto" Text="{x:Bind ModelListValues[3]}"></TextBlock>
+                        <TextBlock Grid.Column="0" Height="Auto" Text="{x:Bind ListValues[0]}"></TextBlock>
+                        <TextBlock Grid.Column="1" Height="Auto" Text="{x:Bind ListValues[1]}"></TextBlock>
+                        <TextBlock Grid.Column="2" Height="Auto" Text="{x:Bind ListValues[2]}"></TextBlock>
+                        <TextBlock Grid.Column="3" Height="Auto" Text="{x:Bind ListValues[3]}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

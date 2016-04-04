@@ -8,11 +8,11 @@ namespace Interfejsy_Platform_Mobilnych.Models
     {
         [DataMember]
         internal int number;
-        public int ModelNumber { get { return number; } }
+        public int Number { get { return number; } }
 
         [DataMember]
         internal List<Table> tables = new List<Table>();
-        public List<Table> ModelTables { get { return tables; } }
+        public List<Table> Tables { get { return tables; } }
 
         public Year(int initNumber, List<Table> initTables)
         {

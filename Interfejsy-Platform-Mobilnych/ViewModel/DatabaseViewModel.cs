@@ -31,7 +31,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         internal string GetCode(DateTimeOffset? date)
         {
-            foreach (Table tab in database[date.Value.Year - 2002].tables)
+            foreach (Table tab in database[date.Value.Year - minAvailableYear].tables)
             {
                 string tmp = (date.Value.ToString("yyMMdd"));
                 if (tab.code.Contains(tmp))
@@ -39,7 +39,8 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     return tab.code;
                 }
             }
-            return null;
+            //todo info o barku daty
+            return "LastA";
         }
 
         internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
@@ -65,7 +66,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     if (isDownload)
                     {
                         await storage.createFile(tab.code);
-                        output = await Downloader.GetString(patternURL + tab.code + patternFileExtension);
+                        output = await Downloader.DownloadXml(patternURL + tab.code + patternFileExtension);
                         storage.saveFile(tab.code, output);
                         //downloadfile
                     }
@@ -101,7 +102,11 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         public string SelectedCurrency
         {
             get { return selectedCurrency; }
-            set { selectedCurrency = value; }
+        }
+
+        public void setSelectedCurrency(string value)
+        {
+            selectedCurrency = value;
         }
 
         public DatabaseViewModel()
@@ -151,7 +156,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     string patternURL = "http://www.nbp.pl/kursy/xml/";
                     string patternFileExtension = ".xml";
 
-                    string output = await Downloader.GetString(patternURL + code + patternFileExtension);
+                    string output = await Downloader.DownloadXml(patternURL + code + patternFileExtension);
                     foreach (Position pos in DeserializerXML.deserialize(output))
                     {
                         positions.Add(pos);
@@ -171,7 +176,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             string tmpResp;
             while (true)
             {
-                tmpResp = await Downloader.Get1(patternURL + tmpYear + patternFileExtension);
+                tmpResp = await Downloader.DownloadString(patternURL + tmpYear + patternFileExtension);
                 if (tmpResp == null)
                 {
                     break;
@@ -182,7 +187,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                     tmpYear++;
                 }
             }
-            database.Add((prepareStructure(tmpYear, await Downloader.Get1(patternURL + patternFileExtension))));
+            database.Add((prepareStructure(tmpYear, await Downloader.DownloadString(patternURL + patternFileExtension))));
             Storage storage = new Storage();
             string nameFile = "Data";
             storage.saveFile(nameFile, SerializerJSON.Serializer.serialize(database.ToList()));

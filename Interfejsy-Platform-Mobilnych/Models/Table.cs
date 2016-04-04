@@ -7,7 +7,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
     {
         [DataMember]
         internal string code;
-        public string ModelCode { get { return code; } }
+        public string Code { get { return code; } }
         
         [DataMember]
         internal bool isDownloaded;
