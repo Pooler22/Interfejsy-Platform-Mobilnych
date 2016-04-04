@@ -14,10 +14,14 @@ namespace Interfejsy_Platform_Mobilnych.Models
         internal List<Table> tables = new List<Table>();
         public List<Table> Tables { get { return tables; } }
 
-        public Year(int initNumber, List<Table> initTables)
+        public Year(int initNumber)
         {
             number = initNumber;
-            tables = initTables;
+        }
+
+        public void AddTable(Table newTable)
+        {
+            tables.Add(newTable);
         }
     }
 }

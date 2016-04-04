@@ -30,5 +30,6 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             }
             return list;
         }
+
     }
 }

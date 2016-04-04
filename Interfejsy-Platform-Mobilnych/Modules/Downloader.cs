@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Interfejsy_Platform_Mobilnych.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +41,32 @@ namespace Interfejsy_Platform_Mobilnych.Modules
                 //to do: obsługa błędu
                 return null;
             }
+        }
+
+        internal static async Task<List<Position>> getFile(string code)
+        {
+            string patternURL = "http://www.nbp.pl/kursy/xml/";
+            string patternFileExtension = ".xml";
+            List<Position> positions = new List<Position>();
+            Storage storage = new Storage();
+
+            if (storage.IsFile(code) && code != null)
+            {
+                await storage.createFile(code);
+                storage.readFile(code);
+                DeserializerXML.deserialize(storage.readStringFromFile()).ToList().ForEach((x) => positions.Add(x));
+            }
+            else
+            {
+                if (Connection.IsInternet())
+                {
+                    string output = await DownloadXml(patternURL + code + patternFileExtension);
+                    await storage.createFile(code);
+                    storage.saveFile(code, output);
+                    DeserializerXML.deserialize(output).ToList().ForEach((x) => positions.Add(x));                    
+                }
+            }
+            return positions;
         }
     }
 }

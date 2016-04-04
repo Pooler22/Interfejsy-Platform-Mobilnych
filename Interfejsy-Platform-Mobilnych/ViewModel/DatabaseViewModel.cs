@@ -9,66 +9,53 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
     class DatabaseViewModel
     {
+        private static string patternURL = "http://www.nbp.pl/kursy/xml/dir";
+        private static string patternFileExtension = ".txt";
+        private static int minAvailableYear = 2002;
+
         private ObservableCollection<Year> database = new ObservableCollection<Year>();
         public ObservableCollection<Year> Database { get { return database; } }
 
         internal ObservableCollection<Position> positions = new ObservableCollection<Position>();
         public ObservableCollection<Position> Positions { get { return positions; } }
-
-        private string patternURL = "http://www.nbp.pl/kursy/xml/dir";
-        private string patternFileExtension = ".txt";
-        private int minAvailableYear = 2002;
-
-        public DateTimeOffset MinDate
-        {
-            get { return new DateTimeOffset(2002, 1, 2, 0, 0, 0, new TimeSpan()); }
-        }
-
-        public DateTimeOffset MaxDate
-        {
-            get { return new DateTimeOffset(DateTime.Today); }
-        }
+        
+        public DateTimeOffset MinDate = new DateTimeOffset(new DateTime(2002, 1, 2));
+        public DateTimeOffset MaxDate = new DateTimeOffset(DateTime.Today);
 
         internal string GetCode(DateTimeOffset? date)
         {
-            foreach (Table tab in database[date.Value.Year - minAvailableYear].tables)
-            {
-                string tmp = (date.Value.ToString("yyMMdd"));
-                if (tab.code.Contains(tmp))
-                {
-                    return tab.code;
-                }
-            }
-            //todo info o barku daty
-            return "LastA";
+            string tmp = (date.Value.ToString("yyMMdd"));
+            return database[date.Value.Year - minAvailableYear].tables.First((x) => x.code.Contains(tmp)).code;
         }
 
-        internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
+        internal void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
         {
             Storage storage = new Storage();
             string patternURL = "http://www.nbp.pl/kursy/xml/";
             string patternFileExtension = ".xml";
             string output;
-
+            
             int tmpYearDif = date2.Value.Year - date1.Value.Year;
             string numberOfDate1 = date1.Value.ToString("yyMMdd");
             string numberOfDate2 = date2.Value.ToString("yyMMdd");
+            string code1, code2;
+            int nrCode1, nrCode2;
             bool isDownload = false;
+            int tmp = date2.Value.Year - 2002;
+
             if (tmpYearDif == 0)
             {
-                foreach (Table tab in database[date2.Value.Year - 2002].tables)
+                for(int i = 0; i < tmp; i++)
                 {
-                    if (tab.code.Contains(numberOfDate1))
+                    if (database[tmp].tables[i].code.Contains(numberOfDate1))
                     {
-                        isDownload = !isDownload;
-                        numberOfDate1 = numberOfDate2;
+                        code1 = database[tmp].tables[i].code;
+                        nrCode1 = i;
                     }
-                    if (isDownload)
+                    else if (database[tmp].tables[i].code.Contains(numberOfDate2))
                     {
-                        await storage.createFile(tab.code);
-                        output = await Downloader.DownloadXml(patternURL + tab.code + patternFileExtension);
-                        storage.saveFile(tab.code, output);
-                        //downloadfile
+                        code2 = database[tmp].tables[i].code;
+                        nrCode2 = i;
                     }
                 }
 
@@ -82,13 +69,8 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 //od daty lata[0] do daty [0]last, od lata[0<x<l-1].first do daty [0<x<l-1],  od lata[l-1].first do daty [l-1], 
                 for (int i = 0; i <= date2.Value.Year - date1.Value.Year; i++)
                 {
-
                 }
             }
-
-
-
-
         }
 
         private string selectedDays = "LastA";
@@ -195,13 +177,13 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         private Year prepareStructure(int inYear, string text)
         {
-            List<Table> tab = new List<Table>();
-            foreach (string i in (text.Remove('\r').Split('\n')))
+            Year year = new Year(inYear);
+            foreach (string i in (text.Replace("\r\n"," ").Split(' ')))
             {
                 if (i != null && i != "" && (i.First() == 'a'))
-                    tab.Add(new Table(i));
+                    year.AddTable(new Table(i));
             }
-            return new Year(inYear, tab);
+            return year;
         }
     }
 }
