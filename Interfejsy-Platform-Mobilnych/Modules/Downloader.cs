@@ -17,6 +17,42 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             return Encoding.GetEncoding("ISO-8859-2").GetString(get, 0, get.Length);
         }
 
+        internal static async Task<List<Position>> getPositionsFromCode(string code)
+        {
+            Storage storage = new Storage();
+            List<Position> positions = new List<Position>();
+
+            if (storage.IsFile(code) && code != null)
+            {
+                await storage.createFile(code);
+                storage.readFile(code);
+                foreach (Position pos in DeserializerXML.deserialize(storage.readStringFromFile()))
+                {
+                    positions.Add(pos);
+                }
+            }
+            else
+            {
+                if (Connection.IsInternet())
+                {
+                    string patternURL = "http://www.nbp.pl/kursy/xml/";
+                    string patternFileExtension = ".xml";
+
+                    string output = await Downloader.DownloadXml(patternURL + code + patternFileExtension);
+                    foreach (Position pos in DeserializerXML.deserialize(output))
+                    {
+                        positions.Add(pos);
+                    }
+                    await storage.createFile(code);
+                    storage.saveFile(code, output);
+                }
+                else
+                {
+                }
+            }
+            return positions;
+        }
+
         public static async Task<byte[]> Get(string uri)
         {
             try

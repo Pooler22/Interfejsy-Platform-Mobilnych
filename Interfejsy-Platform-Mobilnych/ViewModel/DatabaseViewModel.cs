@@ -16,9 +16,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private ObservableCollection<Year> database = new ObservableCollection<Year>();
         public ObservableCollection<Year> Database { get { return database; } }
 
-        internal ObservableCollection<Position> positions = new ObservableCollection<Position>();
-        public ObservableCollection<Position> Positions { get { return positions; } }
-        
         public DateTimeOffset MinDate = new DateTimeOffset(new DateTime(2002, 1, 2));
         public DateTimeOffset MaxDate = new DateTimeOffset(DateTime.Today);
 
@@ -28,37 +25,46 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             return database[date.Value.Year - minAvailableYear].tables.First((x) => x.code.Contains(tmp)).code;
         }
 
-        internal void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
+        private ObservableCollection<Progress> progress = new ObservableCollection<Progress>() { new Progress() };
+        public ObservableCollection<Progress> Progress { get { return progress; } }
+
+        internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
         {
             Storage storage = new Storage();
-            string patternURL = "http://www.nbp.pl/kursy/xml/";
-            string patternFileExtension = ".xml";
-            string output;
-            
             int tmpYearDif = date2.Value.Year - date1.Value.Year;
             string numberOfDate1 = date1.Value.ToString("yyMMdd");
             string numberOfDate2 = date2.Value.ToString("yyMMdd");
-            string code1, code2;
-            int nrCode1, nrCode2;
-            bool isDownload = false;
             int tmp = date2.Value.Year - 2002;
 
             if (tmpYearDif == 0)
             {
-                for(int i = 0; i < tmp; i++)
-                {
-                    if (database[tmp].tables[i].code.Contains(numberOfDate1))
-                    {
-                        code1 = database[tmp].tables[i].code;
-                        nrCode1 = i;
-                    }
-                    else if (database[tmp].tables[i].code.Contains(numberOfDate2))
-                    {
-                        code2 = database[tmp].tables[i].code;
-                        nrCode2 = i;
-                    }
-                }
+                //progress.Add(new Progress()
+                //{
+                //    downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber(),
+                //    downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber(),
+                //    downloadedValue = 0
+                //});
 
+                progress[0].downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber();
+                progress[0].downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber();
+                progress[0].downloadedValue = progress[0].downloadedMinimum;
+
+
+
+                for (progress[0].downloadedValue = progress[0].downloadedMinimum - 1; progress[0].downloadedValue < progress[0].downloadedMaximum - 1; progress[0].downloadedValue++)
+                {
+                    string code = database[tmp].tables[progress[0].downloadedValue].code;
+                    //download
+                    string patternURL1 = "http://www.nbp.pl/kursy/xml/";
+                    string patternFileExtension1 = ".xml";
+                    string output1 = await Downloader.DownloadXml(patternURL1 + code + patternFileExtension1);
+
+                    //save
+                    await storage.createFile(code);
+                    storage.saveFile(code, output1);
+                    //load data
+                    progress.Clear();
+                }
             }
             else if (tmpYearDif == 1)
             {
@@ -93,8 +99,9 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         public DatabaseViewModel()
         {
-            Storage storage = new Storage();
             string nameFile = "Data";
+            
+            Storage storage = new Storage();
 
             if (storage.IsFile(nameFile))
             {
@@ -114,41 +121,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 { DownloadFirstTimeDatabase(); }
                 else
                 { /*brak jakichkolwiek danych*/ }
-            }
-        }
-
-        internal async void InitPositions(string code)
-        {
-            positions.Clear();
-            Storage storage = new Storage();
-
-            if (storage.IsFile(code) && code != null)
-            {
-                await storage.createFile(code);
-                storage.readFile(code);
-                foreach (Position pos in DeserializerXML.deserialize(storage.readStringFromFile()))
-                {
-                    positions.Add(pos);
-                }
-            }
-            else
-            {
-                if (Connection.IsInternet())
-                {
-                    string patternURL = "http://www.nbp.pl/kursy/xml/";
-                    string patternFileExtension = ".xml";
-
-                    string output = await Downloader.DownloadXml(patternURL + code + patternFileExtension);
-                    foreach (Position pos in DeserializerXML.deserialize(output))
-                    {
-                        positions.Add(pos);
-                    }
-                    await storage.createFile(code);
-                    storage.saveFile(code, output);
-                }
-                else
-                {
-                }
             }
         }
 
@@ -178,7 +150,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private Year prepareStructure(int inYear, string text)
         {
             Year year = new Year(inYear);
-            foreach (string i in (text.Replace("\r\n"," ").Split(' ')))
+            foreach (string i in (text.Replace("\r\n", " ").Split(' ')))
             {
                 if (i != null && i != "" && (i.First() == 'a'))
                     year.AddTable(new Table(i));

@@ -8,16 +8,18 @@ namespace Interfejsy_Platform_Mobilnych
     public sealed partial class Data : Page
     {
         DatabaseViewModel ViewModel { get; set; }
+        PositionViewModel PositionViewModel { get; set; }
 
         public Data()
         {
             InitializeComponent();
+            PositionViewModel = new PositionViewModel();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel = e.Parameter as DatabaseViewModel;
-            ViewModel.InitPositions(ViewModel.SelectedDays);
+            PositionViewModel.InitPositions(ViewModel.SelectedDays);
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
@@ -28,7 +30,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
-            ViewModel.InitPositions(ViewModel.GetCode((sender as CalendarDatePicker).Date));
+            PositionViewModel.InitPositions(ViewModel.GetCode((sender as CalendarDatePicker).Date));
         }
     }
 }

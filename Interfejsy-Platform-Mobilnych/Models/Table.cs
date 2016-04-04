@@ -23,5 +23,15 @@ namespace Interfejsy_Platform_Mobilnych.Models
         {
             isDownloaded = true;
         }
+
+        public string getDate()
+        {
+            return code.Substring(5);
+        }
+
+        public int getNumber()
+        {
+            return int.Parse(code.Substring(1, 3));
+        }
     }
 }

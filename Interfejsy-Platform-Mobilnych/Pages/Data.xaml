@@ -33,7 +33,7 @@
             <TextBlock FontWeight="Bold" Grid.Column="3" Text="Kurs średni"/>
         </Grid>
 
-        <ListView Grid.Row="2" ItemsSource="{x:Bind ViewModel.Positions}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch">
+        <ListView Grid.Row="2" ItemsSource="{x:Bind PositionViewModel.Positions}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

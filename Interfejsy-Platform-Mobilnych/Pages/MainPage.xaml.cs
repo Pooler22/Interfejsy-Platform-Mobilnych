@@ -12,7 +12,7 @@ namespace Interfejsy_Platform_Mobilnych
         {
             InitializeComponent();
             ViewModel = new DatabaseViewModel();
-            ViewModel.InitPositions(ViewModel.SelectedDays);
+            //ViewModel.InitPositions(ViewModel.SelectedDays);
             Loaded += TodayButton_Click;
         }
 

@@ -10,18 +10,16 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
-            <StackPanel Margin="5" Padding="5">
-                <ComboBox Header="Waluta" HorizontalAlignment="Center"  ItemsSource="{x:Bind ViewModel.Positions}" SelectedValue="{x:Bind ViewModel.SelectedCurrency}" VerticalAlignment="Center">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="local1:Position">
-                            <TextBlock Text="{x:Bind ListValues[0]}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-
+            <StackPanel Margin="5" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Waluta: "/>
+                    <TextBlock Text="{x:Bind ViewModel.SelectedCurrency}"/>
+                </StackPanel>
                 <TextBlock HorizontalAlignment="Center">Zakres dat:</TextBlock>
-                <CalendarDatePicker Name="StartDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"/>
-                <CalendarDatePicker Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                    <CalendarDatePicker PlaceholderText="Start date" Name="StartDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <CalendarDatePicker PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <TextBlock Name="InfoTextBlock" Visibility="Collapsed" Text="*Data początkowa musi być wcześniejsza od daty końcowej." HorizontalAlignment="Center" FontStyle="Italic"></TextBlock>
                 <Button Name="GenerateButton" Click="GenerateButton_Click"  Content="Genetuj wykres" HorizontalAlignment="Center" IsTapEnabled="False"></Button>
 
@@ -34,8 +32,19 @@
                 <TextBlock>Zapisanych lokalnie</TextBlock>
                 <ProgressBar></ProgressBar>
 
-                <TextBlock>Pobrane dane</TextBlock>
-                <ProgressBar></ProgressBar>
+                <ItemsControl x:Name="tStack" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Progress}" HorizontalContentAlignment="Stretch">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="local1:Progress">
+                            <ProgressBar Name="Downloaded" Minimum="{x:Bind downloadedMinimum}" Maximum="{x:Bind downloadedMaximum}" Value="{x:Bind downloadedValue}" HorizontalContentAlignment="Stretch"></ProgressBar>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
 
                 <ProgressRing  IsActive="True"></ProgressRing>
                 
