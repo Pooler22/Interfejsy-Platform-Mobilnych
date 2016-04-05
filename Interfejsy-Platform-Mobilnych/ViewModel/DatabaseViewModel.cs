@@ -25,7 +25,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             return database[date.Value.Year - minAvailableYear].tables.First((x) => x.code.Contains(tmp)).code;
         }
 
-        private ObservableCollection<Progress> progress = new ObservableCollection<Progress>() { new Progress() };
+        private ObservableCollection<Progress> progress = new ObservableCollection<Progress>();
         public ObservableCollection<Progress> Progress { get { return progress; } }
 
         internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
@@ -36,35 +36,36 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             string numberOfDate2 = date2.Value.ToString("yyMMdd");
             int tmp = date2.Value.Year - 2002;
 
+            progress.Add(new Progress(
+                    database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber(),
+                    database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber()
+                ));
+
             if (tmpYearDif == 0)
             {
-                //progress.Add(new Progress()
-                //{
-                //    downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber(),
-                //    downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber(),
-                //    downloadedValue = 0
-                //});
+                
 
-                progress[0].downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber();
-                progress[0].downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber();
-                progress[0].downloadedValue = progress[0].downloadedMinimum;
-
-
-
-                for (progress[0].downloadedValue = progress[0].downloadedMinimum - 1; progress[0].downloadedValue < progress[0].downloadedMaximum - 1; progress[0].downloadedValue++)
+                //progress[0].downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber();
+                //progress[0].downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber();
+                //progress[0].downloadedValue = progress[0].downloadedMinimum;
+                foreach(Progress pro in progress)
                 {
-                    string code = database[tmp].tables[progress[0].downloadedValue].code;
-                    //download
-                    string patternURL1 = "http://www.nbp.pl/kursy/xml/";
-                    string patternFileExtension1 = ".xml";
-                    string output1 = await Downloader.DownloadXml(patternURL1 + code + patternFileExtension1);
+                    for (pro.downloadedValue = pro.downloadedMinimum - 1; pro.downloadedValue < pro.downloadedMaximum - 1; pro.downloadedValue++)
+                    {
+                        string code = database[tmp].tables[pro.downloadedValue].code;
+                        //download
+                        string patternURL1 = "http://www.nbp.pl/kursy/xml/";
+                        string patternFileExtension1 = ".xml";
+                        string output1 = await Downloader.DownloadXml(patternURL1 + code + patternFileExtension1);
 
-                    //save
-                    await storage.createFile(code);
-                    storage.saveFile(code, output1);
-                    //load data
-                    progress.Clear();
+                        //save
+                        await storage.createFile(code);
+                        storage.saveFile(code, output1);
+                        //load data
+                        progress.Clear();
+                    }
                 }
+                
             }
             else if (tmpYearDif == 1)
             {

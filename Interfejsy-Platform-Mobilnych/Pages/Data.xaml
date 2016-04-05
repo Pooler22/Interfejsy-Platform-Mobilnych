@@ -17,7 +17,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
             <TextBlock Text="Select new date:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <CalendarDatePicker  DateChanged="CalendarDatePicker_DateChanged" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <CalendarDatePicker  DateChanged="CalendarDatePicker_DateChanged" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </StackPanel>
 
         <Grid Grid.Row="1">

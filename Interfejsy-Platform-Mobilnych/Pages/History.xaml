@@ -32,18 +32,18 @@
                 <TextBlock>Zapisanych lokalnie</TextBlock>
                 <ProgressBar></ProgressBar>
 
-                <ItemsControl x:Name="tStack" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Progress}" HorizontalContentAlignment="Stretch">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
+                <ListView x:Name="tStack" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Progress}" >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local1:Progress">
-                            <ProgressBar Name="Downloaded" Minimum="{x:Bind downloadedMinimum}" Maximum="{x:Bind downloadedMaximum}" Value="{x:Bind downloadedValue}" HorizontalContentAlignment="Stretch"></ProgressBar>
+                            <ProgressBar Name="Downloaded" Minimum="{x:Bind downloadedMinimum}" Maximum="{x:Bind downloadedMaximum}" Value="{x:Bind downloadedValue}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"></ProgressBar>
                         </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    </ListView.ItemTemplate>
+                </ListView>
                 
 
                 <ProgressRing  IsActive="True"></ProgressRing>
