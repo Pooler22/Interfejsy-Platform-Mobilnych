@@ -5,7 +5,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Interfejsy_Platform_Mobilnych.Pages;
-using Microsoft.ApplicationInsights;
 
 namespace Interfejsy_Platform_Mobilnych
 {
@@ -20,9 +19,6 @@ namespace Interfejsy_Platform_Mobilnych
         /// </summary>
         public App()
         {
-            WindowsAppInitializer.InitializeAsync(
-                WindowsCollectors.Metadata |
-                WindowsCollectors.Session);
             InitializeComponent();
             Suspending += OnSuspending;
         }

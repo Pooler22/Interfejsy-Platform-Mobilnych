@@ -28,8 +28,8 @@
                         IsTapEnabled="False" />
 
                 <TextBlock Text="Wykres" />
-                <InkCanvas Height="200" />
 
+                
                 <TextBlock>Postęp wczytania nowych danych</TextBlock>
                 <ProgressBar />
 

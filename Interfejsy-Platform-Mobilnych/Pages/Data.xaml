@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:localModels="using:Interfejsy_Platform_Mobilnych.Models"
+    xmlns:syncfusion="using:Syncfusion.UI.Xaml.Grid"
     mc:Ignorable="d">
 
     <Grid Name="MainGrid">
@@ -21,44 +21,18 @@
                                 VerticalAlignment="Center" />
         </StackPanel>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock FontWeight="Bold" Grid.Column="0" Text="Nazwa" />
-            <TextBlock FontWeight="Bold" Grid.Column="1" Text="Przelicznik" />
-            <TextBlock FontWeight="Bold" Grid.Column="2" Text="Kod" />
-            <TextBlock FontWeight="Bold" Grid.Column="3" Text="Kurs średni" />
-        </Grid>
 
-        <ListView Grid.Row="2" ItemsSource="{x:Bind PositionViewModel.Positions}"
-                  ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                  ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="localModels:Position">
-                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tapped="TextBlock_Tapped"
-                          Tag="{x:Bind ListValues[0]}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Height="Auto" Text="{x:Bind ListValues[0]}" />
-                        <TextBlock Grid.Column="1" Height="Auto" Text="{x:Bind ListValues[1]}" />
-                        <TextBlock Grid.Column="2" Height="Auto" Text="{x:Bind ListValues[2]}" />
-                        <TextBlock Grid.Column="3" Height="Auto" Text="{x:Bind ListValues[3]}" />
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <syncfusion:SfDataGrid SelectionChanged="SfDataGrid_OnSelectionChanged" AllowResizingColumns="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{x:Bind PositionViewModel.Positions}">
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Nazwa" MappingName="ListValues[0]"/>
+                    <syncfusion:GridNumericColumn  ColumnSizer="Star" HeaderText="Przelicznik"  MappingName="ListValues[1]"/>
+                    <syncfusion:GridTextColumn  ColumnSizer="Star" HeaderText="Kod"  MappingName="ListValues[2]"/>
+                    <syncfusion:GridNumericColumn ColumnSizer="Star" HeaderText="Kurs" MappingName="ListValues[3]"/>
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+
+        </Grid>
+       
     </Grid>
 </Page>
