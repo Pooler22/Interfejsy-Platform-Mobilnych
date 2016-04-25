@@ -6,7 +6,6 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 {
     internal static class SerializerJson
     {
-
         public static string Serialize<T>(T data)
         {
             var js = new DataContractJsonSerializer(typeof(T));
@@ -21,8 +20,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         {
             var js = new DataContractJsonSerializer(typeof(T));
             var ms = new MemoryStream(Encoding.UTF8.GetBytes(data));
-            return (T)js.ReadObject(ms);
+            return (T) js.ReadObject(ms);
         }
-
     }
 }

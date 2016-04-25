@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -8,7 +9,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
     {
         private readonly StorageFolder _roamingFolder = ApplicationData.Current.RoamingFolder;
         private StorageFile _file;
-        
+
         public async Task CreateFile(string name)
         {
             _file = await _roamingFolder.CreateFileAsync(name, CreationCollisionOption.OpenIfExists);
@@ -16,7 +17,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 
         public static bool IsFile(string name)
         {
-            return System.IO.File.Exists(string.Format(@"{0}\{1}", ApplicationData.Current.RoamingFolder.Path, name));
+            return File.Exists(string.Format(@"{0}\{1}", ApplicationData.Current.RoamingFolder.Path, name));
         }
 
         public async void SaveFile(string nameFile, string data)
@@ -33,11 +34,8 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         public string ReadStringFromFile()
         {
             string text = null;
-                Task.Run(
-                async () =>
-                {
-                    text = await FileIO.ReadTextAsync(_file);
-                })
+            Task.Run(
+                async () => { text = await FileIO.ReadTextAsync(_file); })
                 .Wait();
             return text;
         }

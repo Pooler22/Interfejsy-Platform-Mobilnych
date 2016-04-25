@@ -12,20 +12,30 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         private const string PatternUrl = "http://www.nbp.pl/kursy/xml/dir";
         private const string PatternFileExtension = ".txt";
         private const int MinAvailableYear = 2002;
+        private const string NameDatabaseFile = "Data";
+        public DateTimeOffset MaxDate = new DateTimeOffset(DateTime.Today);
+
+        public DateTimeOffset MinDate = new DateTimeOffset(new DateTime(2002, 1, 2));
+
+        public DatabaseViewModel()
+        {
+            InitData();
+        }
 
         private ObservableCollection<Year> Database { get; } = new ObservableCollection<Year>();
 
-        public DateTimeOffset MinDate = new DateTimeOffset(new DateTime(2002, 1, 2));
-        public DateTimeOffset MaxDate = new DateTimeOffset(DateTime.Today);
+        public ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
+
+        public string SelectedDays { get; } = "LastA";
+
+        public string SelectedCurrency { get; private set; }
 
         internal string GetCode(DateTimeOffset? date)
         {
             if (date == null) return null;
-            var tmp = (date.Value.ToString("yyMMdd"));
+            var tmp = date.Value.ToString("yyMMdd");
             return Database[date.Value.Year - MinAvailableYear].Tables.First(x => x.Code.Contains(tmp)).Code;
         }
-
-        public ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
 
         internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
         {
@@ -74,37 +84,35 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             }
         }
 
-        public string SelectedDays { get; } = "LastA";
-
-        public string SelectedCurrency { get; private set; }
-
         public void SetSelectedCurrency(string value)
         {
             SelectedCurrency = value;
         }
 
-        public DatabaseViewModel()
+        private async void InitData()
         {
-            const string nameFile = "Data";
-            
             var storage = new Storage();
 
-            if (Storage.IsFile(nameFile))
+            if (Storage.IsFile(NameDatabaseFile))
             {
-                storage.CreateFile(nameFile);
-                storage.ReadFile(nameFile);
+                await storage.CreateFile(NameDatabaseFile);
+                storage.ReadFile(NameDatabaseFile);
                 foreach (var year in SerializerJson.Deserialize<List<Year>>(storage.ReadStringFromFile()))
                 {
                     Database.Add(year);
                 }
 
                 if (Connection.IsInternet())
-                { /*pobranie aktualizacji*/ }
+                {
+                    //TODO:pobranie aktualizacji
+                }
             }
             else
             {
                 if (Connection.IsInternet())
-                { DownloadFirstTimeDatabase(); }
+                {
+                    DownloadFirstTimeDatabase();
+                }
             }
         }
 
@@ -121,16 +129,15 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 Database.Add(PrepareStructure(tmpYear, tmpResp));
                 tmpYear++;
             }
-            Database.Add((PrepareStructure(tmpYear, await Downloader.DownloadString(PatternUrl + PatternFileExtension))));
+            Database.Add(PrepareStructure(tmpYear, await Downloader.DownloadString(PatternUrl + PatternFileExtension)));
             var storage = new Storage();
-            var nameFile = "Data";
-            storage.SaveFile(nameFile, SerializerJson.Serialize(Database.ToList()));
+            storage.SaveFile(NameDatabaseFile, SerializerJson.Serialize(Database.ToList()));
         }
 
-        private Year PrepareStructure(int inYear, string text)
+        private static Year PrepareStructure(int inYear, string text)
         {
             var year = new Year(inYear);
-            foreach (var i in (text.Replace("\r\n", " ").Split(' ')))
+            foreach (var i in text.Replace("\r\n", " ").Split(' '))
             {
                 if (!string.IsNullOrEmpty(i) && (i.First() == 'a'))
                     year.AddTable(new Table(i));

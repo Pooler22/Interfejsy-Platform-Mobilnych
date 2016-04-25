@@ -9,18 +9,23 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ScrollViewer>
-            <StackPanel Margin="5" >
+            <StackPanel Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Waluta: "/>
-                    <TextBlock Text="{x:Bind ViewModel.SelectedCurrency}"/>
+                    <TextBlock Text="Waluta: " />
+                    <TextBlock Text="{x:Bind ViewModel.SelectedCurrency}" />
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center">Zakres dat:</TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                    <CalendarDatePicker PlaceholderText="Start date" Name="StartDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <CalendarDatePicker PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"/>
+                    <CalendarDatePicker PlaceholderText="Start date" Name="StartDate"
+                                        MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <CalendarDatePicker PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}"
+                                        MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" />
                 </StackPanel>
-                <TextBlock Visibility="Collapsed" Text="*Data początkowa musi być wcześniejsza od daty końcowej." HorizontalAlignment="Center" FontStyle="Italic" />
-                <Button Click="GenerateButton_Click"  Content="Genetuj wykres" HorizontalAlignment="Center" IsTapEnabled="False" />
+                <TextBlock Visibility="Collapsed" Text="*Data początkowa musi być wcześniejsza od daty końcowej."
+                           HorizontalAlignment="Center" FontStyle="Italic" />
+                <Button Click="GenerateButton_Click" Content="Genetuj wykres" HorizontalAlignment="Center"
+                        IsTapEnabled="False" />
 
                 <TextBlock Text="Wykres" />
                 <InkCanvas Height="200" />
@@ -31,283 +36,30 @@
                 <TextBlock>Zapisanych lokalnie</TextBlock>
                 <ProgressBar />
 
-                <ListView ItemsSource="{x:Bind ViewModel.Progress}" >
+                <ListView ItemsSource="{x:Bind ViewModel.Progress}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local1:Progress">
-                            <ProgressBar Name="Downloaded" Minimum="{x:Bind DownloadedMinimum}" Maximum="{x:Bind DownloadedMaximum}" Value="{x:Bind DownloadedValue}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                            <ProgressBar Name="Downloaded" Minimum="{x:Bind DownloadedMinimum}"
+                                         Maximum="{x:Bind DownloadedMaximum}" Value="{x:Bind DownloadedValue}"
+                                         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                
 
-                <ProgressRing  IsActive="True" />
+
+                <ProgressRing IsActive="True" />
 
 
             </StackPanel>
         </ScrollViewer>
         <CommandBar VerticalAlignment="Bottom">
-            <AppBarButton Icon="Save" Label="Zapisz jako obraz"/>
+            <AppBarButton Icon="Save" Label="Zapisz jako obraz" />
         </CommandBar>
 
     </Grid>
 </Page>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

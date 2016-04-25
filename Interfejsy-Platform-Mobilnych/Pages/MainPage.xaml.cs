@@ -5,15 +5,14 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 {
     public sealed partial class MainPage
     {
-        private DatabaseViewModel ViewModel { get; }
-
         public MainPage()
         {
             InitializeComponent();
             ViewModel = new DatabaseViewModel();
-            //ViewModel.InitPositions(ViewModel.SelectedDays);
             Loaded += TodayButton_Click;
         }
+
+        private DatabaseViewModel ViewModel { get; }
 
         private void TodayButton_Click(object sender, RoutedEventArgs e)
         {

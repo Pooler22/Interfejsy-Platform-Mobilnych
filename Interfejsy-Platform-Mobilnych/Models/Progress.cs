@@ -2,9 +2,9 @@
 {
     internal class Progress
     {
-        public readonly int DownloadedMinimum;
         public readonly int DownloadedMaximum;
-        public int DownloadedValue;  
+        public readonly int DownloadedMinimum;
+        public int DownloadedValue;
 
         public Progress(int a, int b)
         {

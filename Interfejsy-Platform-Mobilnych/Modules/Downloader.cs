@@ -1,9 +1,9 @@
-﻿using Interfejsy_Platform_Mobilnych.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Interfejsy_Platform_Mobilnych.Models;
 
 namespace Interfejsy_Platform_Mobilnych.Modules
 {
@@ -41,9 +41,6 @@ namespace Interfejsy_Platform_Mobilnych.Modules
                     positions.AddRange(DeserializerXml.Deserialize(output));
                     await storage.CreateFile(code);
                     storage.SaveFile(code, output);
-                }
-                else
-                {
                 }
             }
             return positions;

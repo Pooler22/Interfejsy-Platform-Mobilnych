@@ -7,7 +7,8 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         public static bool IsInternet()
         {
             var connections = NetworkInformation.GetInternetConnectionProfile();
-            return connections != null && connections.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
+            return connections != null &&
+                   connections.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
         }
     }
 }
