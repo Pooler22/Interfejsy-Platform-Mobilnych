@@ -12,20 +12,20 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         public static async Task<string> DownloadXml(string uri)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            byte[] get = await Get(uri);
+            var get = await Get(uri);
             return Encoding.GetEncoding("ISO-8859-2").GetString(get, 0, get.Length);
         }
 
         internal static async Task<List<Position>> GetPositionsFromCode(string code)
         {
-            Storage storage = new Storage();
-            List<Position> positions = new List<Position>();
+            var storage = new Storage();
+            var positions = new List<Position>();
 
             if (Storage.IsFile(code) && code != null)
             {
                 await storage.CreateFile(code);
                 storage.ReadFile(code);
-                foreach (Position pos in DeserializerXml.Deserialize(storage.ReadStringFromFile()))
+                foreach (var pos in DeserializerXml.Deserialize(storage.ReadStringFromFile()))
                 {
                     positions.Add(pos);
                 }
@@ -34,14 +34,11 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             {
                 if (Connection.IsInternet())
                 {
-                    string patternUrl = "http://www.nbp.pl/kursy/xml/";
-                    string patternFileExtension = ".xml";
+                    const string patternUrl = "http://www.nbp.pl/kursy/xml/";
+                    const string patternFileExtension = ".xml";
 
-                    string output = await DownloadXml(patternUrl + code + patternFileExtension);
-                    foreach (Position pos in DeserializerXml.Deserialize(output))
-                    {
-                        positions.Add(pos);
-                    }
+                    var output = await DownloadXml(patternUrl + code + patternFileExtension);
+                    positions.AddRange(DeserializerXml.Deserialize(output));
                     await storage.CreateFile(code);
                     storage.SaveFile(code, output);
                 }

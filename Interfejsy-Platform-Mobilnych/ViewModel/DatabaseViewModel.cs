@@ -9,9 +9,9 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
     internal class DatabaseViewModel
     {
-        private static readonly string PatternUrl = "http://www.nbp.pl/kursy/xml/dir";
-        private static readonly string PatternFileExtension = ".txt";
-        private static readonly int MinAvailableYear = 2002;
+        private const string PatternUrl = "http://www.nbp.pl/kursy/xml/dir";
+        private const string PatternFileExtension = ".txt";
+        private const int MinAvailableYear = 2002;
 
         private ObservableCollection<Year> Database { get; } = new ObservableCollection<Year>();
 
@@ -22,7 +22,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             if (date == null) return null;
             var tmp = (date.Value.ToString("yyMMdd"));
-            return Database[date.Value.Year - MinAvailableYear].tables.First(x => x.Code.Contains(tmp)).Code;
+            return Database[date.Value.Year - MinAvailableYear].Tables.First(x => x.Code.Contains(tmp)).Code;
         }
 
         public ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
@@ -38,46 +38,39 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             var tmp = date2.Value.Year - 2002;
 
             Progress.Add(new Progress(
-                Database[tmp].tables.Find(x => x.GetDate() == numberOfDate1).GetNumber(),
-                Database[tmp].tables.Find(x => x.GetDate() == numberOfDate2).GetNumber()
+                Database[tmp].Tables.Find(x => x.GetDate() == numberOfDate1).GetNumber(),
+                Database[tmp].Tables.Find(x => x.GetDate() == numberOfDate2).GetNumber()
                 ));
 
-            if (tmpYearDif == 0)
+            switch (tmpYearDif)
             {
-                
-
-                //progress[0].downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber();
-                //progress[0].downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber();
-                //progress[0].downloadedValue = progress[0].downloadedMinimum;
-                foreach(Progress pro in Progress)
-                {
-                    for (pro.DownloadedValue = pro.DownloadedMinimum - 1; pro.DownloadedValue < pro.DownloadedMaximum - 1; pro.DownloadedValue++)
+                case 0:
+                    //progress[0].downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber();
+                    //progress[0].downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber();
+                    //progress[0].downloadedValue = progress[0].downloadedMinimum;
+                    foreach (var pro in Progress)
                     {
-                        string code = Database[tmp].tables[pro.DownloadedValue].Code;
-                        //download
-                        string patternUrl1 = "http://www.nbp.pl/kursy/xml/";
-                        string patternFileExtension1 = ".xml";
-                        string output1 = await Downloader.DownloadXml(patternUrl1 + code + patternFileExtension1);
+                        for (pro.DownloadedValue = pro.DownloadedMinimum - 1;
+                            pro.DownloadedValue < pro.DownloadedMaximum - 1;
+                            pro.DownloadedValue++)
+                        {
+                            var code = Database[tmp].Tables[pro.DownloadedValue].Code;
+                            //download
+                            const string patternUrl1 = "http://www.nbp.pl/kursy/xml/";
+                            const string patternFileExtension1 = ".xml";
+                            var output1 = await Downloader.DownloadXml(patternUrl1 + code + patternFileExtension1);
 
-                        //save
-                        await storage.CreateFile(code);
-                        storage.SaveFile(code, output1);
-                        //load data
-                        Progress.Clear();
+                            //save
+                            await storage.CreateFile(code);
+                            storage.SaveFile(code, output1);
+                            //load data
+                            Progress.Clear();
+                        }
                     }
-                }
-                
-            }
-            else if (tmpYearDif == 1)
-            {
-                //od daty lata[0] do daty [0]last, od lata[1].first do daty [1], 
-            }
-            else
-            {
-                //od daty lata[0] do daty [0]last, od lata[0<x<l-1].first do daty [0<x<l-1],  od lata[l-1].first do daty [l-1], 
-                for (var i = 0; i <= date2.Value.Year - date1.Value.Year; i++)
-                {
-                }
+                    break;
+                case 1:
+                    //od daty lata[0] do daty [0]last, od lata[1].first do daty [1], 
+                    break;
             }
         }
 
@@ -92,15 +85,15 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         public DatabaseViewModel()
         {
-            string nameFile = "Data";
+            const string nameFile = "Data";
             
-            Storage storage = new Storage();
+            var storage = new Storage();
 
             if (Storage.IsFile(nameFile))
             {
                 storage.CreateFile(nameFile);
                 storage.ReadFile(nameFile);
-                foreach (Year year in SerializerJson.Deserialize<List<Year>>(storage.ReadStringFromFile()))
+                foreach (var year in SerializerJson.Deserialize<List<Year>>(storage.ReadStringFromFile()))
                 {
                     Database.Add(year);
                 }
@@ -117,7 +110,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         private async void DownloadFirstTimeDatabase()
         {
-            int tmpYear = MinAvailableYear;
+            var tmpYear = MinAvailableYear;
             while (true)
             {
                 var tmpResp = await Downloader.DownloadString(PatternUrl + tmpYear + PatternFileExtension);
@@ -129,15 +122,15 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 tmpYear++;
             }
             Database.Add((PrepareStructure(tmpYear, await Downloader.DownloadString(PatternUrl + PatternFileExtension))));
-            Storage storage = new Storage();
-            string nameFile = "Data";
+            var storage = new Storage();
+            var nameFile = "Data";
             storage.SaveFile(nameFile, SerializerJson.Serialize(Database.ToList()));
         }
 
         private Year PrepareStructure(int inYear, string text)
         {
-            Year year = new Year(inYear);
-            foreach (string i in (text.Replace("\r\n", " ").Split(' ')))
+            var year = new Year(inYear);
+            foreach (var i in (text.Replace("\r\n", " ").Split(' ')))
             {
                 if (!string.IsNullOrEmpty(i) && (i.First() == 'a'))
                     year.AddTable(new Table(i));

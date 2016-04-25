@@ -8,7 +8,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
         [DataMember] private readonly string _code;
         public string Code => _code;
 
-        [DataMember] private bool _isDownloaded;
+        [DataMember] private readonly bool _isDownloaded;
         public bool IsDownloaded => _isDownloaded;
 
         public Table(string initCode)
@@ -17,10 +17,12 @@ namespace Interfejsy_Platform_Mobilnych.Models
             _code = initCode;
         }
 
+/*
         public void SetDownloaded()
         {
             _isDownloaded = true;
         }
+*/
 
         public string GetDate()
         {

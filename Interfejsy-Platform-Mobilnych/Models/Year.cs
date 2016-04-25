@@ -6,21 +6,20 @@ namespace Interfejsy_Platform_Mobilnych.Models
     [DataContract]
     internal class Year
     {
-        [DataMember] private int number;
-        public int Number => number;
+        [DataMember] private readonly int _number;
+        public int Number => _number;
 
-        [DataMember]
-        internal List<Table> tables = new List<Table>();
-        public List<Table> Tables => tables;
+        [DataMember] private readonly List<Table> _tables = new List<Table>();
+        public List<Table> Tables => _tables;
 
         public Year(int initNumber)
         {
-            number = initNumber;
+            _number = initNumber;
         }
 
         public void AddTable(Table newTable)
         {
-            tables.Add(newTable);
+            _tables.Add(newTable);
         }
     }
 }
