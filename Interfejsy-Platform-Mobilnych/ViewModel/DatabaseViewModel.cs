@@ -11,16 +11,21 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
     {
         private const string PatternUrl = "http://www.nbp.pl/kursy/xml/dir";
         private const string PatternFileExtension = ".txt";
+        const string PatternUrl1 = "http://www.nbp.pl/kursy/xml/";
+        const string PatternFileExtension1 = ".xml";
         private const int MinAvailableYear = 2002;
         private const string NameDatabaseFile = "Data";
 
-        public DateTimeOffset MaxDate = new DateTimeOffset(DateTime.Today);
-
         public DateTimeOffset MinDate = new DateTimeOffset(new DateTime(2002, 1, 2));
-
+        public DateTimeOffset MaxDate = new DateTimeOffset(DateTime.Today);
+        
         private ObservableCollection<Year> Database { get; } = new ObservableCollection<Year>();
 
         public ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
+
+        public ObservableCollection<double> Values { get; } = new ObservableCollection<double>();
+        public double MinValue { get; set; } = 0.0;
+        public double MaxValue { get; set; } = 1.0;
 
         public string SelectedDays { get; } = "LastA";
 
@@ -100,6 +105,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             if (date2 == null) return;
             if (date1 == null) return;
             var tmpYearDif = date2.Value.Year - date1.Value.Year;
+            Values.Clear();
             var numberOfDate1 = date1.Value.ToString("yyMMdd");
             var numberOfDate2 = date2.Value.ToString("yyMMdd");
             var tmp = date2.Value.Year - 2002;
@@ -121,18 +127,18 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                         pro.DownloadedValue++)
                     {
                         var code = Database[tmp].Tables[pro.DownloadedValue].Code;
-                        //download
-                        const string patternUrl1 = "http://www.nbp.pl/kursy/xml/";
-                        const string patternFileExtension1 = ".xml";
-                        var output1 = await Downloader.DownloadXml(patternUrl1 + code + patternFileExtension1);
-
-                        //save
+                       
+                        var output1 = await Downloader.DownloadXml(PatternUrl1 + code + PatternFileExtension1);
+                        var first = DeserializerXml.Deserialize(output1).First(position => position.Name.Equals(SelectedCurrency));
+                        Values.Add(first.Value);
                         await storage.CreateFile(code);
                         storage.SaveFile(code, output1);
                         //load data
-                        Progress.Clear();
+                        //Progress.Clear();
                     }
                 }
+                MinValue =(double.Parse(Values.Min().ToString()));
+                MaxValue = (double.Parse(Values.Max().ToString()));
             }
             else if (tmpYearDif == 1)
             {

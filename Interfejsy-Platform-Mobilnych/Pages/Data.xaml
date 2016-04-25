@@ -26,12 +26,13 @@
 
 
         <Grid Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <syncfusion:SfDataGrid SelectionChanged="SfDataGrid_OnSelectionChanged" AllowResizingColumns="True" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{x:Bind PositionViewModel.Positions}">
+            <syncfusion:SfDataGrid SelectionChanged="SfDataGrid_OnSelectionChanged" AllowResizingColumns="True" VerticalAlignment="Stretch" 
+                                   HorizontalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{x:Bind PositionViewModel.Positions}">
                 <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Nazwa" MappingName="ListValues[0]"/>
-                    <syncfusion:GridNumericColumn  ColumnSizer="Star" HeaderText="Przelicznik"  MappingName="ListValues[1]"/>
-                    <syncfusion:GridTextColumn  ColumnSizer="Star" HeaderText="Kod"  MappingName="ListValues[2]"/>
-                    <syncfusion:GridNumericColumn ColumnSizer="Star" HeaderText="Kurs" MappingName="ListValues[3]"/>
+                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Nazwa" MappingName="Name"/>
+                    <syncfusion:GridNumericColumn  ColumnSizer="Star" HeaderText="Przelicznik"  MappingName="Converter"/>
+                    <syncfusion:GridTextColumn  ColumnSizer="Star" HeaderText="Kod"  MappingName="Code"/>
+                    <syncfusion:GridNumericColumn ColumnSizer="Star" HeaderText="Kurs" MappingName="Value"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
 

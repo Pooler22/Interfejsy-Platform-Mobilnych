@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Interfejsy_Platform_Mobilnych.ViewModel;
 
@@ -20,30 +21,23 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
+            Chart.SuspendSeriesNotification();
             ViewModel.Generate(StartDate.Date, EndDate.Date);
+            Chart.ResumeSeriesNotification();
         }
-
-        /*
-                private void Date_DateChanged(object sender, DatePickerValueChangedEventArgs e)
-                {
-                    if(StartDate.Date < EndDate.Date)
-                    {
-                        GenerateButton.IsEnabled = true;
-                        InfoTextBlock.Visibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        GenerateButton.IsEnabled = false;
-                        InfoTextBlock.Visibility = Visibility.Visible;
-                    }
-                }
-        */
-
-        /*
-                private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
-                {
-
-                }
-        */
+        
+        private void Date_DateChanged(CalendarDatePicker calendarDatePicker, CalendarDatePickerDateChangedEventArgs args)
+        {
+            if (StartDate.Date < EndDate.Date)
+            {
+                GenerateButton.IsEnabled = true;
+                InfoTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                GenerateButton.IsEnabled = false;
+                InfoTextBlock.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

@@ -1,24 +1,27 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
     [DataContract]
     internal class Position
     {
-        [DataMember] private readonly List<string> _listValues = new List<string>();
-        public string name;
-        public string fullname;
-        public string value;
+        [DataMember]
+        public string Name { get; set; }
 
-        public Position(List<string> initValues)
+        [DataMember]
+        public int Converter { get; set; }
+        [DataMember]
+        public string Code { get; set; }
+        [DataMember]
+        public double Value { get; set; }
+
+        public Position(string a, int b, string c, double d)
         {
-            _listValues = initValues;
-            name = initValues[0];
-            fullname = initValues[1];
-            value = initValues[2];
+            Name = a;
+            Converter = b;
+            Code = c;
+            Value = d;
         }
 
-        public List<string> ListValues => _listValues;
     }
 }

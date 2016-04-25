@@ -36,7 +36,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void SfDataGrid_OnSelectionChanged(object sender, GridSelectionChangedEventArgs e)
         {
-            ViewModel.SelectedCurrency = ((sender as SfDataGrid)?.SelectedItem as Position)?.ListValues[0];
+            ViewModel.SelectedCurrency = ((sender as SfDataGrid)?.SelectedItem as Position)?.Name;
             ((MainGrid.Parent as Page)?.Parent as Frame)?.Navigate(typeof(History), ViewModel);
         }
 
