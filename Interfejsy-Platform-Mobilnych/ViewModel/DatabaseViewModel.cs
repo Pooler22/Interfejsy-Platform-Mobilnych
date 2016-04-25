@@ -139,6 +139,12 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 //od daty lata[0] do daty [0]last, od lata[1].first do daty [1], 
             }
         }
-        
+
+        public bool HasDate(DateTimeOffset date)
+        {
+            var table = Database.First(z => z.Number == int.Parse(date.ToString("yyyy")));
+            var enumerable = table.Tables.Select(y => y.GetDate().Equals(date.ToString("yyMMdd")));
+            return enumerable.Any(x=> x.Equals(true));
+        }
     }
 }
