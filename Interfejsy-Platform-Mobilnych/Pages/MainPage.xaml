@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Frame Grid.Row="0" Name="mainFrame"/>
+        <Frame Grid.Row="0" Name="MainFrame"/>
         
         <CommandBar Grid.Row="1">
             <AppBarButton Icon="Home" Label="Home" Click="TodayButton_Click"/>

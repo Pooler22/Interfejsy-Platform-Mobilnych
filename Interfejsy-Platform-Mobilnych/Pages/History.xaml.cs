@@ -7,7 +7,7 @@ namespace Interfejsy_Platform_Mobilnych
 {
     public sealed partial class History : Page
     {
-        DatabaseViewModel ViewModel { get; set; }
+        private DatabaseViewModel ViewModel { get; set; }
 
         public History()
         {

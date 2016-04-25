@@ -20,19 +20,19 @@
                     <CalendarDatePicker PlaceholderText="Start date" Name="StartDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <CalendarDatePicker PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <TextBlock Name="InfoTextBlock" Visibility="Collapsed" Text="*Data początkowa musi być wcześniejsza od daty końcowej." HorizontalAlignment="Center" FontStyle="Italic"></TextBlock>
-                <Button Name="GenerateButton" Click="GenerateButton_Click"  Content="Genetuj wykres" HorizontalAlignment="Center" IsTapEnabled="False"></Button>
+                <TextBlock Name="InfoTextBlock" Visibility="Collapsed" Text="*Data początkowa musi być wcześniejsza od daty końcowej." HorizontalAlignment="Center" FontStyle="Italic" />
+                <Button Name="GenerateButton" Click="GenerateButton_Click"  Content="Genetuj wykres" HorizontalAlignment="Center" IsTapEnabled="False" />
 
-                <TextBlock Text="Wykres"></TextBlock>
-                <InkCanvas Name="InkCanvans" Height="200" ></InkCanvas>
+                <TextBlock Text="Wykres" />
+                <InkCanvas Name="InkCanvans" Height="200" />
 
                 <TextBlock>Postęp wczytania nowych danych</TextBlock>
-                <ProgressBar></ProgressBar>
+                <ProgressBar />
 
                 <TextBlock>Zapisanych lokalnie</TextBlock>
-                <ProgressBar></ProgressBar>
+                <ProgressBar />
 
-                <ListView x:Name="tStack" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Progress}" >
+                <ListView x:Name="TStack" Grid.Column="0" ItemsSource="{x:Bind ViewModel.Progress}" >
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -40,14 +40,14 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local1:Progress">
-                            <ProgressBar Name="Downloaded" Minimum="{x:Bind downloadedMinimum}" Maximum="{x:Bind downloadedMaximum}" Value="{x:Bind downloadedValue}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"></ProgressBar>
+                            <ProgressBar Name="Downloaded" Minimum="{x:Bind DownloadedMinimum}" Maximum="{x:Bind DownloadedMaximum}" Value="{x:Bind DownloadedValue}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 
 
-                <ProgressRing  IsActive="True"></ProgressRing>
-                
+                <ProgressRing  IsActive="True" />
+
 
             </StackPanel>
         </ScrollViewer>
@@ -57,3 +57,258 @@
 
     </Grid>
 </Page>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

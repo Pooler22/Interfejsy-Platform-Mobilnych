@@ -5,31 +5,18 @@ using System.Collections.Generic;
 
 namespace Interfejsy_Platform_Mobilnych.Modules
 {
-    class DeserializerXML
+    internal static class DeserializerXml
     {
-        internal static IEnumerable<Position> deserialize(string xmlString)
+        internal static IEnumerable<Position> Deserialize(string xmlString)
         {
-            XDocument loadedData = XDocument.Parse(xmlString);
-            string position = "pozycja";
-            return (from query in loadedData.Descendants(position) select new Position(getList(query.Elements())));
+            var loadedData = XDocument.Parse(xmlString);
+            const string position = "pozycja";
+            return (from query in loadedData.Descendants(position) select new Position(GetList(query.Elements())));
         }
-
-        internal static IEnumerable<Position> deserializeFile(string fileName)
+        
+        private static List<string> GetList(IEnumerable<XElement> input)
         {
-            XDocument loadedData = XDocument.Load(fileName);
-            string position = "pozycja";
-            return (from query in loadedData.Descendants(position) select new Position(getList(query.Elements())));
+            return input.Select(element => element.Value).ToList();
         }
-
-        internal static List<string> getList(IEnumerable<XElement> input)
-        {
-            List<string> list = new List<string>();
-            foreach (XElement element in input)
-            {
-                list.Add(element.Value);
-            }
-            return list;
-        }
-
     }
 }

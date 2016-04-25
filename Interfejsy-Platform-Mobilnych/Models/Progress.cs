@@ -1,16 +1,16 @@
 ﻿namespace Interfejsy_Platform_Mobilnych.Models
 {
-    class Progress
+    internal class Progress
     {
-        public int downloadedMinimum;
-        public int downloadedMaximum;
-        public int downloadedValue;  
+        public readonly int DownloadedMinimum;
+        public readonly int DownloadedMaximum;
+        public int DownloadedValue;  
 
         public Progress(int a, int b)
         {
-            downloadedMinimum = a;
-            downloadedMaximum = b;
-            downloadedMinimum = a;
+            DownloadedMinimum = a;
+            DownloadedMaximum = b;
+            DownloadedMinimum = a;
         }
     }
 }

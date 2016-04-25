@@ -2,7 +2,7 @@
 
 namespace Interfejsy_Platform_Mobilnych.Modules
 {
-    class Connection
+    internal static class Connection
     {
         public static bool IsInternet()
         {

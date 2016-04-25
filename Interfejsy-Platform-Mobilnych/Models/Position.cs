@@ -4,17 +4,15 @@ using System.Runtime.Serialization;
 namespace Interfejsy_Platform_Mobilnych.Models
 {
     [DataContract]
-    class Position
+    internal class Position
     {
         [DataMember]
-        internal List<string> listValues = new List<string>();
-        public List<string> ListValues { get { return listValues; } }
+        private readonly List<string> _listValues = new List<string>();
+        public List<string> ListValues => _listValues;
 
         public Position(List<string> initValues)
         {
-            listValues = initValues;
+            _listValues = initValues;
         }
-
-        public string Summary { get { return listValues[0]; } }
     }
 }

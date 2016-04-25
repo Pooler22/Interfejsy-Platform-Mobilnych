@@ -7,8 +7,8 @@ namespace Interfejsy_Platform_Mobilnych
 {
     public sealed partial class Data : Page
     {
-        DatabaseViewModel ViewModel { get; set; }
-        PositionViewModel PositionViewModel { get; set; }
+        private DatabaseViewModel ViewModel { get; set; }
+        private PositionViewModel PositionViewModel { get; set; }
 
         public Data()
         {
@@ -24,8 +24,8 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ViewModel.setSelectedCurrency((sender as Grid).Tag as string);
-            ((mainGrid.Parent as Page).Parent as Frame).Navigate(typeof(History), ViewModel);
+            ViewModel.SetSelectedCurrency((sender as Grid).Tag as string);
+            ((MainGrid.Parent as Page).Parent as Frame).Navigate(typeof(History), ViewModel);
         }
 
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)

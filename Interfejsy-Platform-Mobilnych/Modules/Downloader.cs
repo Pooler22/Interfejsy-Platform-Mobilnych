@@ -1,14 +1,13 @@
 ﻿using Interfejsy_Platform_Mobilnych.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Interfejsy_Platform_Mobilnych.Modules
 {
-    public sealed class Downloader
+    public static class Downloader
     {
         public static async Task<string> DownloadXml(string uri)
         {
@@ -17,16 +16,16 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             return Encoding.GetEncoding("ISO-8859-2").GetString(get, 0, get.Length);
         }
 
-        internal static async Task<List<Position>> getPositionsFromCode(string code)
+        internal static async Task<List<Position>> GetPositionsFromCode(string code)
         {
             Storage storage = new Storage();
             List<Position> positions = new List<Position>();
 
-            if (storage.IsFile(code) && code != null)
+            if (Storage.IsFile(code) && code != null)
             {
-                await storage.createFile(code);
-                storage.readFile(code);
-                foreach (Position pos in DeserializerXML.deserialize(storage.readStringFromFile()))
+                await storage.CreateFile(code);
+                storage.ReadFile(code);
+                foreach (Position pos in DeserializerXml.Deserialize(storage.ReadStringFromFile()))
                 {
                     positions.Add(pos);
                 }
@@ -35,16 +34,16 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             {
                 if (Connection.IsInternet())
                 {
-                    string patternURL = "http://www.nbp.pl/kursy/xml/";
+                    string patternUrl = "http://www.nbp.pl/kursy/xml/";
                     string patternFileExtension = ".xml";
 
-                    string output = await Downloader.DownloadXml(patternURL + code + patternFileExtension);
-                    foreach (Position pos in DeserializerXML.deserialize(output))
+                    string output = await DownloadXml(patternUrl + code + patternFileExtension);
+                    foreach (Position pos in DeserializerXml.Deserialize(output))
                     {
                         positions.Add(pos);
                     }
-                    await storage.createFile(code);
-                    storage.saveFile(code, output);
+                    await storage.CreateFile(code);
+                    storage.SaveFile(code, output);
                 }
                 else
                 {
@@ -53,7 +52,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             return positions;
         }
 
-        public static async Task<byte[]> Get(string uri)
+        private static async Task<byte[]> Get(string uri)
         {
             try
             {
@@ -79,30 +78,32 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             }
         }
 
-        internal static async Task<List<Position>> getFile(string code)
+/*
+        internal static async Task<List<Position>> GetFile(string code)
         {
-            string patternURL = "http://www.nbp.pl/kursy/xml/";
+            string patternUrl = "http://www.nbp.pl/kursy/xml/";
             string patternFileExtension = ".xml";
             List<Position> positions = new List<Position>();
             Storage storage = new Storage();
 
-            if (storage.IsFile(code) && code != null)
+            if (Storage.IsFile(code) && code != null)
             {
-                await storage.createFile(code);
-                storage.readFile(code);
-                DeserializerXML.deserialize(storage.readStringFromFile()).ToList().ForEach((x) => positions.Add(x));
+                await storage.CreateFile(code);
+                storage.ReadFile(code);
+                DeserializerXml.Deserialize(storage.ReadStringFromFile()).ToList().ForEach((x) => positions.Add(x));
             }
             else
             {
                 if (Connection.IsInternet())
                 {
-                    string output = await DownloadXml(patternURL + code + patternFileExtension);
-                    await storage.createFile(code);
-                    storage.saveFile(code, output);
-                    DeserializerXML.deserialize(output).ToList().ForEach((x) => positions.Add(x));                    
+                    string output = await DownloadXml(patternUrl + code + patternFileExtension);
+                    await storage.CreateFile(code);
+                    storage.SaveFile(code, output);
+                    DeserializerXml.Deserialize(output).ToList().ForEach((x) => positions.Add(x));                    
                 }
             }
             return positions;
         }
+*/
     }
 }

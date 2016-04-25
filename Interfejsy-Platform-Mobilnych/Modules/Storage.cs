@@ -4,39 +4,39 @@ using Windows.Storage;
 
 namespace Interfejsy_Platform_Mobilnych.Modules
 {
-    class Storage
+    internal class Storage
     {
-        StorageFolder roamingFolder = ApplicationData.Current.RoamingFolder;
-        StorageFile file;
+        private readonly StorageFolder _roamingFolder = ApplicationData.Current.RoamingFolder;
+        private StorageFile _file;
         
-        public async Task createFile(string name)
+        public async Task CreateFile(string name)
         {
-            file = await roamingFolder.CreateFileAsync(name, CreationCollisionOption.OpenIfExists);
+            _file = await _roamingFolder.CreateFileAsync(name, CreationCollisionOption.OpenIfExists);
         }
 
-        public bool IsFile(string name)
+        public static bool IsFile(string name)
         {
             return System.IO.File.Exists(string.Format(@"{0}\{1}", ApplicationData.Current.RoamingFolder.Path, name));
         }
 
-        public async void saveFile(string nameFile, string data)
+        public async void SaveFile(string nameFile, string data)
         {
-            StorageFile file = await roamingFolder.CreateFileAsync(nameFile, CreationCollisionOption.OpenIfExists);
+            var file = await _roamingFolder.CreateFileAsync(nameFile, CreationCollisionOption.OpenIfExists);
             await FileIO.WriteTextAsync(file, data);
         }
 
-        public async void readFile(string name)
+        public async void ReadFile(string name)
         {
-            await roamingFolder.GetFileAsync(name);
+            await _roamingFolder.GetFileAsync(name);
         }
 
-        public string readStringFromFile()
+        public string ReadStringFromFile()
         {
             string text = null;
                 Task.Run(
                 async () =>
                 {
-                    text = await FileIO.ReadTextAsync(file);
+                    text = await FileIO.ReadTextAsync(_file);
                 })
                 .Wait();
             return text;

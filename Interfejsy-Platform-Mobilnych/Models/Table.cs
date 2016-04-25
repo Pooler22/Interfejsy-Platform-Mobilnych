@@ -3,33 +3,31 @@
 namespace Interfejsy_Platform_Mobilnych.Models
 {
     [DataContract]
-    class Table
+    internal class Table
     {
-        [DataMember]
-        internal string code;
-        public string Code { get { return code; } }
-        
-        [DataMember]
-        internal bool isDownloaded;
-        public bool IsDownloaded { get { return isDownloaded; } }
+        [DataMember] private readonly string code;
+        public string Code => code;
+
+        [DataMember] private bool _isDownloaded;
+        public bool IsDownloaded => _isDownloaded;
 
         public Table(string initCode)
         {
-            isDownloaded = false;
+            _isDownloaded = false;
             code = initCode;
         }
 
-        public void setDownloaded()
+        public void SetDownloaded()
         {
-            isDownloaded = true;
+            _isDownloaded = true;
         }
 
-        public string getDate()
+        public string GetDate()
         {
             return code.Substring(5);
         }
 
-        public int getNumber()
+        public int GetNumber()
         {
             return int.Parse(code.Substring(1, 3));
         }

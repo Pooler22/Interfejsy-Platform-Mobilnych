@@ -6,7 +6,7 @@ namespace Interfejsy_Platform_Mobilnych
 {
     public sealed partial class MainPage : Page
     {
-        DatabaseViewModel ViewModel { get; set; }
+        private DatabaseViewModel ViewModel { get; set; }
 
         public MainPage()
         {
@@ -18,7 +18,7 @@ namespace Interfejsy_Platform_Mobilnych
 
         private void TodayButton_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Data), ViewModel);
+            MainFrame.Navigate(typeof(Data), ViewModel);
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)

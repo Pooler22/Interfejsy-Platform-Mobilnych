@@ -6,6 +6,7 @@
     "Microsoft.ApplicationInsights.WindowsApps": "1.1.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "MyToolkit.Extended": "2.5.11",
+    "Syncfusion.SfChart.Universal451": "14.1.0.41",
     "WindowsStateTriggers": "1.1.0"
   },
   "frameworks": {
