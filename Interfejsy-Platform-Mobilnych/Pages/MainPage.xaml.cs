@@ -1,12 +1,11 @@
-﻿using Interfejsy_Platform_Mobilnych.ViewModel;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Interfejsy_Platform_Mobilnych.ViewModel;
 
-namespace Interfejsy_Platform_Mobilnych
+namespace Interfejsy_Platform_Mobilnych.Pages
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage
     {
-        private DatabaseViewModel ViewModel { get; set; }
+        private DatabaseViewModel ViewModel { get; }
 
         public MainPage()
         {

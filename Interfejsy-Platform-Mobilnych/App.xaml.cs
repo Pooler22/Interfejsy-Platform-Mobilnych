@@ -10,7 +10,7 @@ namespace Interfejsy_Platform_Mobilnych
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    sealed partial class App
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -21,8 +21,8 @@ namespace Interfejsy_Platform_Mobilnych
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Interfejsy_Platform_Mobilnych
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                rootFrame.Navigate(typeof(Pages.MainPage), e.Arguments);
             }
             // Ensure the current window is active
             Window.Current.Activate();

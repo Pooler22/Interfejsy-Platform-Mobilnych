@@ -1,11 +1,10 @@
-﻿using Interfejsy_Platform_Mobilnych.ViewModel;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using Interfejsy_Platform_Mobilnych.ViewModel;
 
-namespace Interfejsy_Platform_Mobilnych
+namespace Interfejsy_Platform_Mobilnych.Pages
 {
-    public sealed partial class History : Page
+    public sealed partial class History
     {
         private DatabaseViewModel ViewModel { get; set; }
 
@@ -19,6 +18,7 @@ namespace Interfejsy_Platform_Mobilnych
             ViewModel = e.Parameter as DatabaseViewModel;
         }
 
+/*
         private void Date_DateChanged(object sender, DatePickerValueChangedEventArgs e)
         {
             if(StartDate.Date < EndDate.Date)
@@ -32,15 +32,18 @@ namespace Interfejsy_Platform_Mobilnych
                 InfoTextBlock.Visibility = Visibility.Visible;
             }
         }
+*/
 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Generate(StartDate.Date, EndDate.Date);
         }
 
+/*
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
         {
 
         }
+*/
     }
 }
