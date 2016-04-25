@@ -22,7 +22,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             if (date == null) return null;
             var tmp = (date.Value.ToString("yyMMdd"));
-            return Database[date.Value.Year - MinAvailableYear].tables.First(x => x.code.Contains(tmp)).code;
+            return Database[date.Value.Year - MinAvailableYear].tables.First(x => x.Code.Contains(tmp)).Code;
         }
 
         public ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
@@ -53,7 +53,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 {
                     for (pro.DownloadedValue = pro.DownloadedMinimum - 1; pro.DownloadedValue < pro.DownloadedMaximum - 1; pro.DownloadedValue++)
                     {
-                        string code = Database[tmp].tables[pro.DownloadedValue].code;
+                        string code = Database[tmp].tables[pro.DownloadedValue].Code;
                         //download
                         string patternUrl1 = "http://www.nbp.pl/kursy/xml/";
                         string patternFileExtension1 = ".xml";

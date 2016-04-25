@@ -5,8 +5,8 @@ namespace Interfejsy_Platform_Mobilnych.Models
     [DataContract]
     internal class Table
     {
-        [DataMember] private readonly string code;
-        public string Code => code;
+        [DataMember] private readonly string _code;
+        public string Code => _code;
 
         [DataMember] private bool _isDownloaded;
         public bool IsDownloaded => _isDownloaded;
@@ -14,7 +14,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
         public Table(string initCode)
         {
             _isDownloaded = false;
-            code = initCode;
+            _code = initCode;
         }
 
         public void SetDownloaded()
@@ -24,12 +24,12 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public string GetDate()
         {
-            return code.Substring(5);
+            return _code.Substring(5);
         }
 
         public int GetNumber()
         {
-            return int.Parse(code.Substring(1, 3));
+            return int.Parse(_code.Substring(1, 3));
         }
     }
 }
