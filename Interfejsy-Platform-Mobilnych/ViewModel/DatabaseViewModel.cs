@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.Modules;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -27,6 +29,8 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         public double MinValue { get; set; } = 0.0;
         public double MaxValue { get; set; } = 1.0;
 
+        public ObservableCollection<bool> UIEnabled = new ObservableCollection<bool>() { false };
+
         public string SelectedDays { get; } = "LastA";
 
         public string SelectedCurrency { get; set; }
@@ -49,6 +53,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 {
                     Database.Add(year);
                 }
+                UIEnabled[0] = true;
 
                 if (Connection.IsInternet())
                 {
@@ -59,12 +64,15 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             {
                 if (Connection.IsInternet())
                 {
-                    DownloadFirstTimeDatabase();
+                    await DownloadFirstTimeDatabase();
+
+                    UIEnabled[0] = true;
+                    Debug.WriteLine("dziala");
                 }
             }
         }
 
-        private async void DownloadFirstTimeDatabase()
+        private async Task DownloadFirstTimeDatabase()
         {
             var tmpYear = MinAvailableYear;
             while (true)
@@ -78,7 +86,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 tmpYear++;
             }
             Database.Add(PrepareStructure(tmpYear, await Downloader.DownloadString(PatternUrl + PatternFileExtension)));
-            new Storage().SaveFile(NameDatabaseFile, SerializerJson.Serialize(Database.ToList()));
+            await new Storage().SaveFile(NameDatabaseFile, SerializerJson.Serialize(Database.ToList()));
         }
 
         private static Year PrepareStructure(int inYear, string text)
@@ -148,7 +156,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         public bool HasDate(DateTimeOffset date)
         {
-            var table = Database.First(z => z.Number == int.Parse(date.ToString("yyyy")));
+            var table = Database.FirstOrDefault(z => z.Number == int.Parse(date.ToString("yyyy")));
             var enumerable = table.Tables.Select(y => y.GetDate().Equals(date.ToString("yyMMdd")));
             return enumerable.Any(x=> x.Equals(true));
         }

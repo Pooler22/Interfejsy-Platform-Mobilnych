@@ -20,7 +20,9 @@ namespace Interfejsy_Platform_Mobilnych.Modules
             return File.Exists(string.Format(@"{0}\{1}", ApplicationData.Current.RoamingFolder.Path, name));
         }
 
-        public async void SaveFile(string nameFile, string data)
+        public async 
+        Task
+SaveFile(string nameFile, string data)
         {
             var file = await _roamingFolder.CreateFileAsync(nameFile, CreationCollisionOption.OpenIfExists);
             await FileIO.WriteTextAsync(file, data);

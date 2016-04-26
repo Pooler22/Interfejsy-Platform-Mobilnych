@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="e12999cb-35e9-4189-ac88-10cd3906c461" Publisher="CN=pooler" Version="1.0.0.0" />
+  <Identity Name="f12999cb-35e9-4189-ac88-10cd3906c462" Publisher="CN=pooler" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="e12999cb-35e9-4189-ac88-10cd3906c461" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Interfejsy-Platform-Mobilnych</DisplayName>
