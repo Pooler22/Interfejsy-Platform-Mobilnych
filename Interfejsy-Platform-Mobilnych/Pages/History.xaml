@@ -19,12 +19,14 @@
                 <TextBlock HorizontalAlignment="Center">Zakres dat:</TextBlock>
                 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                    <CalendarDatePicker PlaceholderText="Start date" Name="StartDate"
+                    <CalendarDatePicker CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging"
+                                        PlaceholderText="Start date" Name="StartDate"
                                         MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}"
                                         HorizontalAlignment="Center" VerticalAlignment="Center" DateChanged="Date_DateChanged"/>
-                    <CalendarDatePicker PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}"
+                    <CalendarDatePicker CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging"
+                                        PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}"
                                         MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" DateChanged="Date_DateChanged"/>
-                    <Button Name="GenerateButton"  Click="GenerateButton_Click" Content="Genetuj wykres" HorizontalAlignment="Center"
+                    <Button Name="GenerateButton" IsEnabled="False" Click="GenerateButton_Click" Content="Genetuj wykres" HorizontalAlignment="Center"
                         IsTapEnabled="False" />
                 </StackPanel>
 

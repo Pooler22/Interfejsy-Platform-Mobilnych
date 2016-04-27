@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using static System.String;
 
 namespace Interfejsy_Platform_Mobilnych.Models
 {
@@ -14,6 +15,8 @@ namespace Interfejsy_Platform_Mobilnych.Models
         public string Code { get; set; }
         [DataMember]
         public double Value { get; set; }
+
+        public string ValueS => Format("{0:0.00}", Value);
 
         public Position(string a, int b, string c, double d)
         {

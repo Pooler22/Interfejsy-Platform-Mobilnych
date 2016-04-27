@@ -16,7 +16,7 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
             <TextBlock Text="Select new date:" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <CalendarDatePicker IsEnabled="{x:Bind ViewModel.UIEnabled[0]}" Name="Calendar" DateChanged="CalendarDatePicker_DateChanged" MinDate="{x:Bind ViewModel.MinDate}"
+            <CalendarDatePicker Name="Calendar" DateChanged="CalendarDatePicker_DateChanged" MinDate="{x:Bind ViewModel.MinDate}"
                                 MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"
                                 VerticalAlignment="Center" CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging">
 
@@ -32,7 +32,7 @@
                     <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Nazwa" MappingName="Name"/>
                     <syncfusion:GridNumericColumn  ColumnSizer="Star" HeaderText="Przelicznik"  MappingName="Converter"/>
                     <syncfusion:GridTextColumn  ColumnSizer="Star" HeaderText="Kod"  MappingName="Code"/>
-                    <syncfusion:GridNumericColumn ColumnSizer="Star" HeaderText="Kurs" MappingName="Value"/>
+                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Kurs" MappingName="ValueS"/>
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
 

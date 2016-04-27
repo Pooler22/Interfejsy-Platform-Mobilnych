@@ -16,7 +16,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
                        GetList(query.Elements())[0], 
                        int.Parse(GetList(query.Elements())[1]), 
                        GetList(query.Elements())[2], 
-                       double.Parse(GetList(query.Elements())[3])
+                       double.Parse((GetList(query.Elements())[3]).Replace(',','.'))
                        );
         }
 

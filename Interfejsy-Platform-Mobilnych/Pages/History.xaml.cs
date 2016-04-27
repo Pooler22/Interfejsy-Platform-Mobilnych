@@ -19,6 +19,12 @@ namespace Interfejsy_Platform_Mobilnych.Pages
             ViewModel = e.Parameter as DatabaseViewModel;
         }
 
+        private void CalendarDatePicker_OnCalendarViewDayItemChanging(CalendarView sender,
+            CalendarViewDayItemChangingEventArgs args)
+        {
+            ViewModel.CheckBlackout(args);
+        }
+
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
             Chart.SuspendSeriesNotification();

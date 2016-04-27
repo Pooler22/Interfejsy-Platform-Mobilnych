@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Windows.UI;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.ViewModel;
@@ -12,16 +8,16 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 {
     public sealed partial class Data
     {
-        private DatabaseViewModel ViewModel { get; set; }
-
-        private PositionViewModel PositionViewModel { get; }
-
         public Data()
         {
             InitializeComponent();
             PositionViewModel = new PositionViewModel();
         }
-        
+
+        private DatabaseViewModel ViewModel { get; set; }
+
+        private PositionViewModel PositionViewModel { get; }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel = e.Parameter as DatabaseViewModel;
@@ -40,29 +36,10 @@ namespace Interfejsy_Platform_Mobilnych.Pages
             ((MainGrid.Parent as Page)?.Parent as Frame)?.Navigate(typeof(History), ViewModel);
         }
 
-        private void CalendarDatePicker_OnCalendarViewDayItemChanging(CalendarView sender, CalendarViewDayItemChangingEventArgs args)
+        private void CalendarDatePicker_OnCalendarViewDayItemChanging(CalendarView sender,
+            CalendarViewDayItemChangingEventArgs args)
         {
-            if (args.Phase == 0)
-            {
-                args.RegisterUpdateCallback(CalendarDatePicker_OnCalendarViewDayItemChanging);
-            }
-            else if (args.Phase == 1)
-            {
-                if (ViewModel.HasDate(args.Item.Date) == false)
-                {
-                    args.Item.IsBlackout = true;
-                }
-                args.RegisterUpdateCallback(CalendarDatePicker_OnCalendarViewDayItemChanging);
-            }
-            else if (args.Phase == 2)
-            {
-                if (args.Item.Date > DateTimeOffset.Now &&
-                    args.Item.Date.DayOfWeek != DayOfWeek.Sunday)
-                {
-                    List<Color> densityColors = new List<Color>();
-                    args.Item.SetDensityColors(densityColors);
-                }
-            }
+            ViewModel.CheckBlackout(args);
         }
     }
 }

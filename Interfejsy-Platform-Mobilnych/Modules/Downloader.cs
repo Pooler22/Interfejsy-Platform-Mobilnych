@@ -18,17 +18,11 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 
         internal static async Task<List<Position>> GetPositionsFromCode(string code)
         {
-            var storage = new Storage();
             var positions = new List<Position>();
 
             if (Storage.IsFile(code) && code != null)
             {
-                await storage.CreateFile(code);
-                storage.ReadFile(code);
-                foreach (var pos in DeserializerXml.Deserialize(storage.ReadStringFromFile()))
-                {
-                    positions.Add(pos);
-                }
+                positions.AddRange(DeserializerXml.Deserialize(Storage.ReadFile(code)));
             }
             else
             {
@@ -39,8 +33,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 
                     var output = await DownloadXml(patternUrl + code + patternFileExtension);
                     positions.AddRange(DeserializerXml.Deserialize(output));
-                    await storage.CreateFile(code);
-                    storage.SaveFile(code, output);
+                    await Storage.SaveFile(code, output);
                 }
             }
             return positions;

@@ -6,6 +6,7 @@ using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.Modules;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Windows.UI.Xaml.Controls;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
@@ -40,16 +41,20 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             InitData();
         }
 
+        public void CheckBlackout(CalendarViewDayItemChangingEventArgs args)
+        {
+            if (args.Item != null && HasDate(args.Item.Date) == false)
+            {
+                args.Item.IsBlackout = true;
+            }
+        }
+
         private async void InitData()
         {
-            var storage = new Storage();
 
             if (Storage.IsFile(NameDatabaseFile))
             {
-                await storage.CreateFile(NameDatabaseFile);
-                storage.ReadFile(NameDatabaseFile);
-
-                foreach (var year in SerializerJson.Deserialize<List<Year>>(storage.ReadStringFromFile()))
+                foreach (var year in SerializerJson.Deserialize<List<Year>>(Storage.ReadFile(NameDatabaseFile)))
                 {
                     Database.Add(year);
                 }
@@ -86,7 +91,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 tmpYear++;
             }
             Database.Add(PrepareStructure(tmpYear, await Downloader.DownloadString(PatternUrl + PatternFileExtension)));
-            await new Storage().SaveFile(NameDatabaseFile, SerializerJson.Serialize(Database.ToList()));
+            await Storage.SaveFile(NameDatabaseFile, SerializerJson.Serialize(Database.ToList()));
         }
 
         private static Year PrepareStructure(int inYear, string text)
@@ -109,7 +114,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
         {
-            var storage = new Storage();
             if (date2 == null) return;
             if (date1 == null) return;
             var tmpYearDif = date2.Value.Year - date1.Value.Year;
@@ -139,8 +143,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                         var output1 = await Downloader.DownloadXml(PatternUrl1 + code + PatternFileExtension1);
                         var first = DeserializerXml.Deserialize(output1).First(position => position.Name.Equals(SelectedCurrency));
                         Values.Add(first.Value);
-                        await storage.CreateFile(code);
-                        storage.SaveFile(code, output1);
+                        await Storage.SaveFile(code, output1);
                         //load data
                         //Progress.Clear();
                     }
