@@ -24,9 +24,9 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public string ValueS => Format("{0:0.00}", Value);
 
-        public Position(string a, int b, string c, double d)
+        public Position(DateTime date ,string a, int b, string c, double d)
         {
-            Date = new DateTime();
+            Date = date;
             Name = a;
             Converter = b;
             Code = c;
@@ -35,7 +35,7 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public override string ToString()
         {
-            return $"[Code: {Code}, Name: {Name}, Value: {Value}]";
+            return $"[Value: {Value},Date: {Date}]";
         }
     }
 }

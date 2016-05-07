@@ -51,8 +51,8 @@
                     </syncfusion:SfChart.Header>
 
                     <syncfusion:FastLineSeries ItemsSource="{x:Bind ViewModel.Values}"
-                                               XBindingPath="DayDateTimeUtc"
-                                               YBindingPath="AverageRate"
+                                               XBindingPath="Date"
+                                               YBindingPath="Value"
                                                EnableAnimation="True" AnimationDuration="00:00:00.400" />
 
                     <syncfusion:SfChart.PrimaryAxis>

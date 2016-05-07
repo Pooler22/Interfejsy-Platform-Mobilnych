@@ -7,24 +7,13 @@ namespace Interfejsy_Platform_Mobilnych.Models
     {
         [DataMember] private readonly string _code;
 
-        [DataMember] private readonly bool _isDownloaded;
+        public string Code => _code;
 
         public Table(string initCode)
         {
-            _isDownloaded = false;
             _code = initCode;
         }
-
-        public string Code => _code;
-        public bool IsDownloaded => _isDownloaded;
-
-/*
-        public void SetDownloaded()
-        {
-            _isDownloaded = true;
-        }
-*/
-
+        
         public string GetDate()
         {
             return _code.Substring(5);

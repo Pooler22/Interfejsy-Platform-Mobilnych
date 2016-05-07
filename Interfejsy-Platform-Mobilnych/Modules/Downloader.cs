@@ -19,10 +19,16 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         internal static async Task<List<Position>> GetPositionsFromCode(string code)
         {
             var positions = new List<Position>();
-
-            if (Storage.IsFile(code) && code != null)
+            
+            DateTime date;
+            date = code.Contains("LastA")
+                ? DateTime.Today
+                : new DateTime(int.Parse("20" + code.Substring(5, 2)), int.Parse(code.Substring(7, 2)),
+                    int.Parse(code.Substring(9, 2)));
+                
+            if (Storage.IsFile(code))
             {
-                positions.AddRange(DeserializerXml.Deserialize(Storage.ReadFile(code)));
+                positions.AddRange(DeserializerXml.Deserialize(date, Storage.ReadFile(code)));
             }
             else
             {
@@ -32,7 +38,7 @@ namespace Interfejsy_Platform_Mobilnych.Modules
                     const string patternFileExtension = ".xml";
 
                     var output = await DownloadXml(patternUrl + code + patternFileExtension);
-                    positions.AddRange(DeserializerXml.Deserialize(output));
+                    positions.AddRange(DeserializerXml.Deserialize(date, output));
                     await Storage.SaveFile(code, output);
                 }
             }
@@ -64,33 +70,5 @@ namespace Interfejsy_Platform_Mobilnych.Modules
                 return null;
             }
         }
-
-/*
-        internal static async Task<List<Position>> GetFile(string code)
-        {
-            string patternUrl = "http://www.nbp.pl/kursy/xml/";
-            string patternFileExtension = ".xml";
-            List<Position> positions = new List<Position>();
-            Storage storage = new Storage();
-
-            if (Storage.IsFile(code) && code != null)
-            {
-                await storage.CreateFile(code);
-                storage.ReadFile(code);
-                DeserializerXml.Deserialize(storage.ReadStringFromFile()).ToList().ForEach((x) => positions.Add(x));
-            }
-            else
-            {
-                if (Connection.IsInternet())
-                {
-                    string output = await DownloadXml(patternUrl + code + patternFileExtension);
-                    await storage.CreateFile(code);
-                    storage.SaveFile(code, output);
-                    DeserializerXml.Deserialize(output).ToList().ForEach((x) => positions.Add(x));                    
-                }
-            }
-            return positions;
-        }
-*/
     }
 }
