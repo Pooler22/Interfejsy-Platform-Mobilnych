@@ -7,7 +7,6 @@ using Interfejsy_Platform_Mobilnych.Modules;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Windows.UI.Xaml.Controls;
-using Syncfusion.UI.Xaml.Charts;
 using Position = Interfejsy_Platform_Mobilnych.Models.Position;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
@@ -26,13 +25,11 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         
         private ObservableCollection<Year> Database { get; } = new ObservableCollection<Year>();
 
-        public ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
+        private ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
 
-        public IList<Position> Values { get; } = new List<Position>();
-        public double MinValue { get; set; } = 0.0;
-        public double MaxValue { get; set; } = 1.0;
+        public ObservableCollection<Position> Values { get; } = new ObservableCollection<Position>();
 
-        public ObservableCollection<bool> UIEnabled = new ObservableCollection<bool>() { false };
+        public readonly ObservableCollection<bool> UiEnabled = new ObservableCollection<bool>() { false };
 
         public string SelectedDays { get; } = "LastA";
 
@@ -60,7 +57,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 {
                     Database.Add(year);
                 }
-                UIEnabled[0] = true;
+                UiEnabled[0] = true;
 
                 if (Connection.IsInternet())
                 {
@@ -73,7 +70,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 {
                     await DownloadFirstTimeDatabase();
 
-                    UIEnabled[0] = true;
+                    UiEnabled[0] = true;
                     Debug.WriteLine("dziala");
                 }
             }
@@ -116,8 +113,12 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
         {
-         
-            Values.Clear();
+            for(var i = Values.Count-1; i > 0 ; i--)
+            {
+                Values.RemoveAt(i);
+            }
+            if (date2 == null) return;
+            if (date1 == null) return;
             var tmpYearDif = date2.Value.Year - date1.Value.Year;
             var numberOfDate1 = date1.Value.ToString("yyMMdd");
             var numberOfDate2 = date2.Value.ToString("yyMMdd");
@@ -130,9 +131,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
             if (tmpYearDif == 0)
             {
-                //progress[0].downloadedMinimum = database[tmp].tables.Find(x => x.getDate() == numberOfDate1).getNumber();
-                //progress[0].downloadedMaximum = database[tmp].tables.Find(x => x.getDate() == numberOfDate2).getNumber();
-                //progress[0].downloadedValue = progress[0].downloadedMinimum;
                 foreach (var pro in Progress)
                 {
                     for (pro.Value = pro.Minimum - 1;
@@ -164,7 +162,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             }
         }
 
-        public bool HasDate(DateTimeOffset date)
+        private bool HasDate(DateTimeOffset date)
         {
             var table = Database.FirstOrDefault(z => z.Number == int.Parse(date.ToString("yyyy")));
             var enumerable = table.Tables.Select(y => y.GetDate().Equals(date.ToString("yyMMdd")));

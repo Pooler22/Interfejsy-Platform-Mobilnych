@@ -27,11 +27,9 @@ namespace Interfejsy_Platform_Mobilnych.Pages
 
         private void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
-            Chart.SuspendSeriesNotification();
             ViewModel.Generate(StartDate.Date, EndDate.Date);
-            Chart.ResumeSeriesNotification();
         }
-        
+
         private void Date_DateChanged(CalendarDatePicker calendarDatePicker, CalendarDatePickerDateChangedEventArgs args)
         {
             if (StartDate.Date < EndDate.Date)

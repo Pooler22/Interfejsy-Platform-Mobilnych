@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
     xmlns:syncfusion="using:Syncfusion.UI.Xaml.Charts"
     mc:Ignorable="d">
 
@@ -25,7 +24,8 @@
                                         HorizontalAlignment="Center" VerticalAlignment="Center"
                                         DateChanged="Date_DateChanged" />
                     <CalendarDatePicker CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging"
-                                        PlaceholderText="Envalue valueate" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}"
+                                        PlaceholderText="Envalue valueate" Name="EndDate"
+                                        MinDate="{x:Bind ViewModel.MinDate}"
                                         MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"
                                         DateChanged="Date_DateChanged" />
                     <Button Name="GenerateButton" IsEnabled="False" Click="GenerateButton_Click"
@@ -37,27 +37,14 @@
                            Text="*Data początkowa musi być wcześniejsza ovalue valueaty końcowej."
                            HorizontalAlignment="Center" FontStyle="Italic" />
 
-
-                <TextBlock Text="Wykres" />
-
-                <syncfusion:SfChart Name="Chart" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                    Margin="0,0,10,0">
-
-                    <syncfusion:SfChart.Header>
-                        <TextBlock>
-                            <Run x:Uid="HisPivotHeavalueer" Text="?" />
-                            <Run Text="what?" />
-                        </TextBlock>
-                    </syncfusion:SfChart.Header>
-
+                <syncfusion:SfChart Name="ChartSF" HorizontalAlignment="Center" >
                     <syncfusion:FastLineSeries ItemsSource="{x:Bind ViewModel.Values}"
                                                XBindingPath="Date"
-                                               YBindingPath="Value"
-                                               EnableAnimation="True" AnimationDuration="00:00:00.400" />
+                                               YBindingPath="Value" />
 
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:DateTimeCategoryAxis x:Uid="HisChartPrimary"
-                                                         LabelFormat="valuevalue.MM.yy" FontSize="11" />
+                                                         LabelFormat="dd.MM.yy" />
                     </syncfusion:SfChart.PrimaryAxis>
 
                     <syncfusion:SfChart.SecondaryAxis>
@@ -65,25 +52,15 @@
                     </syncfusion:SfChart.SecondaryAxis>
 
                     <syncfusion:SfChart.Behaviors>
-                        <syncfusion:ChartZoomPanBehavior EnableMouseWheelZooming="True" EnablePanning="True"
-                                                         EnableSelectionZooming="True" ResetOnDoubleTap="True" />
+                        <syncfusion:ChartZoomPanBehavior EnableMouseWheelZooming="True"
+                                                         EnablePinchZooming="True"
+                                                         EnablePanning="True"
+                                                         EnableSelectionZooming="True" 
+                                                         ResetOnDoubleTap="True"
+                                                         ZoomMode="XY"/>
                     </syncfusion:SfChart.Behaviors>
-
                 </syncfusion:SfChart>
-
-                <TextBlock>Postęp wczytania nowych valueanych</TextBlock>
-                <ProgressBar />
-
-                <TextBlock>Zapisanych lokalnie</TextBlock>
-                <ProgressBar />
-
-                <ProgressRing IsActive="True" />
-
             </StackPanel>
         </ScrollViewer>
-        <CommandBar VerticalAlignment="Bottom">
-            <AppBarButton Icon="Save" Label="Zapisz jako obraz" />
-        </CommandBar>
-
     </Grid>
 </Page>
