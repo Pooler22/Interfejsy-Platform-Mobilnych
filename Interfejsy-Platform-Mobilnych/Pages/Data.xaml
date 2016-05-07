@@ -15,28 +15,30 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center">
-            <TextBlock Text="Select new date:" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <CalendarDatePicker Name="Calendar" DateChanged="CalendarDatePicker_DateChanged" MinDate="{x:Bind ViewModel.MinDate}"
+            <TextBlock Text="Select new valueate:" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <CalendarDatePicker Name="Calendar" DateChanged="CalendarDatePicker_DateChanged"
+                                MinDate="{x:Bind ViewModel.MinDate}"
                                 MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"
-                                VerticalAlignment="Center" CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging">
-
-            </CalendarDatePicker>
+                                VerticalAlignment="Center"
+                                CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging" />
 
         </StackPanel>
 
 
         <Grid Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <syncfusion:SfDataGrid SelectionChanged="SfDataGrid_OnSelectionChanged" AllowResizingColumns="True" VerticalAlignment="Stretch" 
-                                   HorizontalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{x:Bind PositionViewModel.Positions}">
+            <syncfusion:SfDataGrid SelectionChanged="SfDataGrid_OnSelectionChanged" AllowResizingColumns="True"
+                                   VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch" AutoGenerateColumns="False"
+                                   ItemsSource="{x:Bind PositionViewModel.Positions}">
                 <syncfusion:SfDataGrid.Columns>
-                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Nazwa" MappingName="Name"/>
-                    <syncfusion:GridNumericColumn  ColumnSizer="Star" HeaderText="Przelicznik"  MappingName="Converter"/>
-                    <syncfusion:GridTextColumn  ColumnSizer="Star" HeaderText="Kod"  MappingName="Code"/>
-                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Kurs" MappingName="ValueS"/>
+                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Nazwa" MappingName="Name" />
+                    <syncfusion:GridNumericColumn ColumnSizer="Star" HeaderText="Przelicznik" MappingName="Converter" />
+                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Kod" MappingName="Code" />
+                    <syncfusion:GridTextColumn ColumnSizer="Star" HeaderText="Kurs" MappingName="ValueS" />
                 </syncfusion:SfDataGrid.Columns>
             </syncfusion:SfDataGrid>
 
         </Grid>
-       
+
     </Grid>
 </Page>

@@ -2,15 +2,14 @@
 {
     internal class Progress
     {
-        public readonly int DownloadedMaximum;
-        public readonly int DownloadedMinimum;
-        public int DownloadedValue;
+        public readonly int Maximum;
+        public readonly int Minimum;
+        public int Value;
 
-        public Progress(int a, int b)
+        public Progress(int min, int max)
         {
-            DownloadedMinimum = a;
-            DownloadedMaximum = b;
-            DownloadedMinimum = a;
+            Minimum = Value = min;
+            Maximum = max;
         }
     }
 }

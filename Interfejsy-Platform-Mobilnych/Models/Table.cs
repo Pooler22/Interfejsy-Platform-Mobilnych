@@ -7,13 +7,13 @@ namespace Interfejsy_Platform_Mobilnych.Models
     {
         [DataMember] private readonly string _code;
 
-        public string Code => _code;
-
         public Table(string initCode)
         {
             _code = initCode;
         }
-        
+
+        public string Code => _code;
+
         public string GetDate()
         {
             return _code.Substring(5);

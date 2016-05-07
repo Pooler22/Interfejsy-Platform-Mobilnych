@@ -102,7 +102,7 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
             foreach (var i in text.Replace("\r\n", "\n").Split('\n'))
             {
                 if (!string.IsNullOrEmpty(i) && (i.First() == 'a'))
-                    year.AddTable(new Table(i));
+                    year.Tables.Add(new Table(i));
             }
             return year;
         }
@@ -135,11 +135,11 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                 //progress[0].downloadedValue = progress[0].downloadedMinimum;
                 foreach (var pro in Progress)
                 {
-                    for (pro.DownloadedValue = pro.DownloadedMinimum - 1;
-                        pro.DownloadedValue < pro.DownloadedMaximum - 1;
-                        pro.DownloadedValue++)
+                    for (pro.Value = pro.Minimum - 1;
+                        pro.Value < pro.Maximum - 1;
+                        pro.Value++)
                     {
-                        var code = Database[tmp].Tables[pro.DownloadedValue].Code;
+                        var code = Database[tmp].Tables[pro.Value].Code;
                         var output1 = await Downloader.DownloadXml(PatternUrl1 + code + PatternFileExtension1);
 
                         DateTime date;

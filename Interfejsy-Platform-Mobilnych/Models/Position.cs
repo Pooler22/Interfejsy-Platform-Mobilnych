@@ -7,6 +7,15 @@ namespace Interfejsy_Platform_Mobilnych.Models
     [DataContract]
     internal class Position
     {
+        public Position(DateTime date, string name, int converter, string code, double value)
+        {
+            Date = date;
+            Name = name;
+            Converter = converter;
+            Code = code;
+            Value = value;
+        }
+
         [DataMember]
         public string Name { get; set; }
 
@@ -23,19 +32,5 @@ namespace Interfejsy_Platform_Mobilnych.Models
         public double Value { get; set; }
 
         public string ValueS => Format("{0:0.00}", Value);
-
-        public Position(DateTime date ,string a, int b, string c, double d)
-        {
-            Date = date;
-            Name = a;
-            Converter = b;
-            Code = c;
-            Value = d;
-        }
-
-        public override string ToString()
-        {
-            return $"[Value: {Value},Date: {Date}]";
-        }
     }
 }

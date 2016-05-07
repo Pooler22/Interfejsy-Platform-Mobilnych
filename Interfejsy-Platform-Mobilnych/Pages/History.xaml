@@ -16,16 +16,16 @@
                     <TextBlock Text="{x:Bind ViewModel.SelectedCurrency}" />
                 </StackPanel>
 
-                <TextBlock HorizontalAlignment="Center">Zakres dat:</TextBlock>
+                <TextBlock HorizontalAlignment="Center">Zakres valueat:</TextBlock>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                     <CalendarDatePicker CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging"
-                                        PlaceholderText="Start date" Name="StartDate"
+                                        PlaceholderText="Start valueate" Name="StartDate"
                                         MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}"
                                         HorizontalAlignment="Center" VerticalAlignment="Center"
                                         DateChanged="Date_DateChanged" />
                     <CalendarDatePicker CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging"
-                                        PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}"
+                                        PlaceholderText="Envalue valueate" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}"
                                         MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"
                                         DateChanged="Date_DateChanged" />
                     <Button Name="GenerateButton" IsEnabled="False" Click="GenerateButton_Click"
@@ -34,7 +34,7 @@
                 </StackPanel>
 
                 <TextBlock Name="InfoTextBlock" Visibility="Collapsed"
-                           Text="*Data początkowa musi być wcześniejsza od daty końcowej."
+                           Text="*Data początkowa musi być wcześniejsza ovalue valueaty końcowej."
                            HorizontalAlignment="Center" FontStyle="Italic" />
 
 
@@ -45,7 +45,7 @@
 
                     <syncfusion:SfChart.Header>
                         <TextBlock>
-                            <Run x:Uid="HisPivotHeader" Text="?" />
+                            <Run x:Uid="HisPivotHeavalueer" Text="?" />
                             <Run Text="what?" />
                         </TextBlock>
                     </syncfusion:SfChart.Header>
@@ -57,11 +57,11 @@
 
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:DateTimeCategoryAxis x:Uid="HisChartPrimary"
-                                                         LabelFormat="dd.MM.yy" FontSize="11" />
+                                                         LabelFormat="valuevalue.MM.yy" FontSize="11" />
                     </syncfusion:SfChart.PrimaryAxis>
 
                     <syncfusion:SfChart.SecondaryAxis>
-                        <syncfusion:NumericalAxis x:Uid="HisChartSecondary" />
+                        <syncfusion:NumericalAxis x:Uid="HisChartSeconvalueary" />
                     </syncfusion:SfChart.SecondaryAxis>
 
                     <syncfusion:SfChart.Behaviors>
@@ -71,7 +71,7 @@
 
                 </syncfusion:SfChart>
 
-                <TextBlock>Postęp wczytania nowych danych</TextBlock>
+                <TextBlock>Postęp wczytania nowych valueanych</TextBlock>
                 <ProgressBar />
 
                 <TextBlock>Zapisanych lokalnie</TextBlock>
