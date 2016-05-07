@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:Interfejsy_Platform_Mobilnych.Models"
+    
     xmlns:syncfusion="using:Syncfusion.UI.Xaml.Charts"
     mc:Ignorable="d">
 
@@ -15,47 +15,60 @@
                     <TextBlock Text="Waluta: " />
                     <TextBlock Text="{x:Bind ViewModel.SelectedCurrency}" />
                 </StackPanel>
-                
+
                 <TextBlock HorizontalAlignment="Center">Zakres dat:</TextBlock>
-                
+
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                     <CalendarDatePicker CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging"
                                         PlaceholderText="Start date" Name="StartDate"
                                         MinDate="{x:Bind ViewModel.MinDate}" MaxDate="{x:Bind ViewModel.MaxDate}"
-                                        HorizontalAlignment="Center" VerticalAlignment="Center" DateChanged="Date_DateChanged"/>
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        DateChanged="Date_DateChanged" />
                     <CalendarDatePicker CalendarViewDayItemChanging="CalendarDatePicker_OnCalendarViewDayItemChanging"
                                         PlaceholderText="End date" Name="EndDate" MinDate="{x:Bind ViewModel.MinDate}"
-                                        MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center" DateChanged="Date_DateChanged"/>
-                    <Button Name="GenerateButton" IsEnabled="False" Click="GenerateButton_Click" Content="Genetuj wykres" HorizontalAlignment="Center"
-                        IsTapEnabled="False" />
+                                        MaxDate="{x:Bind ViewModel.MaxDate}" HorizontalAlignment="Center"
+                                        DateChanged="Date_DateChanged" />
+                    <Button Name="GenerateButton" IsEnabled="False" Click="GenerateButton_Click"
+                            Content="Genetuj wykres" HorizontalAlignment="Center"
+                            IsTapEnabled="False" />
                 </StackPanel>
 
-                <TextBlock Name="InfoTextBlock" Visibility="Collapsed" Text="*Data początkowa musi być wcześniejsza od daty końcowej."
+                <TextBlock Name="InfoTextBlock" Visibility="Collapsed"
+                           Text="*Data początkowa musi być wcześniejsza od daty końcowej."
                            HorizontalAlignment="Center" FontStyle="Italic" />
-                
-                
+
+
                 <TextBlock Text="Wykres" />
 
-                <syncfusion:SfChart Name="Chart">
-                    <syncfusion:LineSeries
-                    ItemsSource="{x:Bind ViewModel.Values}"
-                    XBindingPath="Demand"
-                    YBindingPath="Year2010">
+                <syncfusion:SfChart Name="Chart" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Margin="0,0,10,0">
 
-                    </syncfusion:LineSeries>
-                    
+                    <syncfusion:SfChart.Header>
+                        <TextBlock>
+                            <Run x:Uid="HisPivotHeader" Text="?" />
+                            <Run Text="what?" />
+                        </TextBlock>
+                    </syncfusion:SfChart.Header>
+
+                    <syncfusion:FastLineSeries ItemsSource="{x:Bind ViewModel.Values}"
+                                               XBindingPath="DayDateTimeUtc"
+                                               YBindingPath="AverageRate"
+                                               EnableAnimation="True" AnimationDuration="00:00:00.400" />
+
                     <syncfusion:SfChart.PrimaryAxis>
-                        <syncfusion:CategoryAxis   Header="Czas"/>
+                        <syncfusion:DateTimeCategoryAxis x:Uid="HisChartPrimary"
+                                                         LabelFormat="dd.MM.yy" FontSize="11" />
                     </syncfusion:SfChart.PrimaryAxis>
-                    
+
                     <syncfusion:SfChart.SecondaryAxis>
-
-                        <syncfusion:NumericalAxis 
-                           
-                            RangePadding="Round"   
-                            Header="Kurss"/>
-
+                        <syncfusion:NumericalAxis x:Uid="HisChartSecondary" />
                     </syncfusion:SfChart.SecondaryAxis>
+
+                    <syncfusion:SfChart.Behaviors>
+                        <syncfusion:ChartZoomPanBehavior EnableMouseWheelZooming="True" EnablePanning="True"
+                                                         EnableSelectionZooming="True" ResetOnDoubleTap="True" />
+                    </syncfusion:SfChart.Behaviors>
+
                 </syncfusion:SfChart>
 
                 <TextBlock>Postęp wczytania nowych danych</TextBlock>

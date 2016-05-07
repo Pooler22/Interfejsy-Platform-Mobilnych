@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using static System.String;
 
 namespace Interfejsy_Platform_Mobilnych.Models
@@ -10,9 +11,14 @@ namespace Interfejsy_Platform_Mobilnych.Models
         public string Name { get; set; }
 
         [DataMember]
+        public DateTime Date { get; set; }
+
+        [DataMember]
         public int Converter { get; set; }
+
         [DataMember]
         public string Code { get; set; }
+
         [DataMember]
         public double Value { get; set; }
 
@@ -20,11 +26,16 @@ namespace Interfejsy_Platform_Mobilnych.Models
 
         public Position(string a, int b, string c, double d)
         {
+            Date = new DateTime();
             Name = a;
             Converter = b;
             Code = c;
             Value = d;
         }
 
+        public override string ToString()
+        {
+            return $"[Code: {Code}, Name: {Name}, Value: {Value}]";
+        }
     }
 }

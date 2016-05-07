@@ -9,20 +9,19 @@ namespace Interfejsy_Platform_Mobilnych.Modules
     {
         internal static IEnumerable<Position> Deserialize(string xmlString)
         {
-            var loadedData = XDocument.Parse(xmlString);
             const string position = "pozycja";
-            return from query in loadedData.Descendants(position) select 
-                   new Position(
-                       GetList(query.Elements())[0], 
-                       int.Parse(GetList(query.Elements())[1]), 
-                       GetList(query.Elements())[2], 
-                       double.Parse((GetList(query.Elements())[3]).Replace(',','.'))
-                       );
+            var loadedData = XDocument.Parse(xmlString);
+            return from query in loadedData.Descendants(position)
+                select PositionConvert(query.Descendants().ToList());
         }
 
-        private static List<string> GetList(IEnumerable<XElement> input)
+        private static Position PositionConvert(List<XElement> query)
         {
-            return input.Select(element => element.Value).ToList();
+            return new Position(query[0].Value,
+                int.Parse(query[1].Value),
+                query[2].Value,
+                double.Parse(query[3].Value.Replace(',', '.'))
+                );
         }
     }
 }
