@@ -19,28 +19,26 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         internal static async Task<List<Position>> GetPositionsFromCode(string code)
         {
             var positions = new List<Position>();
-            
+
             DateTime date;
             date = code.Contains("LastA")
                 ? DateTime.Today
                 : new DateTime(int.Parse("20" + code.Substring(5, 2)), int.Parse(code.Substring(7, 2)),
                     int.Parse(code.Substring(9, 2)));
-                
+
             if (Storage.IsFile(code))
             {
                 positions.AddRange(DeserializerXml.Deserialize(date, Storage.ReadFile(code)));
             }
             else
             {
-                if (Connection.IsInternet())
-                {
-                    const string patternUrl = "http://www.nbp.pl/kursy/xml/";
-                    const string patternFileExtension = ".xml";
+                if (!Connection.IsInternet()) return positions;
+                const string patternUrl = "http://www.nbp.pl/kursy/xml/";
+                const string patternFileExtension = ".xml";
 
-                    var output = await DownloadXml(patternUrl + code + patternFileExtension);
-                    positions.AddRange(DeserializerXml.Deserialize(date, output));
-                    await Storage.SaveFile(code, output);
-                }
+                var output = await DownloadXml(patternUrl + code + patternFileExtension);
+                positions.AddRange(DeserializerXml.Deserialize(date, output));
+                await Storage.SaveFile(code, output);
             }
             return positions;
         }
@@ -49,11 +47,10 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         {
             try
             {
-                return await Task.Run(async () => await new HttpClient().GetByteArrayAsync(uri));
+                return await new HttpClient().GetByteArrayAsync(uri);
             }
             catch (Exception)
             {
-                //to do: obsługa błędu
                 return null;
             }
         }
@@ -62,11 +59,10 @@ namespace Interfejsy_Platform_Mobilnych.Modules
         {
             try
             {
-                return await Task.Run(async () => await new HttpClient().GetStringAsync(uri));
+                return await new HttpClient().GetStringAsync(uri);
             }
             catch (Exception)
             {
-                //to do: obsługa błędu
                 return null;
             }
         }

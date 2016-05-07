@@ -14,10 +14,11 @@ namespace Interfejsy_Platform_Mobilnych.Modules
 
         public static async Task SaveFile(string nameFile, string data)
         {
-            var file = await ApplicationData.Current.RoamingFolder.CreateFileAsync(nameFile, CreationCollisionOption.OpenIfExists);
+            var file = await
+                ApplicationData.Current.RoamingFolder.CreateFileAsync(nameFile, CreationCollisionOption.OpenIfExists);
             await FileIO.WriteTextAsync(file, data);
         }
-        
+
         public static string ReadFile(string name)
         {
             string text = null;
