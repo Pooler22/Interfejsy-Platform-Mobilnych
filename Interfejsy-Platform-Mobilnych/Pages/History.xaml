@@ -60,6 +60,8 @@
                                                          ZoomMode="XY"/>
                     </syncfusion:SfChart.Behaviors>
                 </syncfusion:SfChart>
+
+                <Button Name="Save" Visibility="Collapsed" Content="Save" HorizontalAlignment="Center" Click="ButtonBase_OnClick"></Button>
             </StackPanel>
         </ScrollViewer>
     </Grid>

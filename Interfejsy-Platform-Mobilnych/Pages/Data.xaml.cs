@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.ApplicationModel;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.ViewModel;
@@ -22,6 +23,7 @@ namespace Interfejsy_Platform_Mobilnych.Pages
         {
             ViewModel = e.Parameter as DatabaseViewModel;
             PositionViewModel.InitPositions(ViewModel?.SelectedDays);
+            ViewModel.SetLatsPage("Data");
         }
 
         private void CalendarDatePicker_DateChanged(CalendarDatePicker sender,
@@ -40,6 +42,11 @@ namespace Interfejsy_Platform_Mobilnych.Pages
             CalendarViewDayItemChangingEventArgs args)
         {
             ViewModel.CheckBlackout(args);
+        }
+
+        protected override async void OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            await ViewModel.SaveStateAsync();
         }
     }
 }

@@ -1,44 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
+using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 using Interfejsy_Platform_Mobilnych.Models;
 using Interfejsy_Platform_Mobilnych.Modules;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using Windows.UI.Xaml.Controls;
-using Position = Interfejsy_Platform_Mobilnych.Models.Position;
 
 namespace Interfejsy_Platform_Mobilnych.ViewModel
 {
+    [DataContract]
     internal class DatabaseViewModel
     {
         private const string PatternUrl = "http://www.nbp.pl/kursy/xml/dir";
         private const string PatternFileExtension = ".txt";
-        const string PatternUrl1 = "http://www.nbp.pl/kursy/xml/";
-        const string PatternFileExtension1 = ".xml";
+        private const string PatternUrl1 = "http://www.nbp.pl/kursy/xml/";
+        private const string PatternFileExtension1 = ".xml";
         private const int MinAvailableYear = 2002;
         private const string NameDatabaseFile = "Data";
 
-        public DateTimeOffset MinDate = new DateTimeOffset(new DateTime(2002, 1, 2));
+        public readonly ObservableCollection<bool> UiEnabled = new ObservableCollection<bool> {false};
+
+        [DataMember] private DateTimeOffset Date1;
+
+        [DataMember] private DateTimeOffset Date2;
+
+        public string LastState;
+
+        public string LastStateDate;
+        public string LastStateHistory;
         public DateTimeOffset MaxDate = new DateTimeOffset(DateTime.Today);
-        
+
+        public DateTimeOffset MinDate = new DateTimeOffset(new DateTime(2002, 1, 2));
+
+
+        public DatabaseViewModel()
+        {
+            InitData();
+        }
+
         private ObservableCollection<Year> Database { get; } = new ObservableCollection<Year>();
 
         private ObservableCollection<Progress> Progress { get; } = new ObservableCollection<Progress>();
 
         public ObservableCollection<Position> Values { get; } = new ObservableCollection<Position>();
 
-        public readonly ObservableCollection<bool> UiEnabled = new ObservableCollection<bool>() { false };
-
+        [DataMember]
         public string SelectedDays { get; } = "LastA";
 
+        [DataMember]
         public string SelectedCurrency { get; set; }
-
-        public DatabaseViewModel()
-        {
-            InitData();
-        }
 
         public void CheckBlackout(CalendarViewDayItemChangingEventArgs args)
         {
@@ -50,7 +66,6 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         private async void InitData()
         {
-
             if (Storage.IsFile(NameDatabaseFile))
             {
                 foreach (var year in SerializerJson.Deserialize<List<Year>>(Storage.ReadFile(NameDatabaseFile)))
@@ -113,7 +128,9 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
 
         internal async void Generate(DateTimeOffset? date1, DateTimeOffset? date2)
         {
-            for(var i = Values.Count-1; i > 0 ; i--)
+            Date1 = date1.Value;
+            Date2 = date2.Value;
+            for (var i = Values.Count - 1; i > 0; i--)
             {
                 Values.RemoveAt(i);
             }
@@ -143,10 +160,12 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
                         DateTime date;
                         date = code.Equals("LastA")
                             ? DateTime.Today
-                            : new DateTime(int.Parse("20" + code.Substring(5, 2)), int.Parse(code.Substring(7, 2)), 
+                            : new DateTime(int.Parse("20" + code.Substring(5, 2)), int.Parse(code.Substring(7, 2)),
                                 int.Parse(code.Substring(9, 2)));
 
-                        var first = DeserializerXml.Deserialize(date,output1).First(position => position.Name.Equals(SelectedCurrency));
+                        var first =
+                            DeserializerXml.Deserialize(date, output1)
+                                .First(position => position.Name.Equals(SelectedCurrency));
                         Values.Add(first);
                         await Storage.SaveFile(code, output1);
                         //load data
@@ -166,8 +185,19 @@ namespace Interfejsy_Platform_Mobilnych.ViewModel
         {
             var table = Database.FirstOrDefault(z => z.Number == int.Parse(date.ToString("yyyy")));
             var enumerable = table.Tables.Select(y => y.GetDate().Equals(date.ToString("yyMMdd")));
-            return enumerable.Any(x=> x.Equals(true));
+            return enumerable.Any(x => x.Equals(true));
+        }
+
+        public void SetLatsPage(string state)
+        {
+            LastState = state;
         }
         
+        public async Task SaveStateAsync()
+        {
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("store", CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, SerializerJson.Serialize(this));
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
 using Interfejsy_Platform_Mobilnych.ViewModel;
 
 namespace Interfejsy_Platform_Mobilnych.Pages
@@ -12,6 +13,14 @@ namespace Interfejsy_Platform_Mobilnych.Pages
             InitializeComponent();
             _viewModel = new DatabaseViewModel();
             Loaded += TodayButton_Click;
+        }
+
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        {
+            if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+            {
+                //TODO: Load state from previously suspended application
+            }
         }
 
         private void TodayButton_Click(object sender, RoutedEventArgs e)
