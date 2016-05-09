@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\DatabaseViewModel.cs" />
+    <Compile Include="ViewModel\HisotryViewModel.cs" />
     <Compile Include="ViewModel\PositionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

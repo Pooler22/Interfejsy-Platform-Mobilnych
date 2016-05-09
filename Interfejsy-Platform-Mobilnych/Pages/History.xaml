@@ -34,8 +34,8 @@
                 </StackPanel>
 
                 <TextBlock Name="InfoTextBlock" Visibility="Collapsed"
-                           Text="*Data początkowa musi być wcześniejsza ovalue valueaty końcowej."
-                           HorizontalAlignment="Center" FontStyle="Italic" />
+                           Text="*Data początkowa musi być wcześniejsza od daty końcowej."
+                           HorizontalAlignment="Center" FontStyle="Italic"  TextWrapping="Wrap"/>
 
                 <syncfusion:SfChart Name="ChartSF" HorizontalAlignment="Center" >
                     <syncfusion:FastLineSeries ItemsSource="{x:Bind ViewModel.Values}"
